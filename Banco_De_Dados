@@ -1,0 +1,9 @@
+create table produto(
+id int primary key generated always as identity,
+nomeproduto char(280),
+nomeextenso char(2000),
+estrelas int,
+status boolean,
+quantidade int,
+preco double
+);
