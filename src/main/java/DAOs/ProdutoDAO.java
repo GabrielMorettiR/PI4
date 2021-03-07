@@ -21,8 +21,9 @@ import java.util.logging.Logger;
  * @author Gabriel
  */
 public class ProdutoDAO {
+
     public static List<Produto> getProdutos() {
-        
+
         List<Produto> produtos = new ArrayList();
         int id = 0;
         String nomeproduto = "";
@@ -31,9 +32,9 @@ public class ProdutoDAO {
         boolean status = false;
         int quantidade = 0;
         double preco = 0;
-        
+
         try {
-            
+
             Connection con = ConexaoBD.getConexao();
             String query = "select * from produto";
             PreparedStatement ps = con.prepareStatement(query);
@@ -53,5 +54,25 @@ public class ProdutoDAO {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return produtos;
+    }
+
+    public static void cadProduto(Produto p) throws ClassNotFoundException, SQLException {
+
+        Connection con = ConexaoBD.getConexao();
+        String query = "insert into produto(nomeproduto, nomeextenso, estrelas, status, quantidade, preco) values (?,?,?,?,?,?)";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1, p.getNomeproduto());
+            ps.setString(2, p.getNomeextenso());
+            ps.setInt(3, p.getEstrelas());
+            ps.setBoolean(4, p.isStatus());
+            ps.setInt(5, p.getQuantidade());
+            ps.setDouble(6, p.getPreco());
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }

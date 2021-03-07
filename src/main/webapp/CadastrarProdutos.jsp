@@ -12,15 +12,15 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="CadastraProduto" method="POST">
+        <form action="PostProdutos" method="POST">
             <p class="p_form">Nome Produto</p>
-            <input class="input_form" name="nome" required>
+            <input class="input_form" name="nomeextenso" required>
             <p class="p_form">Nome em Extenso</p>
-            <input class="input_form" name="desc">
+            <input class="input_form" name="nomeextenso">
             <p class="p_form">Estrelas</p>
-            <input class="input_form" name="categoria" required>
+            <input class="input_form" name="estrelas" required>
             <p class="p_form">Ativo/Inativo</p>
-            <input class="input_form" name="categoria" required>
+            <input type="checkbox" id="male" name="status" value="Ativo">
             <p class="p_form">Quantidade</p>
             <input class="input_form" name="qtd" required>
             <p class="p_form">preço</p>

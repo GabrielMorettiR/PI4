@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class GetProdutos extends HttpServlet {
     
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
