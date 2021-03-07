@@ -23,12 +23,13 @@
             <tbody>
                 <c:forEach var="produtos" items="${GetProdutos}">
                     <tr>
-                        <td>a ${produtos.nomeproduto}</td>
-                        <td>a ${produtos.nomeextenso}</td>
-                        <td>a ${produtos.estrelas}</td>
-                        <td>a ${produtos.status}</td>
-                        <td>a ${produtos.quantidade}</td>
-                        <td>a ${produtos.preco}</td>
+                        <td>${produtos.nomeproduto}</td>
+                        <td>${produtos.nomeextenso}</td>
+                        <td>${produtos.estrelas}</td>
+                        <td>${produtos.status}</td>
+                        <td>${produtos.quantidade}</td>
+                        <td>${produtos.preco}</td>
+                        <td><a href="GetProduto?id=${produtos.id}">Ver</a></td>
                     </tr>
                 </c:forEach>
             </tbody>

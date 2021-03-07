@@ -8,6 +8,10 @@
         <servlet-name>PostProdutos</servlet-name>
         <servlet-class>Servlet.PostProdutos</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetProduto</servlet-name>
+        <servlet-class>Servlet.GetProduto</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetProdutos</servlet-name>
         <url-pattern>/GetProdutos</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>PostProdutos</servlet-name>
         <url-pattern>/PostProdutos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetProduto</servlet-name>
+        <url-pattern>/GetProduto</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

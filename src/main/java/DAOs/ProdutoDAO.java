@@ -32,11 +32,10 @@ public class ProdutoDAO {
         boolean status = false;
         int quantidade = 0;
         double preco = 0;
-
         try {
-
-            Connection con = ConexaoBD.getConexao();
             String query = "select * from produto";
+            Connection con = ConexaoBD.getConexao();
+
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -56,19 +55,59 @@ public class ProdutoDAO {
         return produtos;
     }
 
-    public static void cadProduto(Produto p) throws ClassNotFoundException, SQLException {
+    public static Produto getProduto(int id) {
+
+        Produto p = new Produto();
+        String nomeproduto = "";
+        String nomeextenso = "";
+        int estrelas = 0;
+        boolean status = false;
+        int quantidade = 0;
+        double preco = 0;
+        try {
+            String query = "select * from produto where id = " + id;
+            Connection con = ConexaoBD.getConexao();
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("id");
+                nomeproduto = rs.getString("nomeproduto");
+                nomeextenso = rs.getString("nomeextenso");
+                estrelas = rs.getInt("estrelas");
+                status = rs.getBoolean("status");
+                quantidade = rs.getInt("quantidade");
+                preco = rs.getDouble("preco");
+                p = new Produto(id, nomeproduto, nomeextenso, estrelas, status, quantidade, preco);
+            }
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return p;
+    }
+
+    public static void cadProduto(String nomeP, String nomeE, int rate, boolean stat, int qtd, double preco) throws ClassNotFoundException, SQLException {
 
         Connection con = ConexaoBD.getConexao();
         String query = "insert into produto(nomeproduto, nomeextenso, estrelas, status, quantidade, preco) values (?,?,?,?,?,?)";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(query);
-            ps.setString(1, p.getNomeproduto());
-            ps.setString(2, p.getNomeextenso());
-            ps.setInt(3, p.getEstrelas());
-            ps.setBoolean(4, p.isStatus());
-            ps.setInt(5, p.getQuantidade());
-            ps.setDouble(6, p.getPreco());
+//            ps.setString(1, p.getNomeproduto());
+//            ps.setString(2, p.getNomeextenso());
+//            ps.setInt(3, p.getEstrelas());
+//            ps.setBoolean(4, p.isStatus());
+//            ps.setInt(5, p.getQuantidade());
+//            ps.setDouble(6, p.getPreco());
+
+            ps.setString(1, nomeP);
+            ps.setString(2, nomeE);
+            ps.setInt(3, rate);
+            ps.setBoolean(4, stat);
+            ps.setInt(5, qtd);
+            ps.setDouble(6, preco);
+
             ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);

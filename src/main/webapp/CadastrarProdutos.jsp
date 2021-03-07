@@ -14,7 +14,7 @@
     <body>
         <form action="PostProdutos" method="POST">
             <p class="p_form">Nome Produto</p>
-            <input class="input_form" name="nomeextenso" required>
+            <input class="input_form" name="nomeproduto" required>
             <p class="p_form">Nome em Extenso</p>
             <input class="input_form" name="nomeextenso">
             <p class="p_form">Estrelas</p>

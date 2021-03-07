@@ -8,7 +8,6 @@ package Servlet;
 import DAOs.ProdutoDAO;
 import Entidades.Produto;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,11 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 public class PostProdutos extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -38,15 +32,15 @@ public class PostProdutos extends HttpServlet {
         int estrelas = Integer.parseInt(request.getParameter("estrelas"));
         String status = request.getParameter("status");
         boolean stat = true;
-//        if (status == null) {
-//            stat = false;
-//        }
+        if (status == null) {
+            stat = false;
+        }
         int quantidade = Integer.parseInt(request.getParameter("qtd"));
         double preco = Double.parseDouble(request.getParameter("preco"));
 
-        Produto p = new Produto(id, nomeprod, nomeext, estrelas, stat, quantidade, preco);
         try {
-            ProdutoDAO.cadProduto(p);
+//            ProdutoDAO.cadProduto(new Produto(id, nomeprod, nomeext, estrelas, stat, quantidade, preco));
+            ProdutoDAO.cadProduto(nomeprod, nomeext, estrelas, stat, quantidade, preco);
             //Utils.Sucesso(response);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);
