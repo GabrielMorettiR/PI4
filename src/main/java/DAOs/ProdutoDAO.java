@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -94,12 +95,6 @@ public class ProdutoDAO {
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(query);
-//            ps.setString(1, p.getNomeproduto());
-//            ps.setString(2, p.getNomeextenso());
-//            ps.setInt(3, p.getEstrelas());
-//            ps.setBoolean(4, p.isStatus());
-//            ps.setInt(5, p.getQuantidade());
-//            ps.setDouble(6, p.getPreco());
 
             ps.setString(1, nomeP);
             ps.setString(2, nomeE);
@@ -112,6 +107,44 @@ public class ProdutoDAO {
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
+    public static void updateProduto(int id, String nomeP, String nomeE, int rate, boolean stat, int qtd, double preco) throws ClassNotFoundException, SQLException {
+        Connection con = ConexaoBD.getConexao();
+
+        String query = "update produto set nomeproduto = ?, nomeextenso = ?, estrelas = ?, status = ?, quantidade = ?, preco = ? where id = ?";
+
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(query);
+
+            ps.setString(1, nomeP);
+            ps.setString(2, nomeE);
+            ps.setInt(3, rate);
+            ps.setBoolean(4, stat);
+            ps.setInt(5, qtd);
+            ps.setDouble(6, preco);
+            ps.setInt(7, id);
+
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static int nextId() throws ClassNotFoundException, SQLException {
+        Connection con = ConexaoBD.getConexao();
+        String query = "select MAX(id) from produto";
+
+        PreparedStatement ps;
+
+        ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        
+        int prox = 0;
+        if (rs.next()) {
+            prox = rs.getInt("1");
+        }
+        return prox;
     }
 }

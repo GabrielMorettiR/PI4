@@ -30,9 +30,9 @@ public class GetProduto extends HttpServlet {
         request.setAttribute("produto", p);
         
         if(p.isStatus()){
-            request.setAttribute("status", true);
+            request.setAttribute("status", "Ativo");
         } else{
-            request.setAttribute("status", false);
+            request.setAttribute("status", "Inativo");
         }
 
         RequestDispatcher rd = getServletContext()
