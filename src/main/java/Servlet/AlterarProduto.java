@@ -5,12 +5,15 @@
  */
 package Servlet;
 
+import DAOs.ImagemDAO;
 import DAOs.ProdutoDAO;
+import Entidades.Produto;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,30 +29,28 @@ public class AlterarProduto extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int id = Integer.parseInt(request.getParameter("prod_id"));
+        int id = Integer.parseInt(request.getParameter("id"));
         String nomeprod = request.getParameter("nomeproduto");
         String nomeext = request.getParameter("nomeextenso");
         int estrelas = Integer.parseInt(request.getParameter("estrelas"));
         String status = request.getParameter("status");
         boolean stat = true;
-        
-        
+
         if (status == null) {
             stat = false;
         }
-        
-        id = 8;
-        
+
+        System.out.println(id + " AAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
         int quantidade = Integer.parseInt(request.getParameter("qtd"));
         double preco = Double.parseDouble(request.getParameter("preco"));
-
+        Produto p = new Produto(id, nomeprod, nomeext, estrelas, stat, quantidade, preco);
         try {
-//            ProdutoDAO.cadProduto(new Produto(id, nomeprod, nomeext, estrelas, stat, quantidade, preco));
-            ProdutoDAO.updateProduto(id, nomeprod, nomeext, estrelas, stat, quantidade, preco);
-            //Utils.Sucesso(response);
+            ProdutoDAO.updateProduto(p);
+//            ProdutoDAO.updateProduto(id, nomeprod, nomeext, estrelas, stat, quantidade, preco);
+
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);
-            //Utils.Erro(ex, request, response);
         }
     }
 }

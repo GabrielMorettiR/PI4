@@ -12,6 +12,10 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <form action="" method="post" enctype="multipart/form-data">
+            <input type='file' id='imagens' name='filename' accept="image/*">
+            <br/>
+        </form>
         <form action="PostProdutos" method="POST">
             <input class="p_form" name="idprod" value="${idprod}" hidden>
             <input class="p_form" name="idimagem" value="${idimagem}" hidden>
@@ -27,8 +31,6 @@
             <input class="input_form" name="qtd" required>
             <p class="p_form">preço</p>
             <input class="input_form" name="preco" required>
-            <br/>
-            <input type='file' id='imagens' name='filename' accept="image/*" enctype="multipart/form-data">
             <br/>
             <button type="submit" class="submit">Enviar</button>
         </form>

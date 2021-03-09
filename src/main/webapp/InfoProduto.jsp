@@ -67,6 +67,7 @@
 
     <body>
         <form action="AlterarProduto" method="POST">
+            <input class="input_form" name="id" value="${produto.id}" hidden>
             <p class="p_form">Nome Produto</p>
             <input class="input_form" name="nomeproduto" value="${produto.nomeproduto}">
             <p class="p_form">Nome em Extenso</p>
