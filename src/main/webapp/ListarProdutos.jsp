@@ -20,6 +20,7 @@
             <th>Status</th>
             <th>qtd</th>
             <th>preco</th>
+            <th><a href="DeleteProduto?id=0">Excluir todos</a></th>
             <tbody>
                 <c:forEach var="produtos" items="${GetProdutos}">
                     <tr>
@@ -29,7 +30,8 @@
                         <td>${produtos.status}</td>
                         <td>${produtos.quantidade}</td>
                         <td>${produtos.preco}</td>
-                        <td><a href="GetProduto?id=${produtos.id}">Ver</a></td>
+                        <td><a href="GetProduto?id=${produtos.id}">Editar</a></td>
+                        <td><a href="DeleteProduto?id=${produtos.id}">Excluir</a></td>
                     </tr>
                 </c:forEach>
             </tbody>

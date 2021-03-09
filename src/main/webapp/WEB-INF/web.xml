@@ -16,6 +16,10 @@
         <servlet-name>AlterarProduto</servlet-name>
         <servlet-class>Servlet.AlterarProduto</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteProduto</servlet-name>
+        <servlet-class>Servlet.DeleteProduto</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetProdutos</servlet-name>
         <url-pattern>/GetProdutos</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>AlterarProduto</servlet-name>
         <url-pattern>/AlterarProduto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProduto</servlet-name>
+        <url-pattern>/DeleteProduto</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

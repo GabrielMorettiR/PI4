@@ -140,11 +140,29 @@ public class ProdutoDAO {
 
         ps = con.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
-        
+
         int prox = 0;
         if (rs.next()) {
             prox = rs.getInt("1");
         }
         return prox;
+    }
+
+    public static void deleteProduto(int id) throws ClassNotFoundException, SQLException {
+        Connection con = ConexaoBD.getConexao();
+        String query = "";
+        
+        if (id > 0) {
+            query = "delete from produto where id = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.execute();
+
+        } else {
+            query = "truncate table produto";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.execute();
+        }
+
     }
 }
