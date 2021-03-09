@@ -109,7 +109,7 @@ public class ProdutoDAO {
         }
     }
 
-    public static void updateProduto(/*int id, String nomeP, String nomeE, int rate, boolean stat, int qtd, double preco*/ Produto p) throws ClassNotFoundException, SQLException {
+    public static void updateProduto(Produto p) throws ClassNotFoundException, SQLException {
         Connection con = ConexaoBD.getConexao();
 
         String query = "update produto set nomeproduto = ?, nomeextenso = ?, estrelas = ?, status = ?, quantidade = ?, preco = ? where id = ?";
@@ -125,15 +125,6 @@ public class ProdutoDAO {
             ps.setInt(5, p.getQuantidade());
             ps.setDouble(6, p.getPreco());
             ps.setInt(7, p.getId());
-            System.out.println("testeaaaaaaaaaaaa " + p.getId());
-            
-//            ps.setString(1, nomeP);
-//            ps.setString(2, nomeE);
-//            ps.setInt(3, rate);
-//            ps.setBoolean(4, stat);
-//            ps.setInt(5, qtd);
-//            ps.setDouble(6, preco);
-//            ps.setInt(7, id);
 
             ps.execute();
         } catch (SQLException ex) {

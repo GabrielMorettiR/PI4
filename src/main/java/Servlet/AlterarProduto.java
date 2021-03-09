@@ -40,8 +40,6 @@ public class AlterarProduto extends HttpServlet {
             stat = false;
         }
 
-        System.out.println(id + " AAAAAAAAAAAAAAAAAAAAAAAAAAA");
-
         int quantidade = Integer.parseInt(request.getParameter("qtd"));
         double preco = Double.parseDouble(request.getParameter("preco"));
         Produto p = new Produto(id, nomeprod, nomeext, estrelas, stat, quantidade, preco);
