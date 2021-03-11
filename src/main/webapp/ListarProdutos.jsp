@@ -11,16 +11,23 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@200&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=K2D:wght@700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@500&display=swap" rel="stylesheet">
+        
+        <link href="padrao.css" rel="stylesheet">
     </head>
     <body>
-        <table>
-            <th>Nome</th>
-            <th>nome2</th>
+        <a href="DeleteProduto?id=0" onclick="return confirm('Confirma a exclusão de todos os produtos?')">Excluir Todos</a>
+        <table class="tableList">
+            <th>Nome Produto</th>
+            <th>Nome Completo</th>
             <th>estrelas</th>
             <th>Status</th>
-            <th>qtd</th>
-            <th>preco</th>
-            <th><a href="DeleteProduto?id=0">Excluir todos</a></th>
+            <th>Quantidade</th>
+            <th>preço</th>
             <tbody>
                 <c:forEach var="produtos" items="${GetProdutos}">
                     <tr>
@@ -29,9 +36,9 @@
                         <td>${produtos.estrelas}</td>
                         <td>${produtos.status}</td>
                         <td>${produtos.quantidade}</td>
-                        <td>${produtos.preco}</td>
-                        <td><a href="GetProduto?id=${produtos.id}">Editar</a></td>
-                        <td><a href="DeleteProduto?id=${produtos.id}">Excluir</a></td>
+                        <td>R$ ${produtos.preco}</td>
+                        <td><a class="editar" href="GetProduto?id=${produtos.id}">Editar</a></td>
+                        <td><a class="excluir" href="DeleteProduto?id=${produtos.id}" onclick="return confirm('Confirma a exclusão do produto ${produtos.nomeproduto}?')">Excluir</a></td>
                     </tr>
                 </c:forEach>
             </tbody>
