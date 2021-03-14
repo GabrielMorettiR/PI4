@@ -17,6 +17,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@200&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=K2D:wght@700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Arvo&display=swap" rel="stylesheet">
 
         <link href="padrao.css" rel="stylesheet">
         <link href="CadProd.css" rel="stylesheet">
@@ -30,8 +32,8 @@
             <p class="p_form">Nome em Extenso</p>
             <input class="input_form" name="nomeextenso" value="${produto.nomeextenso}">
             <p class="p_form">Estrelas</p>
-            <input class="input_form" name="estrelas" value="${produto.estrelas}">
-            <p>Ativo/Inativo</p>
+            <input class="input_form" type="number" name="estrelas" value="${produto.estrelas}">
+            <p>Status</p>
             <%
 
                 Object p = request.getAttribute("status");
@@ -45,7 +47,7 @@
 
             %>
             <p class="p_form">Quantidade</p>
-            <input class="input_form" name="qtd" value="${produto.quantidade}">
+            <input class="input_form" type="number" name="qtd" value="${produto.quantidade}">
             <p class="p_form">preço</p>
             <input class="input_form" name="preco" value="${produto.preco}">
             <button type="submit" class="submit">Alterar</button>

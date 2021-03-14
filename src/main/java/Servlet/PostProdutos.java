@@ -8,6 +8,7 @@ package Servlet;
 import DAOs.ImagemDAO;
 import DAOs.ProdutoDAO;
 import Utils.DiskFileItemFactory;
+import Utils.ManipulaImagem;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -143,10 +144,5 @@ public class PostProdutos extends HttpServlet {
             Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);
             //Utils.Erro(ex, request, response);
         }
-    }
-
-    protected void SAVEIMAGE(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
     }
 }
