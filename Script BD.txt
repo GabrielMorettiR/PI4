@@ -10,6 +10,6 @@ preco double
 
 create table imagens(
 id int primary key generated always as identity,
-dir char(2000),
+dir varchar(2000),
 idproduto int,
 );
