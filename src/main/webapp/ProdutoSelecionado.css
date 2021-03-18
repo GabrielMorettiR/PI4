@@ -1,0 +1,42 @@
+
+/* 
+    Created on : 17/03/2021, 16:50:07
+    Author     : Bruno
+*/
+
+.container{
+    padding-top: 5rem;
+}
+.col-md-5{
+    border: 3px solid #007bff;
+    padding: 15px;
+    margin-right: 4rem;
+}
+
+.linha{
+    display: flex;
+}
+.produto{
+    width: 300px;
+}
+
+.col-md-5 > #comentario {
+    width: 430px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+#btnComent{
+    width: 430px;
+}
+#btnAddCarrinho{
+   width: 430px;
+}
+#nomeExtenso{
+    height: 90px;
+    border: 2px solid black;
+}
+
+#inputCEP{
+    width: 130px;
+}

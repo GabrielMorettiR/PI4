@@ -64,9 +64,9 @@
                     <div class="col-12 col-sm-6 col-md-4" style="width: 10rem">
                     <img class="card-img-top" src="https://placekitten.com/640/360" style="padding-top: 1%">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
+                        <h5 class="card-title">${produtos.nomeproduto}</h5>
                         <p class="card-text">Preço ${produtos.preco}</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <a href="ProdutoSelecionado?id=${produtos.id}" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
                 </c:forEach>

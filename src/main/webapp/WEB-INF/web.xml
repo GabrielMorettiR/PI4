@@ -29,6 +29,14 @@
         <servlet-name>ToggleProduto</servlet-name>
         <servlet-class>Servlet.ToggleProduto</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Principal</servlet-name>
+        <servlet-class>Servlet.Principal</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProdutoSelecionado</servlet-name>
+        <servlet-class>Servlet.ProdutoSelecionado</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetProdutos</servlet-name>
         <url-pattern>/GetProdutos</url-pattern>
@@ -52,6 +60,14 @@
     <servlet-mapping>
         <servlet-name>ToggleProduto</servlet-name>
         <url-pattern>/ToggleProduto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Principal</servlet-name>
+        <url-pattern>/Principal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProdutoSelecionado</servlet-name>
+        <url-pattern>/ProdutoSelecionado</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
