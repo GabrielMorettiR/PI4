@@ -3,7 +3,7 @@
     Created on : 12/03/2021, 14:39:45
     Author     : Lucas
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -58,65 +58,18 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-12 col-sm-6 col-md-4" style="width: 10rem">
+                
+                <c:forEach var="produtos" items="${GetProdutos}">
+                    <input class="input_form" name="status" value="${produto.id}" hidden>
+                    <div class="col-12 col-sm-6 col-md-4" style="width: 10rem">
                     <img class="card-img-top" src="https://placekitten.com/640/360" style="padding-top: 1%">
                     <div class="card-body">
                         <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Teste descrição prod
-                            card's content.</p>
+                        <p class="card-text">Preço ${produtos.preco}</p>
                         <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
-
-                <div class="col-12 col-sm-6 col-md-4">
-                    <img class="card-img-top" src="https://placekitten.com/640/360" style="padding-top: 1%">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Teste descrição prod
-                            card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-md-4">
-                    <img class="card-img-top" src="https://placekitten.com/640/360" style="padding-top: 1%">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Teste descrição prod
-                            card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-md-4">
-                    <img class="card-img-top" src="https://placekitten.com/640/360" style="padding-top: 1%">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Teste descrição prod
-                            card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-md-4">
-                    <img class="card-img-top" src="https://placekitten.com/640/360" style="padding-top: 1%">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Teste descrição prod
-                            card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-md-4">
-                    <img class="card-img-top" src="https://placekitten.com/640/360" style="padding-top: 1%">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Teste descrição prod
-                            card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
     </body>
