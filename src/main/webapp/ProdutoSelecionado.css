@@ -3,40 +3,47 @@
     Created on : 17/03/2021, 16:50:07
     Author     : Bruno
 */
-
-.container{
-    padding-top: 5rem;
+.pQuadro{
+    font-family: 'Nunito', sans-serif;
+    width: 200px;
 }
 .col-md-5{
-    border: 3px solid #007bff;
-    padding: 15px;
-    margin-right: 4rem;
-}
-
-.linha{
-    display: flex;
+    border: 2px solid #007bff;
+    padding: 5px;
+    margin-right: 2rem;
 }
 .produto{
-    width: 300px;
+    width: 80%;
+    border: 1px solid #007bff;
+    border-radius: 2px;
 }
 
-.col-md-5 > #comentario {
-    width: 430px;
+#comentario {
+    width: 100%;
     height: 50px;
     margin-bottom: 10px;
 }
 
 #btnComent{
-    width: 430px;
+    width: 100%;
 }
 #btnAddCarrinho{
-   width: 430px;
+    width: 100%;
+}
+#nomeProduto{
+    font-family: 'Nunito', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
 }
 #nomeExtenso{
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
     height: 90px;
-    border: 2px solid black;
+    border: 1px solid #007bff;
+    border-radius: 2px;
+    min-height: 120px;
 }
 
 #inputCEP{
-    width: 130px;
+    width: 90px;
 }

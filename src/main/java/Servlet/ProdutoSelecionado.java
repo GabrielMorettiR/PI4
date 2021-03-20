@@ -23,6 +23,7 @@ public class ProdutoSelecionado extends HttpServlet {
 
         Produto p = ProdutoDAO.getProduto(id);
         request.setAttribute("produto", p);
+        request.setAttribute("estrelas", p.getEstrelas());
 
             RequestDispatcher rd = getServletContext()
                     .getRequestDispatcher("/ProdutoSelecionado.jsp");

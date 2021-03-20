@@ -20,6 +20,8 @@
     </head>
 
     <body>
+        <%@include file="/Utils/Menu_inc.jsp" %>
+        
         <input class="input_form" name="id" value="${produto.id}" hidden>
         <div class="row">
             <p class="p_form">Visualizando o produto </p>
