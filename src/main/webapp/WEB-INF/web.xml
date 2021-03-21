@@ -37,6 +37,10 @@
         <servlet-name>ProdutoSelecionado</servlet-name>
         <servlet-class>Servlet.ProdutoSelecionado</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UploadImagens</servlet-name>
+        <servlet-class>Servlet.UploadImagens</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetProdutos</servlet-name>
         <url-pattern>/GetProdutos</url-pattern>
@@ -72,6 +76,10 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>UploadImagens</servlet-name>
+        <url-pattern>/UploadImagens</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
