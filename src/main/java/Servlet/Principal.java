@@ -21,7 +21,7 @@ public class Principal extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        List<Produto> produtos = ProdutoDAO.getProdutos();
+        List<Produto> produtos = ProdutoDAO.getClienteProdutos();
         request.setAttribute("GetProdutos", produtos);
         
         RequestDispatcher rd = getServletContext()

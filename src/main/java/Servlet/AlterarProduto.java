@@ -45,7 +45,7 @@ public class AlterarProduto extends HttpServlet {
         Produto p = new Produto(id, nomeprod, nomeext, estrelas, stat, quantidade, preco);
         try {
             ProdutoDAO.updateProduto(p);
-//            ProdutoDAO.updateProduto(id, nomeprod, nomeext, estrelas, stat, quantidade, preco);
+            response.sendRedirect("GetProdutos?sucesso=true");
 
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);
