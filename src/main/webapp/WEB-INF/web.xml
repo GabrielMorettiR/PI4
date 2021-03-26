@@ -41,6 +41,10 @@
         <servlet-name>ToggleProduto</servlet-name>
         <servlet-class>Servlet.ToggleProduto</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CadastrarUsuario</servlet-name>
+        <servlet-class>Servlet.CadastrarUsuario</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetProdutos</servlet-name>
         <url-pattern>/GetProdutos</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>ToggleProduto</servlet-name>
         <url-pattern>/ToggleProduto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CadastrarUsuario</servlet-name>
+        <url-pattern>/CadastrarUsuario</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

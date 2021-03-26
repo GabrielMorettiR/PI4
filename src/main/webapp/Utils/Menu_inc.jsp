@@ -51,7 +51,7 @@
                     <a class="nav-link" href="GetProdutos">Listar usuários</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="GetProdutos">Cadastrar Usuário</a>
+                    <a class="nav-link" href="CadastrarUsuario.jsp">Cadastrar Usuário</a>
                 </li>
             </ul>
             <ul class="navbar-nav px-3">
