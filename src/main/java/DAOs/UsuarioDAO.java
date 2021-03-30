@@ -91,4 +91,43 @@ public class UsuarioDAO {
         }
         return u;
     }
+    
+    public static void updateUsuario(Usuario p) throws ClassNotFoundException, SQLException {
+        Connection con = ConexaoBD.getConexao();
+
+        String query = "update usuario set nome = ?, senha = ?, status = ?, tipocadastro = ? where id = ?";
+
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(query);
+
+            ps.setString(1, p.getNome());
+            ps.setString(2, p.getSenha());
+            ps.setBoolean(3, p.isStatus());
+            ps.setInt(4, p.getTipoCadastro());
+            ps.setInt(5, p.getId());
+
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void toggleUsuario(Usuario p) throws ClassNotFoundException, SQLException {
+        Connection con = ConexaoBD.getConexao();
+
+        String query = "UPDATE usuario set status = ? where id = ?";
+
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(query);
+
+            ps.setBoolean(1, p.isStatus());
+            ps.setInt(2, p.getId());
+
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

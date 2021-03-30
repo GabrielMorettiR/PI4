@@ -53,6 +53,14 @@
         <servlet-name>GetUsuarios</servlet-name>
         <servlet-class>Servlet.GetUsuarios</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AlterarUsuario</servlet-name>
+        <servlet-class>Servlet.AlterarUsuario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ToggleUsuario</servlet-name>
+        <servlet-class>Servlet.ToggleUsuario</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetProdutos</servlet-name>
         <url-pattern>/GetProdutos</url-pattern>
@@ -103,6 +111,14 @@
     <servlet-mapping>
         <servlet-name>GetUsuarios</servlet-name>
         <url-pattern>/GetUsuarios</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlterarUsuario</servlet-name>
+        <url-pattern>/AlterarUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ToggleUsuario</servlet-name>
+        <url-pattern>/ToggleUsuario</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

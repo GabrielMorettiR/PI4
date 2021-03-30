@@ -15,7 +15,7 @@
         <%@include file="/Utils/Menu_inc.jsp" %>
 
         <div class="col-12 col-sm-6 col-md-4">
-            <form action="AlterarProduto" method="POST">
+            <form action="AlterarUsuario" method="POST">
                 <input class="input_form" name="id" value="${usuario.id}" hidden>
                 <p class="p_form">Nome</p>
                 <input class="input_form" name="nome" value="${usuario.nome}">
