@@ -45,6 +45,10 @@
         <servlet-name>CadastrarUsuario</servlet-name>
         <servlet-class>Servlet.CadastrarUsuario</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetUsuarios</servlet-name>
+        <servlet-class>Servlet.GetUsuarios</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetProdutos</servlet-name>
         <url-pattern>/GetProdutos</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>CadastrarUsuario</servlet-name>
         <url-pattern>/CadastrarUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetUsuarios</servlet-name>
+        <url-pattern>/GetUsuarios</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

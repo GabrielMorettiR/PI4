@@ -9,7 +9,10 @@ import BD.ConexaoBD;
 import Entidades.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,5 +38,34 @@ public class UsuarioDAO {
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+ public static List<Usuario> getUsuario() {
+
+        List<Usuario> usuarios = new ArrayList();
+        int id = 0;
+        String nomeusuario = "";
+        boolean status = false;
+        int tipocadastro = 0;
+        try {
+            String query = "select * from usuario";
+            Connection con = ConexaoBD.getConexao();
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                u.setId(id);
+                u.setNome(rs.getString("nome"));
+                u.setStatus(rs.getBoolean("status"));
+                u.setTipoCadastro(rs.getInt("tipocadastro"));
+               
+                System.out.println(u.getNome());
+                usuarios.add(u);
+            }
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return usuarios;
     }
 }
