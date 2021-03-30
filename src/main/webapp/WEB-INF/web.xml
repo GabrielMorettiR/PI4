@@ -46,6 +46,10 @@
         <servlet-class>Servlet.CadastrarUsuario</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>EditarUsuario</servlet-name>
+        <servlet-class>Servlet.EditarUsuario</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>GetUsuarios</servlet-name>
         <servlet-class>Servlet.GetUsuarios</servlet-class>
     </servlet>
@@ -91,6 +95,10 @@
     <servlet-mapping>
         <servlet-name>CadastrarUsuario</servlet-name>
         <url-pattern>/CadastrarUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditarUsuario</servlet-name>
+        <url-pattern>/EditarUsuario</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetUsuarios</servlet-name>

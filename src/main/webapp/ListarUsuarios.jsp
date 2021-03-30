@@ -21,14 +21,13 @@
                 <th>Tipo de Usuário</th>
                 <tbody>
                     <c:forEach var="usuarios" items="${GetUsuarios}"> <!--esse GetUsuarios é o nome da variavel que está no set attribute do servlet-->
-                    <input class="input_form" name="status" value="${usuarios.id}" hidden> <!--esse usuarios é o nome da variavel do for each--> 
+                    
                     <tr>
+                        <td hidden>${usuarios.id}</td> <!--esse usuarios é o nome da variavel do for each--> 
                         <td>${usuarios.nome}</td>
                         <td>${usuarios.status}</td>
                         <td>${usuarios.tipoCadastro}</td>
-
-                        <td><a class="editar" href="UsuarioSelecionado?id=${usuarios.id}&editar=true">Visualizar</a></td>
-                        <td><a class="editar" href="GetUsuarios?id=${usuarios.id}&editar=true">Editar</a></td>
+                        <td><a class="editar" href="EditarUsuario?id=${usuarios.id}">Editar</a></td>
                         <td>
                             <form action="ToggleUsuario" method="POST">
                                 <input type="hidden" name="id" value="${usuarios.id}" />

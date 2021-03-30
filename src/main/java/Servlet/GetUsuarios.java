@@ -20,7 +20,7 @@ public class GetUsuarios extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<Usuario> usuarios = UsuarioDAO.getUsuario();
+        List<Usuario> usuarios = UsuarioDAO.getUsuarios();
         request.setAttribute("GetUsuarios", usuarios);
 
         RequestDispatcher rd = getServletContext()

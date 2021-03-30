@@ -21,6 +21,7 @@ import java.util.logging.Logger;
  * @author Gabriel
  */
 public class UsuarioDAO {
+
     public static void cadUsuario(Usuario u) throws ClassNotFoundException, SQLException {
 
         Connection con = ConexaoBD.getConexao();
@@ -39,10 +40,10 @@ public class UsuarioDAO {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
- public static List<Usuario> getUsuario() {
+
+    public static List<Usuario> getUsuarios() {
 
         List<Usuario> usuarios = new ArrayList();
-        int id = 0;
         String nomeusuario = "";
         boolean status = false;
         int tipocadastro = 0;
@@ -54,11 +55,11 @@ public class UsuarioDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Usuario u = new Usuario();
-                u.setId(id);
+                u.setId(rs.getInt("id"));
                 u.setNome(rs.getString("nome"));
                 u.setStatus(rs.getBoolean("status"));
                 u.setTipoCadastro(rs.getInt("tipocadastro"));
-               
+
                 System.out.println(u.getNome());
                 usuarios.add(u);
             }
@@ -67,5 +68,27 @@ public class UsuarioDAO {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return usuarios;
+    }
+
+    public static Usuario getUsuario(int id) {
+
+        Usuario u = new Usuario();
+        try {
+            String query = "select * from usuario where id = " + id;
+            Connection con = ConexaoBD.getConexao();
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                u.setId(id);
+                u.setNome(rs.getString("nome"));
+                u.setSenha(rs.getString("senha"));
+                u.setTipoCadastro(rs.getInt("tipoCadastro"));
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return u;
     }
 }
