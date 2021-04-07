@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,6 +26,9 @@ import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebInitParam;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +40,10 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author Gabriel
  */
+ @WebServlet(name = "PostProdutos", urlPatterns = {"/PostProdutos"}, initParams = {
+        @WebInitParam(name = "diretorioUpload", value = "C:/desenv/imagens/"),
+        @WebInitParam(name = "contextoAcessoUpload", value = "/teste-uploads")})
+    @MultipartConfig(maxFileSize = 20848820) // 5MB == 20848820 bytes == 5*1024*1024
 public class PostProdutos extends HttpServlet {
 
     public PostProdutos() {
@@ -81,6 +91,28 @@ public class PostProdutos extends HttpServlet {
         }
         int quantidade = Integer.parseInt(request.getParameter("qtd"));
         double preco = Double.parseDouble(request.getParameter("preco"));
+        Part filePart = request.getPart("filename"); // Retrieves <input type="file" name="arquivo">
+
+        // Recupara o valor configurado no @WebInitParam acima
+        String diretorio = getInitParameter("diretorioUpload");
+
+        String nomeArquivo = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+        InputStream conteudoArquivo = filePart.getInputStream();
+
+        // **** TRATAR O InputStream conforme necessidade
+        // Pega os bytes e salva no disco
+        Path destino = Paths.get(diretorio + nomeArquivo);
+        Files.copy(conteudoArquivo, destino);
+
+        // Mensagens e feedback para usuário:
+        request.setAttribute("msg", "Arquivo carregado com sucesso.");
+        String contextoAcessoUpload = getInitParameter("contextoAcessoUpload");
+        String urlAcessoUpload = contextoAcessoUpload + "/" + nomeArquivo;
+        request.setAttribute("urlAcessoUpload", urlAcessoUpload);
+
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher("/CadastrarProdutos.jsp");
+        dispatcher.forward(request, response);
 
         try {
 //            ProdutoDAO.cadProduto(new Produto(id, nomeprod, nomeext, estrelas, stat, quantidade, preco));

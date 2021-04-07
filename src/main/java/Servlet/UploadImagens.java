@@ -25,47 +25,44 @@ import javax.servlet.http.Part;
  *
  * @author ivanyuratakano
  */
+/*@WebServlet(name = "UploadServlet", urlPatterns = {"/upload"}, initParams = {
+    @WebInitParam(name = "diretorioUpload", value = "C:/uploads/"),
+    @WebInitParam(name = "contextoAcessoUpload", value = "/teste-uploads")})
+@MultipartConfig(maxFileSize = 20848820) // 5MB == 20848820 bytes == 5*1024*1024
 public class UploadImagens extends HttpServlet {
 
-    @WebServlet(name = "UploadServlet", urlPatterns = {"/upload"}, initParams = {
-        @WebInitParam(name = "diretorioUpload", value = "C:/uploads/"),
-        @WebInitParam(name = "contextoAcessoUpload", value = "/teste-uploads")})
-    @MultipartConfig(maxFileSize = 20848820) // 5MB == 20848820 bytes == 5*1024*1024
-    public class UploadServlet extends HttpServlet {
-
-        @Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            RequestDispatcher dispatcher
-                    = request.getRequestDispatcher("/WEB-INF/jsp/upload.jsp");
-            dispatcher.forward(request, response);
-        }
-
-        @Override
-        // Obtido em https://stackoverflow.com/a/2424824
-        protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-            Part filePart = request.getPart("arquivo"); // Retrieves <input type="file" name="arquivo">
-
-            // Recupara o valor configurado no @WebInitParam acima
-            String diretorio = getInitParameter("diretorioUpload");
-
-            String nomeArquivo = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-            InputStream conteudoArquivo = filePart.getInputStream();
-
-            // **** TRATAR O InputStream conforme necessidade
-            // Pega os bytes e salva no disco
-            Path destino = Paths.get(diretorio + nomeArquivo);
-            Files.copy(conteudoArquivo, destino);
-
-            // Mensagens e feedback para usuário:
-            request.setAttribute("msg", "Arquivo carregado com sucesso.");
-            String contextoAcessoUpload = getInitParameter("contextoAcessoUpload");
-            String urlAcessoUpload = contextoAcessoUpload + "/" + nomeArquivo;
-            request.setAttribute("urlAcessoUpload", urlAcessoUpload);
-
-            RequestDispatcher dispatcher
-                    = request.getRequestDispatcher("/WEB-INF/jsp/upload.jsp");
-            dispatcher.forward(request, response);
-        }
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher("/WEB-INF/jsp/upload.jsp");
+        dispatcher.forward(request, response);
     }
-}
+
+    @Override
+    // Obtido em https://stackoverflow.com/a/2424824
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Part filePart = request.getPart("arquivo"); // Retrieves <input type="file" name="arquivo">
+
+        // Recupara o valor configurado no @WebInitParam acima
+        String diretorio = getInitParameter("diretorioUpload");
+
+        String nomeArquivo = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+        InputStream conteudoArquivo = filePart.getInputStream();
+
+        // **** TRATAR O InputStream conforme necessidade
+        // Pega os bytes e salva no disco
+        Path destino = Paths.get(diretorio + nomeArquivo);
+        Files.copy(conteudoArquivo, destino);
+
+        // Mensagens e feedback para usuário:
+        request.setAttribute("msg", "Arquivo carregado com sucesso.");
+        String contextoAcessoUpload = getInitParameter("contextoAcessoUpload");
+        String urlAcessoUpload = contextoAcessoUpload + "/" + nomeArquivo;
+        request.setAttribute("urlAcessoUpload", urlAcessoUpload);
+
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher("/WEB-INF/jsp/upload.jsp");
+        dispatcher.forward(request, response);
+    }
+}*/
