@@ -58,4 +58,26 @@ public class TipoUsuarioDAO {
         }
         return tipos;
     }
+    
+    public static TipoUsuario getTipoUsuario(int id) {
+
+        TipoUsuario t = new TipoUsuario();
+        try {
+            String query = "select * from tipocadastro where id = ?";
+            Connection con = ConexaoBD.getConexao();
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.execute();
+            
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                t = new TipoUsuario(rs.getInt("id"), rs.getString("nome"));
+            }
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return t;
+    }
 }

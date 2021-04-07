@@ -25,7 +25,7 @@ public class UsuarioDAO {
     public static void cadUsuario(Usuario u) throws ClassNotFoundException, SQLException {
 
         Connection con = ConexaoBD.getConexao();
-        String query = "insert into usuario(nome, senha, status, tipocadastro) values (?,?,?,?)";
+        String query = "insert into usuario(nome, senha, status, tipocadastro, email) values (?,?,?,?,?)";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(query);
@@ -34,6 +34,7 @@ public class UsuarioDAO {
             ps.setString(2, u.getSenha());
             ps.setBoolean(3, u.isStatus());
             ps.setInt(4, u.getTipoCadastro());
+            ps.setString(5, u.getEmail());
 
             ps.execute();
         } catch (SQLException ex) {
@@ -44,11 +45,8 @@ public class UsuarioDAO {
     public static List<Usuario> getUsuarios() {
 
         List<Usuario> usuarios = new ArrayList();
-        String nomeusuario = "";
-        boolean status = false;
-        int tipocadastro = 0;
         try {
-            String query = "select * from usuario";
+            String query = "select * from usuario order by id desc";
             Connection con = ConexaoBD.getConexao();
 
             PreparedStatement ps = con.prepareStatement(query);
@@ -59,8 +57,8 @@ public class UsuarioDAO {
                 u.setNome(rs.getString("nome"));
                 u.setStatus(rs.getBoolean("status"));
                 u.setTipoCadastro(rs.getInt("tipocadastro"));
+                u.setEmail(rs.getString("email"));
 
-                System.out.println(u.getNome());
                 usuarios.add(u);
             }
 
@@ -85,6 +83,35 @@ public class UsuarioDAO {
                 u.setNome(rs.getString("nome"));
                 u.setSenha(rs.getString("senha"));
                 u.setTipoCadastro(rs.getInt("tipoCadastro"));
+                u.setEmail(rs.getString("email"));
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return u;
+    }
+    
+    public static Usuario getUsuario(String email) {
+
+        Usuario u = new Usuario();
+        try {
+            String query = "select * from usuario where email = ? and status";
+            Connection con = ConexaoBD.getConexao();
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setString(1, email);
+            
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                u.setId(rs.getInt("id"));
+                u.setNome(rs.getString("nome"));
+                u.setSenha(rs.getString("senha"));
+                u.setTipoCadastro(rs.getInt("tipoCadastro"));
+                u.setEmail(email);
+            } else{
+                return null;
             }
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);

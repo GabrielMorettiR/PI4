@@ -36,7 +36,7 @@ public class AlterarUsuario extends HttpServlet {
         Usuario p = new Usuario(id, nome, senha, stat, tipo);
         try {
             UsuarioDAO.updateUsuario(p);
-            response.sendRedirect("GetUsuarios?sucesso=true");
+            response.sendRedirect("/Admin/GetUsuarios?sucesso=true");
 
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);

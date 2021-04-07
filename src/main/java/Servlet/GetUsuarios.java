@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -23,8 +24,15 @@ public class GetUsuarios extends HttpServlet {
         List<Usuario> usuarios = UsuarioDAO.getUsuarios();
         request.setAttribute("GetUsuarios", usuarios);
 
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        
+        HttpSession sessao = httpRequest.getSession();
+        
+        sessao.setAttribute("Camada", 2);
+        
         RequestDispatcher rd = getServletContext()
-                .getRequestDispatcher("/ListarUsuarios.jsp");
+                .getRequestDispatcher("/Admin/ListarUsuarios.jsp");
         rd.forward(request, response);
         
     }

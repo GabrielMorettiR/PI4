@@ -37,7 +37,7 @@ public class CadastrarUsuario extends HttpServlet {
         request.setAttribute("GetTipos", tipos);
 
         RequestDispatcher rd = getServletContext()
-                .getRequestDispatcher("/CadastrarUsuario.jsp");
+                .getRequestDispatcher("/Admin/CadastrarUsuario.jsp");
         rd.forward(request, response);
         
     }
@@ -47,6 +47,7 @@ public class CadastrarUsuario extends HttpServlet {
             throws ServletException, IOException {
 
         String nome = request.getParameter("nome");
+        String email = request.getParameter("email");
         String senha = request.getParameter("senha");
         String status = request.getParameter("status");
         int tipocad = Integer.parseInt(request.getParameter("tipocad"));
@@ -58,9 +59,10 @@ public class CadastrarUsuario extends HttpServlet {
 
         Usuario u = new Usuario();
         u.setNome(nome);
-        u.setSenha(senha);
+        u.setSenha(u.criptografar(senha));
         u.setStatus(stat);
         u.setTipoCadastro(tipocad);
+        u.setEmail(email);
 
         try {
             UsuarioDAO.cadUsuario(u);

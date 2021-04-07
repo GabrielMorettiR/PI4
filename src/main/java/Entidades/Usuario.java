@@ -5,6 +5,7 @@
  */
 package Entidades;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +21,7 @@ public class Usuario {
     private String senha;
     private boolean status;
     private int tipoCadastro;
+    private String email;
 
     public Usuario() {
     }
@@ -30,5 +32,22 @@ public class Usuario {
         this.senha = senha;
         this.status = status;
         this.tipoCadastro = tipoCadastro;
+    }
+    
+    public String criptografar(String senha){   
+        return BCrypt.withDefaults().hashToString(9, senha.toCharArray());
+    }
+    
+    public boolean validar(String senha){   
+        BCrypt.Result response = BCrypt.verifyer().verify(senha.toCharArray(),this.senha);
+        return response.verified;
+    }
+    
+    public boolean isAdmin(){
+        return this.tipoCadastro == 1;
+    }
+    
+    public boolean isEstoq(){
+        return this.tipoCadastro == 2;
     }
 }
