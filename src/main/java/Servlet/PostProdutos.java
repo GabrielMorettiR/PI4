@@ -111,7 +111,7 @@ public class PostProdutos extends HttpServlet {
         request.setAttribute("urlAcessoUpload", urlAcessoUpload);
 
         RequestDispatcher dispatcher
-                = request.getRequestDispatcher("/CadastrarProdutos.jsp");
+                = request.getRequestDispatcher("/Estoquista/CadastrarProdutos.jsp");
         dispatcher.forward(request, response);
 
         try {
