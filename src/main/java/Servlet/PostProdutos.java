@@ -66,7 +66,7 @@ public class PostProdutos extends HttpServlet {
         request.setAttribute("idimagem", idimg);
 
         RequestDispatcher rd = getServletContext()
-                .getRequestDispatcher("/CadastrarProdutos.jsp");
+                .getRequestDispatcher("/Estoquista/CadastrarProdutos.jsp");
         rd.forward(request, response);
     }
 
@@ -121,10 +121,10 @@ public class PostProdutos extends HttpServlet {
                 ImagemDAO.cadImagem(path, idprod);
             }
 
-            //Utils.Sucesso(response);
+            response.sendRedirect("GetProdutos");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);
-            //Utils.Erro(ex, request, response);
+            
         }
     }
 }

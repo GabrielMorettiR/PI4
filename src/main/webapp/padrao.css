@@ -7,9 +7,6 @@ a:hover{
 h1{
     font-family: 'Nunito', sans-serif;
 }
-.editar{
-    
-}
 .p_form{
     font-family: 'Nunito', sans-serif;
     font-weight: bold;
@@ -53,6 +50,22 @@ h1{
 .editar:hover{
     background-color: #007bff;
     color: white;
+}
+.editar-disabled{
+    font-size:19px;
+    background-color: #bbb;
+    border: 1px solid #fff;
+    border-radius:5px;
+    padding: 1px 6px 1px 6px;
+    font-weight: bold;
+    transition-duration: 0.2s;
+    color: #ddd;
+}
+.editar-disabled:hover{
+    font-size:19px;
+    background-color: #bbb;
+    color: #ddd;
+    cursor: not-allowed;
 }
 .tableList,td, th{
     border-collapse: collapse;

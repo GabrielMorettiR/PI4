@@ -27,8 +27,9 @@
                         <th>E-Mail</th>
                         <th>Status</th>
                         <th>Tipo de Usuário</th>
-                        <th>Editar</th>
-                        <th>Alternar Status</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,7 +48,18 @@
                                     <button class="editar">Alternar</button>
                                 </form>
                             </td>
-                        </tr>
+                            <td>
+                                <form action="Login" method="POST">
+                                    <input type="hidden" name="id" value="${usuarios.id}"                                        />
+                                    <input type="hidden" name="senha" value="${usuarios.senha}" />
+                                    <input type="hidden" name="acesso" value="S" />
+                                    
+                                           <c:if test="${usuarios.status == false}"><button class="editar editar-disabled" disabled>Acessar</button></c:if> 
+                                           <c:if test="${usuarios.status == true}"><button class="editar">Acessar</button></c:if> 
+                                            
+                                    </form>
+                                </td>
+                            </tr>
                     </c:forEach>
                 </tbody>
                 <tfoot>
@@ -56,8 +68,9 @@
                         <th>E-Mail</th>
                         <th>Status</th>
                         <th>Tipo de Usuário</th>
-                        <th>Editar</th>
-                        <th>Alternar Status</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </tfoot>
             </table>

@@ -43,11 +43,12 @@ public class Usuario {
         return response.verified;
     }
     
-    public boolean isAdmin(){
+    public boolean isEstoq(){
         return this.tipoCadastro == 1;
     }
     
-    public boolean isEstoq(){
+    public boolean isAdmin(){
         return this.tipoCadastro == 2;
     }
+    
 }

@@ -21,8 +21,6 @@
                 <input class="input_form" name="nome" value="${usuario.nome}">
                 <p class="p_form">Nome</p>
                 <input type="email" class="input_form" name="email" value="${usuario.email}" disabled>
-                <p class="p_form">Senha</p>
-                <input type="password" class="input_form" name="senha" minlength="3" value="${usuario.senha}">
                 <p class="p_form">Tipo de Cadastro</p>
                 <select name="tipocad">
                     <c:forEach var="tipos" items="${GetTipos}">

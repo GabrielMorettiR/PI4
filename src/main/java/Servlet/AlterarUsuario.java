@@ -24,19 +24,15 @@ public class AlterarUsuario extends HttpServlet {
 
         int id = Integer.parseInt(request.getParameter("id"));
         String nome = request.getParameter("nome");
-        int tipo = Integer.parseInt(request.getParameter("nomeextenso"));
-        String status = request.getParameter("status");
-        boolean stat = true;
-        String senha = request.getParameter("senha");
+        int tipo = Integer.parseInt(request.getParameter("tipocad"));
 
-        if (status == null) {
-            stat = false;
-        }
-
-        Usuario p = new Usuario(id, nome, senha, stat, tipo);
+        Usuario p = new Usuario();
+        p.setId(id);
+        p.setNome(nome);
+        p.setTipoCadastro(tipo);
         try {
             UsuarioDAO.updateUsuario(p);
-            response.sendRedirect("/Admin/GetUsuarios?sucesso=true");
+            response.sendRedirect("GetUsuarios?sucesso=true");
 
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);

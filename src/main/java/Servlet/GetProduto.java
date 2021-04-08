@@ -39,7 +39,7 @@ public class GetProduto extends HttpServlet {
 
         if (!ver) {
             RequestDispatcher rd = getServletContext()
-                    .getRequestDispatcher("/AlterarProduto.jsp");
+                    .getRequestDispatcher("/Estoquista/AlterarProduto.jsp");
             rd.forward(request, response);
         } else{
             RequestDispatcher rd = getServletContext()

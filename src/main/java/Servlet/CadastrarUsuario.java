@@ -11,6 +11,7 @@ import DAOs.TipoUsuarioDAO;
 import DAOs.UsuarioDAO;
 import Entidades.TipoUsuario;
 import Entidades.Usuario;
+import Servlet.PostProdutos;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -32,14 +33,14 @@ public class CadastrarUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         List<TipoUsuario> tipos = TipoUsuarioDAO.getTipoUsuario();
         request.setAttribute("GetTipos", tipos);
 
         RequestDispatcher rd = getServletContext()
                 .getRequestDispatcher("/Admin/CadastrarUsuario.jsp");
         rd.forward(request, response);
-        
+
     }
 
     @Override
@@ -64,9 +65,19 @@ public class CadastrarUsuario extends HttpServlet {
         u.setTipoCadastro(tipocad);
         u.setEmail(email);
 
+        List<Usuario> usuarios = UsuarioDAO.getUsuarios();
+
+        for (int i = 0; i < usuarios.size(); i++) {
+            Usuario user = usuarios.get(i);
+            if (email.equals(user.getEmail())) {
+                response.sendRedirect("GetUsuarios?msg=900");
+                return;
+            }
+        }
+
         try {
             UsuarioDAO.cadUsuario(u);
-
+            response.sendRedirect("GetUsuarios");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);
         }

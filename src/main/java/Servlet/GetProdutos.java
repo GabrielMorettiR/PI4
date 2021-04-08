@@ -32,7 +32,7 @@ public class GetProdutos extends HttpServlet {
         request.setAttribute("GetProdutos", produtos);
 
         RequestDispatcher rd = getServletContext()
-                .getRequestDispatcher("/ListarProdutos.jsp");
+                .getRequestDispatcher("/Estoquista/ListarProdutos.jsp");
         rd.forward(request, response);
     }
 }
