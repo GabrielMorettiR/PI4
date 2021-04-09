@@ -19,68 +19,62 @@
     </head>
     <body>
         <%@include file="/Utils/Menu_inc.jsp" %>
-        <div class="col-lg-10" align="right">
-            <table id="tabela" class="tableList">
-                <thead>
-                    <tr>
-                        <th>Nome Usuário</th>
-                        <th>E-Mail</th>
-                        <th>Status</th>
-                        <th>Tipo de Usuário</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="usuarios" items="${GetUsuarios}"> <!--esse GetUsuarios é o nome da variavel que está no set attribute do servlet-->
-
-                        <tr>
-                            <td>${usuarios.nome}</td>
-                            <td>${usuarios.email}</td>
-                            <td>${usuarios.status}</td>
-                            <td>${usuarios.tipoCadastro}</td>
-                            <td><a class="editar" href="EditarUsuario?id=${usuarios.id}">Editar</a></td>
-                            <td>
-                                <form action="ToggleUsuario" method="POST">
-                                    <input type="hidden" name="id" value="${usuarios.id}"                                        />
-                                    <input type="hidden" name="status" value="${usuarios.status}" />
-                                    <button class="editar">Alternar</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="Login" method="POST">
-                                    <input type="hidden" name="id" value="${usuarios.id}"                                        />
-                                    <input type="hidden" name="senha" value="${usuarios.senha}" />
-                                    <input type="hidden" name="acesso" value="S" />
-                                    
-                                           <c:if test="${usuarios.status == false}"><button class="editar editar-disabled" disabled>Acessar</button></c:if> 
-                                           <c:if test="${usuarios.status == true}"><button class="editar">Acessar</button></c:if> 
-                                            
-                                    </form>
-                                </td>
+        <div class="d-flex justify-content-center">
+            <div class="d-flex flex-column justify-content-center" id="tabContainer" style="width:70%">
+                <div id="containertable">
+                    <table id="tabela" class="tableList">
+                        <thead>
+                            <tr class="th">
+                                <th>Usuário</th>
+                                <th>E-mail</th>
+                                <th>Status</th>
+                                <th>Cargo</th>
+                                <th>Dados</th>
+                                <th>Ativar/Desativar</th>
                             </tr>
-                    </c:forEach>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Nome Usuário</th>
-                        <th>E-Mail</th>
-                        <th>Status</th>
-                        <th>Tipo de Usuário</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </tfoot>
-            </table>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="usuarios" items="${GetUsuarios}"> <!--esse GetUsuarios é o nome da variavel que está no set attribute do servlet-->
+
+                                <tr>
+                                    <td>${usuarios.nome}</td>
+                                    <td>${usuarios.email}</td>
+                                    <td>${usuarios.status}</td>
+                                    <td>${usuarios.tipoCadastro}</td>
+                                    <td><a class="editar" href="EditarUsuario?id=${usuarios.id}">Editar</a></td>
+                                    <td>
+                                        <form action="ToggleUsuario" method="POST">
+                                            <input type="hidden" name="id" value="${usuarios.id}"/>
+                                            <input type="hidden" name="status" value="${usuarios.status}" />
+                                            <button class="alterar">Alternar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                        <tfoot>
+                            <tr class="th">
+                                <th>Usuário</th>
+                                <th>E-mail</th>
+                                <th>Status</th>
+                                <th>Cargo</th>
+                                <th>Dados</th>
+                                <th>Ativar/Desativar</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <a class="single" href="CadastrarUsuario">Novo Usuário</a>
+            </div>
         </div>
-        <div class="col-lg-12">
-            <a class="submit" href="CadastrarUsuario">Novo Usuário</a>
-        </div>
+
 
         <script>
             $(document).ready(function () {
+
+                $.fn.dataTable.ext.classes.sPageButton = 'btn-pagina';
+                $.fn.dataTable.ext.classes.sTable = 'tableList';
+
                 $('#tabela').DataTable({
                     "language": {
                         "lengthMenu": "Mostrar _MENU_ linhas",
@@ -92,10 +86,9 @@
                         "paginate": {
                             "first": "Primeiro",
                             "last": "Último",
-                            "next": "Próximo",
-                            "previous": "Anterior"
-                        },
-
+                            "next": ">",
+                            "previous": "<"
+                        }
                     }
                 });
             });

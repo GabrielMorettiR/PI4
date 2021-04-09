@@ -22,50 +22,56 @@
     <body>
         <%@include file="/Utils/Menu_inc.jsp" %>
         <!--        <a href="DeleteProduto?id=0" onclick="return confirm('Confirma a exclusão de todos os produtos?')">Excluir Todos</a>-->
-        <div class="col-lg-10">
-            <table id="tabela" class="tableList">
-                <thead>
-                    <tr>
-                        <th>Nome Produto</th>
-                        <th>Nome Completo</th>
-                        <th>estrelas</th>
-                        <th>Status</th>
-                        <th>Quantidade</th>
-                        <th>preço</th>
-                        <th>Ver</th>
-                        <th>Editar</th>
-                        <th>Alternar Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="produtos" items="${GetProdutos}">
-                        <tr>
-                            <td>${produtos.nomeproduto}</td>
-                            <td>${produtos.nomeextenso}</td>
-                            <td>${produtos.estrelas}</td>
-                            <td>${produtos.status}</td>
+        <div class="d-flex justify-content-center" id="pagina">
+            <div class="d-flex flex-column justify-content-center" id="tabContainer" style="width:70%">
+                <div id="containertable">
+                    <table id="tabela" class="tableList">
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Descrição</th>
+                                <th>Avaliação</th>
+                                <th>Status</th>
+                                <th>Quantidade</th>
+                                <th>Preço</th>
+                                <th>Ver</th>
+                                <th>Editar</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="produtos" items="${GetProdutos}">
+                                <tr>
+                                    <td>${produtos.nomeproduto}</td>
+                                    <td>${produtos.nomeextenso}</td>
+                                    <td>${produtos.estrelas}</td>
+                                    <td>${produtos.status}</td>
 
-                            <td>${produtos.quantidade}</td>
-                            <td>R$ ${produtos.preco}</td>
-                            <td><a class="editar" href="ProdutoSelecionado?id=${produtos.id}&editar=true">Visualizar</a></td>
-                            <td><a class="editar" href="GetProduto?id=${produtos.id}&editar=true">Editar</a></td>
-                            <td>
-                                <form action="ToggleProduto" method="POST">
-                                    <input type="hidden" name="id" value="${produtos.id}" />
-                                    <input type="hidden" name="status" value="${produtos.status}" />
-                                    <button class="editar">Alterar Status</button>
-                                </form>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-lg-12">
-            <a class="submit" href="PostProdutos">Novo Usuário</a>
+                                    <td>${produtos.quantidade}</td>
+                                    <td>R$ ${produtos.preco}</td>
+                                    <td><a class="editar" href="ProdutoSelecionado?id=${produtos.id}&editar=true">Visualizar</a></td>
+                                    <td><a class="editar" href="GetProduto?id=${produtos.id}&editar=true">Editar</a></td>
+                                    <td>
+                                        <form action="ToggleProduto" method="POST">
+                                            <input type="hidden" name="id" value="${produtos.id}" />
+                                            <input type="hidden" name="status" value="${produtos.status}" />
+                                            <button class="alterar">Alterar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+                <a class="single" href="PostProdutos">Novo Produto</a>
+            </div>
         </div>
         <script>
             $(document).ready(function () {
+
+                $.fn.dataTable.ext.classes.sPageButton = 'btn-pagina';
+                $.fn.dataTable.ext.classes.sTable = 'tableList';
+
                 $('#tabela').DataTable({
                     "language": {
                         "lengthMenu": "Mostrar _MENU_ linhas",
@@ -77,11 +83,16 @@
                         "paginate": {
                             "first": "Primeiro",
                             "last": "Último",
-                            "next": "Próximo",
-                            "previous": "Anterior"
-                        },
-
-                    }
+                            "next": ">",
+                            "previous": "<"
+                        }
+                    },
+                    "columnDefs": [
+                        {"width": "25%", "targets": [0, 1]},
+                        {"width": "8%", "targets": [2, 4, 5]},
+                        {"width": "8%", "targets": [3, 7, 8]},
+                        {"width": "10%", "targets": 6}
+                    ]
                 });
             });
         </script>

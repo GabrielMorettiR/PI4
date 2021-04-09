@@ -21,15 +21,13 @@
         <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@500&display=swap" rel="stylesheet"> <!--  'Josefin Slab', sans-serif -->
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap" rel="stylesheet"> <!--  'Nunito', sans-serif -->
         <link href="https://fonts.googleapis.com/css2?family=Arvo&display=swap" rel="stylesheet"> <!--  'Arvo', serif -->
+        <script src="https://kit.fontawesome.com/45c5be3f19.js" crossorigin="anonymous"></script>
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
         <style>
-            body {
-                padding-top: 5rem;
-            }
             .infoSessao{
                 color:white;
             }
@@ -85,7 +83,6 @@
                     <a class="infoSessao">
                         <%
                             HttpServletRequest httpRequest = (HttpServletRequest) request;
-                            HttpServletResponse httpResponse = (HttpServletResponse) response;
                             HttpSession sessao = httpRequest.getSession();
 
                             Usuario usuario = (Usuario) sessao.getAttribute("usuario");
@@ -102,7 +99,7 @@
             <c:if test="${sessionScope.usuario.admin}">
                 <ul class="navbar-nav px-3">
                     <li class="nav-item">
-                        <a class="botao" href="GetUsuarios">Listar usuários</a>
+                        <a class="botao" href="GetUsuarios">Listar Usuários</a>
                     </li>
                     <li class="nav-item">
                         <a class="botao" href="CadastrarUsuario">Cadastrar Usuário</a>
@@ -128,6 +125,13 @@
                 </li>
             </ul>
 
+            <footer class="footer">
+                2021 <i class="fas fa-copyright"></i> &nbsp;Nerdolas.Store <br/>
+                <i class="fas fa-code"></i> &nbsp;Bruno de Marzio  &nbsp;
+                <i class="fas fa-code"></i> &nbsp;Gabriel Moretti  &nbsp;
+                <i class="fas fa-code"></i> &nbsp;Ivan Takano  &nbsp;
+                <i class="fas fa-code"></i> &nbsp;Lucas Santiago 
+            </footer>
         </div>
     </nav>
 </html>
