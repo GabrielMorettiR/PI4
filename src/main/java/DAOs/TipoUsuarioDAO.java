@@ -49,7 +49,7 @@ public class TipoUsuarioDAO {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                TipoUsuario t = new TipoUsuario(rs.getInt("id"), rs.getString("nome"));
+                TipoUsuario t = new TipoUsuario(rs.getInt("id"), rs.getString("descricao"));
                 tipos.add(t);
             }
 
