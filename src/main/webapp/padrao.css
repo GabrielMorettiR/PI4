@@ -17,7 +17,7 @@ h1{
     font-size: 20px;
     margin-bottom: 0;
     width: 80%;
-                text-align: left;
+    text-align: left;
 }
 .custom_h2{
     padding: 0 5px 0 5px;
@@ -145,7 +145,7 @@ thead .sorting{
     text-align: center;
     padding: 20px;
     width: 100%;
-    background-color: #ddd;
+    background-color: rgba(0,123,255,0.3);
     position: fixed;
     bottom:0;
     left:0;

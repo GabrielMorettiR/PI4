@@ -99,9 +99,6 @@
                 </div>
                 <div id="main" class="container" align="center">
                     <form action="Login" method="POST">
-                        <c:if test="${param.erro == 1}">
-                            <div>Usuário não Encontrado</div>
-                        </c:if>
                         <p class="p_form">E-mail: </p>
                         <input name="login" class="input_form" required>
                         <p class="p_form">Senha: </p>
@@ -110,7 +107,10 @@
                         <button type="submit" class="entrar">Login</button>
                     </form>
                     <hr id="divisao"/>
-                    <button type="button" class="cadastro">Cadastre-se</button>
+                    <form action="Cadastro.jsp">
+                        <button type="submit" class="cadastro">Cadastre-se</button>
+                    </form>
+                    
                 </div>
             </div>
             <footer class="footer">

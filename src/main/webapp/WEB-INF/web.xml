@@ -77,6 +77,10 @@
         <servlet-name>Logout</servlet-name>
         <servlet-class>Servlet.Logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Cadastro</servlet-name>
+        <servlet-class>Servlet.Cadastro</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetProdutos</servlet-name>
         <url-pattern>/GetProdutos</url-pattern>
@@ -143,6 +147,10 @@
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Cadastro</servlet-name>
+        <url-pattern>/Cadastro</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

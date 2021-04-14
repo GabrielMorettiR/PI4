@@ -126,7 +126,7 @@
             </ul>
 
             <footer class="footer">
-                2021 <i class="fas fa-copyright"></i> &nbsp;Nerdolas.Store <br/>
+                2021 <i class="fas fa-copyright"></i> &nbsp;Nerdolas.Store &nbsp;
                 <i class="fas fa-code"></i> &nbsp;Bruno de Marzio  &nbsp;
                 <i class="fas fa-code"></i> &nbsp;Gabriel Moretti  &nbsp;
                 <i class="fas fa-code"></i> &nbsp;Ivan Takano  &nbsp;
