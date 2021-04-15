@@ -5,7 +5,9 @@
  */
 package Servlet;
 
+import DAOs.ClienteDAO;
 import DAOs.UsuarioDAO;
+import Entidades.Cliente;
 import Entidades.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -31,20 +33,27 @@ public class Cadastro extends HttpServlet {
         String nome = request.getParameter("nome");
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
-        String status = request.getParameter("status");
-        int tipocad = Integer.parseInt(request.getParameter("tipocad"));
 
-        boolean stat = true;
-        if (status == null) {
-            stat = false;
+        String cpf = request.getParameter("cpf");
+//        String cep = request.getParameter("cep");
+//        String logradouro = request.getParameter("rua");
+//        String complemento = request.getParameter("complemento");
+//        int numero = Integer.parseInt(request.getParameter("numero"));
+//        String bairro = request.getParameter("bairro");
+//        String cidade = request.getParameter("cidade");
+//        String uf = request.getParameter("uf");
+
+        Cliente c = null;
+        try {
+            c = new Cliente(UsuarioDAO.nextId(), cpf);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        Usuario u = new Usuario();
-        u.setNome(nome);
-        u.setSenha(u.criptografar(senha));
-        u.setStatus(stat);
-        u.setTipoCadastro(tipocad);
-        u.setEmail(email);
+        c.setNome(nome);
+        c.setSenha(c.criptografar(senha));
+        c.setStatus(true);
+        c.setTipoCadastro(3);
+        c.setEmail(email);
 
         List<Usuario> usuarios = UsuarioDAO.getUsuarios();
 
@@ -57,7 +66,7 @@ public class Cadastro extends HttpServlet {
         }
 
         try {
-            UsuarioDAO.cadUsuario(u);
+            ClienteDAO.cadCliente(c);
             response.sendRedirect("GetUsuarios");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);

@@ -28,19 +28,19 @@
                         <p class="p_form">CPF </p>
                         <input type="number" name="cpf" class="input_form" required>
                         <p class="p_form">CEP </p>
-                        <input type="number" name="cep" class="input_form" required>
+                        <input type="number" name="cep" class="input_form">
                         <p class="p_form">Logradouro </p>
-                        <input name="rua" class="input_form" required>
+                        <input name="rua" class="input_form">
                         <p class="p_form">Número </p>
-                        <input type="number" name="numero" class="input_form" required>
+                        <input type="number" name="numero" class="input_form">
                         <p class="p_form">Complemento </p>
-                        <input name="complemento" class="input_form" required>
+                        <input name="complemento" class="input_form">
                         <p class="p_form">Bairro </p>
-                        <input name="bairo" class="input_form" required>
+                        <input name="bairro" class="input_form">
                         <p class="p_form">Cidade </p>
-                        <input name="cidade" class="input_form" required>
+                        <input name="cidade" class="input_form">
                         <p class="p_form">UF </p>
-                        <input name="uf" class="input_form" required>
+                        <input name="uf" class="input_form">
                         <p class="p_form">Senha</p>
                         <input type="password" class="input_form" name="senha" minlength="3" required>
                         <p class="p_form">Confirmação de Senha</p>

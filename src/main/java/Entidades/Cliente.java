@@ -14,6 +14,17 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Cliente {
-    private
+public class Cliente extends Usuario{
+    private int idusuario;
+    private String cpf;
+
+    public Cliente() {
+    }
+    
+    public Cliente(int idusuario, String cpf) {
+        this.idusuario = idusuario;
+        this.cpf = cpf;
+    }
+    
+    
 }

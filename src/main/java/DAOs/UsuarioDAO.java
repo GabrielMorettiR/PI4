@@ -155,4 +155,20 @@ public class UsuarioDAO {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public static int nextId() throws ClassNotFoundException, SQLException {
+        Connection con = ConexaoBD.getConexao();
+        String query = "select MAX(id) from usuario";
+
+        PreparedStatement ps;
+
+        ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        int prox = 0;
+        if (rs.next()) {
+            prox = rs.getInt("1");
+        }
+        return prox + 1;
+    }
 }
