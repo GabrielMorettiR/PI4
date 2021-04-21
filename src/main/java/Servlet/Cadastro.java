@@ -60,7 +60,7 @@ public class Cadastro extends HttpServlet {
         for (int i = 0; i < usuarios.size(); i++) {
             Usuario user = usuarios.get(i);
             if (email.equals(user.getEmail())) {
-                response.sendRedirect("GetUsuarios?msg=900");
+                response.sendRedirect("Cadastro.jsp?msg=900");
                 return;
             }
         }

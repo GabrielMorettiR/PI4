@@ -73,6 +73,8 @@
             }
             #main{
                 box-shadow: 0 0 5px 2px #999;
+                max-width: 500px;
+                min-width: 200px;
             }
             #divisao{
                 width: 80%;
@@ -82,6 +84,10 @@
             .navbar-brand{
                 width: 10rem;
                 font-size: 25px;
+            }
+            .msgLogin{
+                color: #ff3333;
+                font-family: 'Nunito', sans-serif;
             }
         </style>
     </head>
@@ -93,9 +99,10 @@
 
         <div class="d-flex justify-content-center">
 
-            <div class="d-flex flex-column justify-content-center" style="width:60%">
+            <div class="d-flex flex-column justify-content-center" style="width:90%">
                 <div class="container" align="center">
                     <h1 id="titulo">Entrar</h1>
+                    <h3 id="loginnf" class="msgLogin" hidden>login não encontrado</h3>
                 </div>
                 <div id="main" class="container" align="center">
                     <form action="Login" method="POST">
@@ -110,16 +117,36 @@
                     <form action="Cadastro.jsp">
                         <button type="submit" class="cadastro">Cadastre-se</button>
                     </form>
-                    
+
                 </div>
             </div>
             <footer class="footer">
-                2021 <i class="fas fa-copyright"></i> &nbsp;Nerdolas.Store <br/>
+                2021 <i class="fas fa-copyright"></i> &nbsp;Nerdolas.Store
                 <i class="fas fa-code"></i> &nbsp;Bruno de Marzio  &nbsp;
                 <i class="fas fa-code"></i> &nbsp;Gabriel Moretti  &nbsp;
                 <i class="fas fa-code"></i> &nbsp;Ivan Takano  &nbsp;
                 <i class="fas fa-code"></i> &nbsp;Lucas Santiago 
             </footer>
         </div>
+        <script>
+
+            const url = window.location.search;
+            const urlParams = new URLSearchParams(url);
+            const msg = urlParams.get('msg');
+
+            checkMsg(msg);
+
+            function checkMsg(msg) {
+                
+                var num = parseInt(msg);
+                switch(num){
+                    case 0:
+                        document.getElementById('loginnf').hidden = false;
+                        break;
+                }
+                
+            }
+
+        </script>
     </body>
 </html>

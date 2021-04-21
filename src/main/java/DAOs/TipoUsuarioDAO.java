@@ -72,7 +72,7 @@ public class TipoUsuarioDAO {
             
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                t = new TipoUsuario(rs.getInt("id"), rs.getString("nome"));
+                t = new TipoUsuario(rs.getInt("id"), rs.getString("descricao"));
             }
 
         } catch (SQLException | ClassNotFoundException ex) {

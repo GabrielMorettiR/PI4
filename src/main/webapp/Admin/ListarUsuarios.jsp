@@ -76,6 +76,8 @@
                 $.fn.dataTable.ext.classes.sTable = 'tableList';
 
                 $('#tabela').DataTable({
+                    colReorder: true,
+                    ScrollCollapse: true,
                     "language": {
                         "lengthMenu": "Mostrar _MENU_ linhas",
                         "zeroRecords": "Sem registros encontrados",

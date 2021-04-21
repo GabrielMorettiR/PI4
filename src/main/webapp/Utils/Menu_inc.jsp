@@ -96,26 +96,50 @@
                     </a>
                 </li>
             </ul>
+
             <c:if test="${sessionScope.usuario.admin}">
                 <ul class="navbar-nav px-3">
                     <li class="nav-item">
-                        <a class="botao" href="GetUsuarios">Listar Usuários</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="botao" href="CadastrarUsuario">Cadastrar Usuário</a>
+                        <div class="select">
+                            <button class="selectbtn">Clientes</button>
+                            <div class="select options">
+                                <a class="option" href="#">Listar</a>
+                                <a class="option" href="Cadastro.jsp">Cadastrar</a>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </c:if>
+
+
+            <c:if test="${sessionScope.usuario.admin}">
+                <ul class="navbar-nav px-3">
+                    <li class="nav-item">
+                        <div class="select">
+                            <button class="selectbtn">Usuários</button>
+                            <div class="select options">
+                                <a class="option" href="GetUsuarios">Listar</a>
+                                <a class="option" href="CadastrarUsuario">Cadastrar</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </c:if>
+
             <c:if test="${sessionScope.usuario.admin || sessionScope.usuario.estoq}">
                 <ul class="navbar-nav px-3">
                     <li class="nav-item">
-                        <a class="botao" href="GetProdutos">Listar produtos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="botao" href="PostProdutos">Cadastrar produtos</a>
+                        <div class="select">
+                            <button class="selectbtn">Produtos</button>
+                            <div class="select options">
+                                <a class="option" href="GetProdutos">Listar</a>
+                                <a class="option" href="PostProdutos">Cadastrar</a>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </c:if>
+
             <ul class="navbar-nav px-3">
                 <li class="nav-item">
                     <a class="botao botao-login" href="Login">Login</a>
@@ -134,4 +158,49 @@
             </footer>
         </div>
     </nav>
+    <div id="aviso" class="aviso" style="display: none">
+        <div id="modalAv" class="modal-aviso">
+            <h3 id="avisoTitulo" align="left">Titulo</h3>
+            <hr/>
+            <p id="avisoDescricao">Descrição Modal</p>
+        </div>
+    </div>
+
+    <script>
+        const url = window.location.search;
+        const urlParams = new URLSearchParams(url);
+        const msg = urlParams.get('msg');
+        var sec = 0;
+
+        checkMsg(msg);
+
+        function checkMsg(msg) {
+            var num = parseInt(msg);
+            var aviso = document.getElementById('aviso');
+            aviso.style.display = 'block';
+            var titulo = document.getElementById('avisoTitulo');
+            var desc = document.getElementById('avisoDescricao');
+            switch (num) {
+                case 0:
+                    break;
+                case 900:
+                    
+                    titulo.textContent = 'Erro';
+                    desc.textContent = 'Email já cadastrado';
+                case 1000:
+
+                    break;
+                default:
+                    aviso.style.display = 'none';
+            }
+        }
+
+        function incrementSeconds() {
+            sec += 1;
+            if (sec > 2) {
+                aviso.style.display = "none";
+            }
+        }
+        var cancel = setInterval(incrementSeconds, 1000);
+    </script>
 </html>

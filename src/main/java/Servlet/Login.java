@@ -35,24 +35,6 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        
-        String acesso = request.getParameter("acesso");
-
-        if (acesso != null) {
-
-            int id = Integer.parseInt(request.getParameter("id"));
-
-            Usuario usuario = UsuarioDAO.getUsuario(id);
-
-            HttpSession session = request.getSession();
-            session.invalidate();
-
-            HttpSession sessao = request.getSession();
-            sessao.setAttribute("usuario", usuario);
-            System.out.println(usuario);
-            response.sendRedirect("Principal");
-        }
         
         String login = request.getParameter("login");
         String senha = request.getParameter("senha");
@@ -64,7 +46,7 @@ public class Login extends HttpServlet {
             sessao.setAttribute("usuario", usuario);
             response.sendRedirect("Principal");
         } else {
-            response.sendRedirect("Login.jsp?msg=500");
+            response.sendRedirect("Login.jsp?msg=0");
         }
 
     }
