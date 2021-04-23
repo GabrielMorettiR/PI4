@@ -9,6 +9,60 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+         <script>
+
+        $(document).ready(function() {
+
+            function limpa_formulário_cep() {
+                // Limpa valores do formulário de cep.
+                $("#rua").val("");
+                $("#bairro").val("");
+                $("#cidade").val("");
+                $("#uf").val("");                
+            }           
+            
+            $("#cep").blur(function() {                
+                var cep = $(this).val().replace(/\D/g, '');                
+                if (cep != "") {                  
+                    var validacep = /^[0-9]{8}$/;                    
+                    if(validacep.test(cep)) {                        
+                        $("#rua").val("...");
+                        $("#bairro").val("...");
+                        $("#cidade").val("...");
+                        $("#uf").val("...");
+                        $("#ibge").val("...");
+                        
+                        $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+
+                            if (!("erro" in dados)) {
+                                
+                                $("#rua").val(dados.logradouro);
+                                $("#bairro").val(dados.bairro);
+                                $("#cidade").val(dados.localidade);
+                                $("#uf").val(dados.uf);
+                                $("#ibge").val(dados.ibge);
+                            } //end if.
+                            else {                                
+                                limpa_formulário_cep();
+                                alert("CEP não encontrado.");
+                            }
+                        });
+                    } 
+                    else {                        
+                        limpa_formulário_cep();
+                        alert("Formato de CEP inválido.");
+                    }
+                } 
+                else {                    
+                    limpa_formulário_cep();
+                }
+            });
+        });
+
+    </script>    
         <title>JSP Page</title>
     </head>
     <body>
@@ -28,19 +82,19 @@
                         <p class="p_form">CPF </p>
                         <input type="number" name="cpf" class="input_form" required>
                         <p class="p_form">CEP </p>
-                        <input type="number" name="cep" class="input_form">
+                        <input type="number" name="cep" id="cep" class="input_form">
                         <p class="p_form">Logradouro </p>
-                        <input name="rua" class="input_form">
+                        <input name="rua" id="rua" class="input_form">
                         <p class="p_form">Número </p>
                         <input type="number" name="numero" class="input_form">
                         <p class="p_form">Complemento </p>
                         <input name="complemento" class="input_form">
                         <p class="p_form">Bairro </p>
-                        <input name="bairro" class="input_form">
+                        <input name="bairro" id="bairro" class="input_form">
                         <p class="p_form">Cidade </p>
-                        <input name="cidade" class="input_form">
+                        <input name="cidade" id="cidade" class="input_form">
                         <p class="p_form">UF </p>
-                        <input name="uf" class="input_form">
+                        <input name="uf" id="uf" class="input_form">
                         <p class="p_form">Senha</p>
                         <input type="password" class="input_form" name="senha" minlength="3" required>
                         <p class="p_form">Confirmação de Senha</p>
