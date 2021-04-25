@@ -23,6 +23,7 @@ public class Produto {
     private boolean status;
     private int quantidade;
     private double preco;
+    private String dir;
 
     public Produto() {
     }

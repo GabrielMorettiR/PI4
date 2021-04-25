@@ -50,7 +50,7 @@
                                     <td>${produtos.quantidade}</td>
                                     <td>R$ ${produtos.preco}</td>
                                     <td><a class="editar" href="ProdutoSelecionado?id=${produtos.id}&editar=true">Visualizar</a></td>
-                                    <td><a class="editar" href="GetProduto?id=${produtos.id}&editar=true">Editar</a></td>
+                                    <td><a class="editar" href="AlterarProduto?id=${produtos.id}&editar=true">Editar</a></td>
                                     <td>
                                         <form action="ToggleProduto" method="POST">
                                             <input type="hidden" name="id" value="${produtos.id}" />

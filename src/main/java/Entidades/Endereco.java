@@ -15,6 +15,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Endereco {
+    private String titulo;
+    private String cep;
     private String logradouro;
     private int numero;
     private String complemento;
@@ -25,7 +27,8 @@ public class Endereco {
     public Endereco() {
     }
     
-    public Endereco(String logradouro, int numero, String complemento, String bairro, String cidade, String uf) {
+    public Endereco(String cep, String logradouro, int numero, String complemento, String bairro, String cidade, String uf) {
+        this.cep = cep;
         this.logradouro = logradouro;
         this.numero = numero;
         this.complemento = complemento;

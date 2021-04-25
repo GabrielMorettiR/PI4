@@ -34,7 +34,9 @@ public class ProdutoDAO {
         int quantidade = 0;
         double preco = 0;
         try {
-            String query = "select * from produto where status = true";
+            String query = "select p.ID, p.NOMEPRODUTO, p.NOMEEXTENSO, p.ESTRELAS,"
+                    + " p.STATUS, p.QUANTIDADE, p.PRECO, i.DIR from produto as p join"
+                    + " imagens as i on i.IDPRODUTO = p.id where status = true and i.CAPA";
             Connection con = ConexaoBD.getConexao();
 
             PreparedStatement ps = con.prepareStatement(query);
@@ -47,7 +49,10 @@ public class ProdutoDAO {
                 status = rs.getBoolean("status");
                 quantidade = rs.getInt("quantidade");
                 preco = rs.getDouble("preco");
-                produtos.add(new Produto(id, nomeproduto, nomeextenso, estrelas, status, quantidade, preco));
+                String dir = rs.getString("dir");
+                Produto p = new Produto(id, nomeproduto, nomeextenso, estrelas, status, quantidade, preco);
+                p.setDir(dir);
+                produtos.add(p);
             }
 
         } catch (SQLException | ClassNotFoundException ex) {
@@ -99,7 +104,9 @@ public class ProdutoDAO {
         int quantidade = 0;
         double preco = 0;
         try {
-            String query = "select * from produto where id = " + id;
+            String query = "select p.ID, p.NOMEPRODUTO, p.NOMEEXTENSO, p.ESTRELAS,"
+                    + " p.STATUS, p.QUANTIDADE, p.PRECO, i.DIR from produto as p join"
+                    + " imagens as i on i.IDPRODUTO = p.id where p.ID = " + id + " and i.CAPA";
             Connection con = ConexaoBD.getConexao();
 
             PreparedStatement ps = con.prepareStatement(query);
@@ -112,7 +119,9 @@ public class ProdutoDAO {
                 status = rs.getBoolean("status");
                 quantidade = rs.getInt("quantidade");
                 preco = rs.getDouble("preco");
+                String dir = rs.getString("dir");
                 p = new Produto(id, nomeproduto, nomeextenso, estrelas, status, quantidade, preco);
+                p.setDir(dir);
             }
 
         } catch (SQLException | ClassNotFoundException ex) {
@@ -178,7 +187,7 @@ public class ProdutoDAO {
         if (rs.next()) {
             prox = rs.getInt("1");
         }
-        return prox;
+        return prox + 1;
     }
 
     public static void deleteProduto(int id) throws ClassNotFoundException, SQLException {

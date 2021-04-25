@@ -1,6 +1,8 @@
 package Servlet;
 
+import DAOs.ImagemDAO;
 import DAOs.ProdutoDAO;
+import Entidades.Imagem;
 import Entidades.Produto;
 import java.io.IOException;
 import java.io.PrintWriter;

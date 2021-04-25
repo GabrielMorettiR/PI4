@@ -40,10 +40,10 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author Gabriel
  */
- @WebServlet(name = "PostProdutos", urlPatterns = {"/PostProdutos"}, initParams = {
-        @WebInitParam(name = "diretorioUpload", value = "C:/desenv/imagens/"),
-        @WebInitParam(name = "contextoAcessoUpload", value = "/teste-uploads")})
-    @MultipartConfig(maxFileSize = 20848820) // 5MB == 20848820 bytes == 5*1024*1024
+@WebServlet(name = "PostProdutos", urlPatterns = {"/PostProdutos"}, initParams = {
+    @WebInitParam(name = "diretorioUpload", value = "F:/Projetos/ProjetoIntegrador/PI4/src/main/webapp/Imagens/"),
+    @WebInitParam(name = "contextoAcessoUpload", value = "/teste-uploads")})
+@MultipartConfig(maxFileSize = 20848820) // 5MB == 20848820 bytes == 5*1024*1024
 public class PostProdutos extends HttpServlet {
 
     public PostProdutos() {
@@ -74,12 +74,17 @@ public class PostProdutos extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int idprod = Integer.parseInt(request.getParameter("idprod"));
-        int idimg = Integer.parseInt(request.getParameter("idimagem"));
-        boolean addImg = false;
-        String path = "";
+        int idprod = 0;
+        int idimg = 0;
+        try {
+            idprod = ProdutoDAO.nextId();
+            idimg = ImagemDAO.nextId();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+        String path = "Imagens/";
         String filepath = request.getParameter("filename"); // puxa o diretorio do arquivo do user
-        System.out.println("TESTE " + filepath);
 
         String nomeprod = request.getParameter("nomeproduto");
         String nomeext = request.getParameter("nomeextenso");
@@ -91,6 +96,8 @@ public class PostProdutos extends HttpServlet {
         }
         int quantidade = Integer.parseInt(request.getParameter("qtd"));
         double preco = Double.parseDouble(request.getParameter("preco"));
+
+//        if (filepath != null) {
         Part filePart = request.getPart("filename"); // Retrieves <input type="file" name="arquivo">
 
         // Recupara o valor configurado no @WebInitParam acima
@@ -101,30 +108,35 @@ public class PostProdutos extends HttpServlet {
 
         // **** TRATAR O InputStream conforme necessidade
         // Pega os bytes e salva no disco
+        
+        int a = (nomeArquivo.length() - 4);
+        
+        System.out.println("formato do arquivo: ");
+        
+        nomeArquivo = idprod + "_" + idimg + nomeArquivo.substring(a);
+        
         Path destino = Paths.get(diretorio + nomeArquivo);
         Files.copy(conteudoArquivo, destino);
 
+        
+        
         // Mensagens e feedback para usuário:
         request.setAttribute("msg", "Arquivo carregado com sucesso.");
         String contextoAcessoUpload = getInitParameter("contextoAcessoUpload");
         String urlAcessoUpload = contextoAcessoUpload + "/" + nomeArquivo;
         request.setAttribute("urlAcessoUpload", urlAcessoUpload);
 
-        RequestDispatcher dispatcher
-                = request.getRequestDispatcher("/Estoquista/CadastrarProdutos.jsp");
-        dispatcher.forward(request, response);
-
+//        }
         try {
 //            ProdutoDAO.cadProduto(new Produto(id, nomeprod, nomeext, estrelas, stat, quantidade, preco));
             ProdutoDAO.cadProduto(nomeprod, nomeext, estrelas, stat, quantidade, preco);
-            if (addImg) {
-                ImagemDAO.cadImagem(path, idprod);
-            }
+
+            ImagemDAO.cadImagem(path + nomeArquivo, idprod, true);
 
             response.sendRedirect("GetProdutos");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);
-            
+
         }
     }
 }

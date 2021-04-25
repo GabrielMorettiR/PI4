@@ -26,6 +26,34 @@ import javax.servlet.http.HttpServletResponse;
 public class AlterarProduto extends HttpServlet {
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        Produto p = ProdutoDAO.getProduto(id);
+        request.setAttribute("produto", p);
+
+        if (p.isStatus()) {
+            request.setAttribute("status", "Ativo");
+        } else {
+            request.setAttribute("status", "Inativo");
+        }
+
+        boolean ver = Boolean.valueOf(request.getParameter("ver"));
+
+        if (!ver) {
+            RequestDispatcher rd = getServletContext()
+                    .getRequestDispatcher("/Estoquista/AlterarProduto.jsp");
+            rd.forward(request, response);
+        } else{
+            RequestDispatcher rd = getServletContext()
+                    .getRequestDispatcher("/VerProduto.jsp");
+            rd.forward(request, response);
+        }
+    }
+    
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

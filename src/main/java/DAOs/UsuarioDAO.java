@@ -46,7 +46,7 @@ public class UsuarioDAO {
 
         List<Usuario> usuarios = new ArrayList();
         try {
-            String query = "select * from usuario order by id desc";
+            String query = "select * from usuario where tipocadastro != 3 order by id desc";
             Connection con = ConexaoBD.getConexao();
 
             PreparedStatement ps = con.prepareStatement(query);

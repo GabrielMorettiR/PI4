@@ -8,7 +8,10 @@ a{
 a:hover{
     text-decoration: none !important;
 }
-h1{
+.row{
+    padding-bottom: 1rem;
+}
+h1, h2{
     font-family: 'Nunito', sans-serif;
 }
 .p_form{
@@ -24,11 +27,10 @@ h1{
     font-family: 'Josefin Slab', sans-serif;
 }
 .input_form, .select_form{
-    width: 80%;
+    width: 100%;
     border: 1px solid #bbb;
     border-radius: 5px;
     font-family: 'Arvo', serif;
-    margin-bottom: 2rem;
 }
 #main{
     width: 80%;
@@ -142,6 +144,11 @@ thead .sorting{
     border: 2px solid #007bff;
     color: #007bff;
 }
+.submit disabled{
+    background-color: #dddddd;
+    color: #999;
+    border: #333;
+}
 .footer{
     font-family: 'K2D', sans-serif;
     text-align: center;
@@ -201,6 +208,10 @@ thead .sorting{
     transition-duration: 0.1s;
     margin: 2px;
 }
+.titulo{
+    margin: 20px 0 10px 0;
+    width: 60%;
+}
 .disabled{
     background-color: #eee;
     color: #ddd;
@@ -235,7 +246,9 @@ thead .sorting{
     border-radius: 10px;
     padding: 40px 0 40px 0;
 }
-
+.img-produto{
+    width: 250px;
+}
 /*CSS APENAS DO SLIDER*/
 
 .switch {

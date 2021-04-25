@@ -6,8 +6,10 @@
 package Servlet;
 
 import DAOs.ClienteDAO;
+import DAOs.EnderecoDAO;
 import DAOs.UsuarioDAO;
 import Entidades.Cliente;
+import Entidades.Endereco;
 import Entidades.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,15 +37,16 @@ public class Cadastro extends HttpServlet {
         String senha = request.getParameter("senha");
 
         String cpf = request.getParameter("cpf");
-//        String cep = request.getParameter("cep");
-//        String logradouro = request.getParameter("rua");
-//        String complemento = request.getParameter("complemento");
-//        int numero = Integer.parseInt(request.getParameter("numero"));
-//        String bairro = request.getParameter("bairro");
-//        String cidade = request.getParameter("cidade");
-//        String uf = request.getParameter("uf");
+        String cep = request.getParameter("cep");
+        String logradouro = request.getParameter("rua");
+        String complemento = request.getParameter("complemento");
+        int numero = Integer.parseInt(request.getParameter("numero"));
+        String bairro = request.getParameter("bairro");
+        String cidade = request.getParameter("cidade");
+        String uf = request.getParameter("uf");
 
         Cliente c = null;
+        Endereco e = new Endereco(cep, logradouro, numero, complemento, bairro, cidade, uf);
         try {
             c = new Cliente(UsuarioDAO.nextId(), cpf);
         } catch (ClassNotFoundException | SQLException ex) {
@@ -67,7 +70,8 @@ public class Cadastro extends HttpServlet {
 
         try {
             ClienteDAO.cadCliente(c);
-            response.sendRedirect("GetUsuarios");
+            EnderecoDAO.cadEndereco(e);
+            response.sendRedirect("Principal?msg=1");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);
         }

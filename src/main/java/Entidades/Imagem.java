@@ -19,4 +19,10 @@ public class Imagem {
     private int id;
     private String dir;
     private int idprod;
+
+    public Imagem(int id, String dir, int idprod) {
+        this.id = id;
+        this.dir = dir;
+        this.idprod = idprod;
+    }
 }

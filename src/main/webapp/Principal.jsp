@@ -25,7 +25,7 @@
 
                         <a href="ProdutoSelecionado?id=${produtos.id}">
                             <div class="card-body">
-                                <img class="card-img-top" src="https://placekitten.com/640/360" style="padding-top: 1%">
+                                <img class="card-img-top" src="${produtos.dir}" style="padding-top: 1%" alt="${produtos.nomeproduto}">
                                 <h5 class="card-title">${produtos.nomeproduto}</h5>
                                 <p class="card-text">R$ ${produtos.preco}</p>
                             </div>

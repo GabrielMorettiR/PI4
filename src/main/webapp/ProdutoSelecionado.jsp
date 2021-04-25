@@ -22,7 +22,7 @@
                     <div class="col-md-12"> 
                         <div class="col-lg-12 col-md-12 col-sm-12" align="center">
                             <figure>
-                                <img class="produto" src="https://placekitten.com/640/360">
+                                <img class="img-produto" src="${produto.dir}">
                                 <p>Lista de imagens</p>
                             </figure>
                         </div>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-md-12"> 
                         <div class="row justify-content-md-center">
-                            <div id="col-lg-6 col-md-6 col-sm-6">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
                                 <p class="pQuadro">Avaliação:</p>
                                 <p class="pQuadro">
                                     <%
@@ -50,7 +50,7 @@
                                     %>
                                 </p>
                             </div>
-                            <div id="col-lg-6 col-md-6 col-sm-6">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
                                 <p class="pQuadro">Quantidade:</p>
                                 <p class="pQuadro">${produto.quantidade}</p>
                             </div>
@@ -58,7 +58,7 @@
                     </div>
                     <div class="col-lg-12"> 
                         <input id="comentario" placeholder="Deixe um comentário!">
-                        <button type="submit" id="btnComent" disabled="true">Salvar</button>
+                        <button type="submit" id="btnComent" disabled>Salvar</button>
                     </div>
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-5">
@@ -69,9 +69,9 @@
                     <div class="col-lg-12"> 
                         <p class="pPreço">Calcule o frete: </p>
                         <input class="masked" id="inputCEP" placeholder="CEP">
-                        <button type="submit" id="btnFrete" disabled="true">Calcule o frete</button>
+                        <button type="submit" id="btnFrete" disabled>Calcule o frete</button>
                         <p>&numsp;</p>
-                        <button id="btnAddCarrinho" disabled="true">Adicionar ao carrinho</button>
+                        <button id="btnAddCarrinho" disabled>Adicionar ao carrinho</button>
                     </div>
                 </div>
             </div>

@@ -6,7 +6,7 @@
 package DAOs;
 
 import BD.ConexaoBD;
-import Entidades.Imagem;
+import Entidades.Endereco;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,30 +20,35 @@ import java.util.logging.Logger;
  *
  * @author Gabriel
  */
-public class ImagemDAO {
+public class EnderecoDAO {
 
-    public static void cadImagem(String dir, int idproduto, boolean capa) throws ClassNotFoundException, SQLException {
+    public static void cadEndereco(Endereco e) throws ClassNotFoundException, SQLException {
 
         Connection con = ConexaoBD.getConexao();
-        String query = "insert into imagens(dir, idproduto, capa) values (?,?,?)";
+        String query = "insert into endereco(titulo, cep, logradouro, numero, complemento, bairro, cidade, uf) values (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(query);
 
-            ps.setString(1, dir);
-            ps.setInt(2, idproduto);
-            ps.setBoolean(3, capa);
+            ps.setString(1, e.getTitulo());
+            ps.setString(2, e.getCep());
+            ps.setString(3, e.getLogradouro());
+            ps.setInt(4, e.getNumero());
+            ps.setString(5, e.getComplemento());
+            ps.setString(6, e.getBairro());
+            ps.setString(7, e.getCidade());
+            ps.setString(8, e.getUf());
 
             ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static List<Imagem> getImagens(){
-        
-        List<Imagem> imgs = new ArrayList();
-        
+
+    public static List<Endereco> getEnderecos() {
+
+        List<Endereco> imgs = new ArrayList();
+
         try {
             String query = "select distinct i.IDPRODUTO, i.DIR, i.ID from imagens as i join produto as p on i.IDPRODUTO = p.id";
             Connection con = ConexaoBD.getConexao();
@@ -54,29 +59,13 @@ public class ImagemDAO {
                 int idprod = rs.getInt("IDPRODUTO");
                 String dir = rs.getString("DIR");
                 int id = rs.getInt("ID");
-                imgs.add(new Imagem(id, dir, idprod));
+                imgs.add(new Endereco());
             }
 
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return imgs;
-    }
-    
-    public static int nextId() throws ClassNotFoundException, SQLException {
-        Connection con = ConexaoBD.getConexao();
-        String query = "select MAX(id) from imagens";
-
-        PreparedStatement ps;
-
-        ps = con.prepareStatement(query);
-        ResultSet rs = ps.executeQuery();
-        
-        int prox = 0;
-        if (rs.next()) {
-            prox = rs.getInt("1");
-        }
-        return prox + 1;
     }
 }
