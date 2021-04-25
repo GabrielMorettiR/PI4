@@ -85,4 +85,61 @@ public class ClienteDAO {
         }
         return clientes;
     }
+    
+    public static Cliente getCliente(int id) {
+
+        Cliente c = new Cliente();
+        try {
+            String query = "select * from cliente where idusuario = " + id;
+            Connection con = ConexaoBD.getConexao();
+            
+            PreparedStatement ps = con.prepareStatement(query);
+            
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                c.setId(rs.getInt("id"));
+                c.setIdusuario(rs.getInt("idusuario"));
+                c.setCpf(rs.getString("cpf"));
+            }
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return c;
+    }
+    
+    public static void updateCliente(Cliente c) throws ClassNotFoundException, SQLException {
+
+        Connection con = ConexaoBD.getConexao();
+        String query = "update usuario set nome = ? where id = ?";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(query);
+
+            ps.setString(1, c.getNome());
+            ps.setString(2, c.getSenha());
+
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        cadUsuario(c, con);
+    }
+    
+    public static int nextId() throws ClassNotFoundException, SQLException {
+        Connection con = ConexaoBD.getConexao();
+        String query = "select MAX(id) from cliente";
+
+        PreparedStatement ps;
+
+        ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        
+        int prox = 0;
+        if (rs.next()) {
+            prox = rs.getInt("1");
+        }
+        return prox + 1;
+    }
 }

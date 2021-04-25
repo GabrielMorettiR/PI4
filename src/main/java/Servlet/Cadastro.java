@@ -69,6 +69,7 @@ public class Cadastro extends HttpServlet {
         }
 
         try {
+            EnderecoDAO.vinculaEndereco(ClienteDAO.nextId(), EnderecoDAO.nextId());
             ClienteDAO.cadCliente(c);
             EnderecoDAO.cadEndereco(e);
             response.sendRedirect("Principal?msg=1");

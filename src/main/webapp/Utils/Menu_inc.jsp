@@ -140,6 +140,16 @@
                 </ul>
             </c:if>
 
+            <c:if test="${sessionScope.usuario.cliente}">
+                <ul class="navbar-nav px-3">
+                    <li class="nav-item">
+                        <div class="select">
+                            <a class="option" href="AlterarDados?id=${sessionScope.usuario.id}">Alterar dados</a>
+                        </div>
+                    </li>
+                </ul>
+            </c:if>
+
             <ul class="navbar-nav px-3">
                 <li class="nav-item">
                     <a class="botao botao-login" href="Login">Login</a>
@@ -184,7 +194,7 @@
                 case 0:
                     break;
                 case 900:
-                    
+
                     titulo.textContent = 'Erro';
                     desc.textContent = 'Email já cadastrado';
                 case 1000:

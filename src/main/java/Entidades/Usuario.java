@@ -51,4 +51,7 @@ public class Usuario {
         return this.tipoCadastro == 2;
     }
     
+    public boolean isCliente(){
+        return this.tipoCadastro == 3;
+    }
 }

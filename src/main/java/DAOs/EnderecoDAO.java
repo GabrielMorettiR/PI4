@@ -22,6 +22,23 @@ import java.util.logging.Logger;
  */
 public class EnderecoDAO {
 
+    public static void vinculaEndereco(int idCliente, int idEndereco) throws ClassNotFoundException, SQLException {
+
+        Connection con = ConexaoBD.getConexao();
+        String query = "insert into clienteendereco(idusuario, idendereco) values (?, ?)";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(query);
+
+            ps.setInt(1, idCliente);
+            ps.setInt(2, idEndereco);
+
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public static void cadEndereco(Endereco e) throws ClassNotFoundException, SQLException {
 
         Connection con = ConexaoBD.getConexao();
@@ -44,28 +61,53 @@ public class EnderecoDAO {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public static List<Endereco> getEndereco(int id) { // receber id do CLIENTE
 
-    public static List<Endereco> getEnderecos() {
-
-        List<Endereco> imgs = new ArrayList();
-
+        Endereco e = new Endereco();
+        List<Endereco> enderecos = new ArrayList();
         try {
-            String query = "select distinct i.IDPRODUTO, i.DIR, i.ID from imagens as i join produto as p on i.IDPRODUTO = p.id";
+            String query = "SELECT c.idusuario, c.IDENDERECO, e.* FROM clienteendereco as c join endereco as e on e.id = c.idendereco where idusuario = ?";
             Connection con = ConexaoBD.getConexao();
 
             PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setInt(1, id);
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int idprod = rs.getInt("IDPRODUTO");
-                String dir = rs.getString("DIR");
-                int id = rs.getInt("ID");
-                imgs.add(new Endereco());
+
+                e.setTitulo(rs.getString("titulo"));
+                e.setCep(rs.getString("cep"));
+                e.setLogradouro(rs.getString("logradouro"));
+                e.setNumero(rs.getInt("numero"));
+                e.setComplemento(rs.getString("complemento"));
+                e.setBairro(rs.getString("bairro"));
+                e.setCidade(rs.getString("cidade"));
+                e.setUf(rs.getString("uf"));
+                enderecos.add(e);
             }
 
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return imgs;
+        return enderecos;
+    }
+
+    public static int nextId() throws ClassNotFoundException, SQLException {
+        Connection con = ConexaoBD.getConexao();
+        String query = "select MAX(id) from endereco";
+
+        PreparedStatement ps;
+
+        ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        int prox = 0;
+        if (rs.next()) {
+            prox = rs.getInt("1");
+        }
+        return prox + 1;
     }
 }
