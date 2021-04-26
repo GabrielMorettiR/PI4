@@ -21,10 +21,44 @@
                 <div class="col-lg-5 col-md-5 col-sm-5">
                     <div class="col-md-12"> 
                         <div class="col-lg-12 col-md-12 col-sm-12" align="center">
-                            <figure>
-                                <img class="img-produto" src="${produto.dir}">
-                                <p>Lista de imagens</p>
-                            </figure>
+                            
+                            <div class="container">
+                                
+                                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                    <!-- Indicators -->
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                            <c:forEach var="imagem" items="${imagens}" varStatus="i">
+                                            <li data-target="#myCarousel" data-slide-to="${i.index + 1}"></li>
+                                            </c:forEach>
+                                    </ol>
+
+                                    <!-- Wrapper for slides -->
+                                    <div class="carousel-inner">
+                                        <div class="item active">
+                                            <img class="img-produto" src="${produto.dir}" alt="Capa do produto">
+                                        </div>
+
+                                        <c:forEach var="imagem" items="${imagens}" varStatus="i">
+                                                <div class="item">
+                                                    <img class="img-produto" src="${imagem.dir}" alt="">
+                                                </div>
+                                        </c:forEach>
+
+                                    </div>
+
+                                    <!-- Left and right controls -->
+                                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+
+                            </div>
                         </div>
                         <div class="infos">
                             <h3 id="nomeProduto"><strong>${produto.nomeproduto}</strong></h3>
@@ -36,8 +70,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <p class="pQuadro">Avaliação:</p>
                                 <p class="pQuadro">
-                                    <%
-                                        Object p = request.getAttribute("estrelas");
+                                    <%                                        Object p = request.getAttribute("estrelas");
                                         int i = 0;
                                         int estrelas = Integer.parseInt(String.valueOf(p));
                                         for (i = 0; i < estrelas; i++) {

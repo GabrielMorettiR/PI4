@@ -28,26 +28,52 @@
                 <div id="main" class="container" align="center">
                     <form action="AlterarProduto" method="POST">
                         <input class="input_form" name="id" value="${produto.id}" hidden>
-                        <p class="p_form">Nome Produto</p>
-                        <input class="input_form" name="nomeproduto" value="${produto.nomeproduto}">
-                        <p class="p_form">Nome em Extenso</p>
-                        <input class="input_form" name="nomeextenso" value="${produto.nomeextenso}">
-                        <p class="p_form">Estrelas</p>
-                        <input class="input_form" type="number" name="estrelas" value="${produto.estrelas}">
-                        <p class="p_form">Status</p>
-                        <%                    Object p = request.getAttribute("status");
-                            if (p.equals("Ativo")) {
-                                out.print("<input id='switch-shadow' class='switch switch--shadow' name='status' type='checkbox' value='${status}' checked/>"
-                                        + "<label for='switch-shadow'></label>");
-                            } else {
-                                out.print("<input id='switch-shadow' class='switch switch--shadow' name='status' type='checkbox' value='${status}'/>"
-                                        + "<label for='switch-shadow'></label>");
-                            }
-                        %>
-                        <p class="p_form">Quantidade</p>
-                        <input class="input_form" type="number" name="qtd" value="${produto.quantidade}">
-                        <p class="p_form">preço</p>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="p_form">Nome Produto</p>
+                                <input class="input_form" name="nomeproduto" value="${produto.nomeproduto}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="p_form">Nome em Extenso</p>
+                                <input class="input_form" name="nomeextenso" value="${produto.nomeextenso}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <p class="p_form">Estrelas</p>
+                                <input class="input_form" type="number" name="estrelas" value="${produto.estrelas}">
+                            </div>
+                            <div class="col-lg-3">
+                                <p class="p_form">Quantidade</p>
+                                <input class="input_form" type="number" name="qtd" value="${produto.quantidade}">
+                            </div>
+                            <div class="col-lg-3">
+                                <p class="p_form">preço</p>
                         <input class="input_form" name="preco" value="${produto.preco}">
+                            </div>
+                            <div class="col-lg-3">
+                                <p class="p_form">Status
+                                    <%                    Object p = request.getAttribute("status");
+                                        if (p.equals("Ativo")) {
+                                            out.print("<input id='switch-shadow' class='switch switch--shadow' name='status' type='checkbox' value='${status}' checked/>"
+                                                    + "<label for='switch-shadow'></label>");
+                                        } else {
+                                            out.print("<input id='switch-shadow' class='switch switch--shadow' name='status' type='checkbox' value='${status}'/>"
+                                                    + "<label for='switch-shadow'></label>");
+                                        }
+                                    %>
+                                </p>
+
+                            </div>
+                        </div>
+
+
+
+
+
+                        
                         <button type="submit" class="submit">Alterar</button>
                     </form>
                 </div>

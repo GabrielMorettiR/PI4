@@ -10,6 +10,7 @@ a:hover{
 }
 .row{
     padding-bottom: 1rem;
+    width: 80%;
 }
 h1, h2{
     font-family: 'Nunito', sans-serif;
@@ -19,7 +20,7 @@ h1, h2{
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 0;
-    width: 80%;
+    width: 100%;
     text-align: left;
 }
 .custom_h2{

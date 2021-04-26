@@ -25,4 +25,7 @@ public class Imagem {
         this.dir = dir;
         this.idprod = idprod;
     }
+
+    public Imagem() {
+    }
 }

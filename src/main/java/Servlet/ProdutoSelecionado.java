@@ -1,9 +1,12 @@
 package Servlet;
 
+import DAOs.ImagemDAO;
 import DAOs.ProdutoDAO;
+import Entidades.Imagem;
 import Entidades.Produto;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +25,12 @@ public class ProdutoSelecionado extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
 
         Produto p = ProdutoDAO.getProduto(id);
+        List<Imagem> imgs = ImagemDAO.getProdImagens(id);
+        
+        System.out.println("QTD IMAGENS: " + imgs.size());
+        
         request.setAttribute("produto", p);
+        request.setAttribute("imagens", imgs);
         request.setAttribute("estrelas", p.getEstrelas());
 
             RequestDispatcher rd = getServletContext()

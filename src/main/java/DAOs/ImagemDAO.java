@@ -39,11 +39,11 @@ public class ImagemDAO {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static List<Imagem> getImagens(){
-        
+
+    public static List<Imagem> getImagens() {
+
         List<Imagem> imgs = new ArrayList();
-        
+
         try {
             String query = "select distinct i.IDPRODUTO, i.DIR, i.ID from imagens as i join produto as p on i.IDPRODUTO = p.id";
             Connection con = ConexaoBD.getConexao();
@@ -60,10 +60,38 @@ public class ImagemDAO {
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return imgs;
     }
-    
+
+    public static List<Imagem> getProdImagens(int idProd) {
+
+        List<Imagem> imgs = new ArrayList();
+
+        try {
+            String query = "select i.DIR from produto as p join\n"
+                    + " imagens as i on i.IDPRODUTO = p.id where p.ID = ? and not capa";
+            Connection con = ConexaoBD.getConexao();
+
+            PreparedStatement ps = con.prepareStatement(query);
+            
+            ps.setInt(1, idProd);
+            
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String dir = rs.getString("DIR");
+                Imagem i = new Imagem();
+                i.setDir(dir);
+                imgs.add(i);
+            }
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return imgs;
+    }
+
     public static int nextId() throws ClassNotFoundException, SQLException {
         Connection con = ConexaoBD.getConexao();
         String query = "select MAX(id) from imagens";
@@ -72,7 +100,7 @@ public class ImagemDAO {
 
         ps = con.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
-        
+
         int prox = 0;
         if (rs.next()) {
             prox = rs.getInt("1");

@@ -66,9 +66,6 @@
         <title>JSP Page</title>
 
         <style>
-            .row{
-                width: 80%;
-            }
             .avisos{
                 color: #ff6666;
                 text-align: left;
@@ -123,10 +120,6 @@
                             <div class="col-lg-4">
                                 <p class="p_form">CEP </p>
                                 <input type="number" name="cep" id="cep" class="input_form" required>
-                            </div>
-                            <div class="col-lg-4">
-                                <p class="p_form">&nbsp;</p>
-                                <button type="button" class="submit">Buscar CEP</button>
                             </div>
                         </div>
 
