@@ -91,50 +91,20 @@
 
                         <h2 class="titulo">Endereços</h2>
 
-                        <c:forEach var="endereco" items="${enderecos}">
+                        <c:forEach var="endereco" items="${enderecos}" varStatus="t">
 
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <p class="p_form">CEP </p>
-                                    <input name="cep" id="cep" class="input_form" value="${endereco.cep}" required>
-                                </div>
-                            </div>
+                            <c:if test="${endereco.titulo != '' && endereco.titulo != null}">
+                                <h3>${t.index} - <a href="AlterarEndereco?id=${endereco.id}">${endereco.titulo}</a></h3>
+                                </c:if>
+                                <c:if test="${endereco.titulo == '' || endereco.titulo == null}">
+                                <h3>${t.index} - <a href="AlterarEndereco?id=${endereco.id}">${endereco.cep}</a></h3>
+                                </c:if>
 
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <p class="p_form">Logradouro </p>
-                                    <input name="rua" id="rua" class="input_form" required>
-                                </div>
-                                <div class="col-lg-4">
-                                    <p class="p_form">Número </p>
-                                    <input type="number" name="numero" class="input_form" required>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <p class="p_form">Complemento </p>
-                                    <input name="complemento" class="input_form">
-                                </div>
-                                <div class="col-lg-8">
-                                    <p class="p_form">Bairro </p>
-                                    <input name="bairro" id="bairro" class="input_form" required>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-10">
-                                    <p class="p_form">Cidade </p>
-                                    <input name="cidade" id="cidade" class="input_form" required>
-                                </div>
-                                <div class="col-lg-2">
-                                    <p class="p_form">UF </p>
-                                    <input name="uf" id="uf" class="input_form" required>
-                                </div>
-                            </div>
-                            <hr/>
                         </c:forEach>
 
+                        <a href="AlterarEndereco?id=0" class="submit yellow">Novo endereço</a>
+
+                        <hr/>
 
                         <button type="submit" class="submit">Alterar</button>
                     </form>

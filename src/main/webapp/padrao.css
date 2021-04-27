@@ -145,6 +145,15 @@ thead .sorting{
     border: 2px solid #007bff;
     color: #007bff;
 }
+.yellow{
+    background-color: #e8d52e !important;
+    border: 2px solid #e8d52e;
+}
+.yellow:hover{
+    background-color: white !important;
+    border: 2px solid #e8d52e;
+    color: #e8d52e;
+}
 .submit disabled{
     background-color: #dddddd;
     color: #999;
@@ -155,7 +164,7 @@ thead .sorting{
     text-align: center;
     padding: 20px;
     width: 100%;
-    background-color: rgba(0,123,255,0.3);
+    background-color: #a6cbf3;
     position: fixed;
     bottom:0;
     left:0;

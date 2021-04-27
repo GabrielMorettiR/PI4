@@ -16,7 +16,7 @@
     <body>
         <%@include file="/Utils/Menu_inc.jsp" %>
 
-        <div class="container">
+        <div class="d-flex justify-content-center container">
             <div class="row">
 
                 <c:forEach var="produtos" items="${GetProdutos}">

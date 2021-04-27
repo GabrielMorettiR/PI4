@@ -15,6 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Endereco {
+    private int id;
     private String titulo;
     private String cep;
     private String logradouro;
