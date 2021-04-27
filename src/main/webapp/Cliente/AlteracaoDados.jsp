@@ -77,36 +77,73 @@
                 </div>
                 <div id="main" class="container" align="center">
                     <form action="AlterarDados" method="POST">
-                        <input class="input_form" name="idusuario" value="${idusuario}" hidden>
-                        <p class="p_form">Nome Completo</p>
-                        <input class="input_form" name="nome" value="${cliente.nome}">
-                        <p class="p_form">CPF</p>
-                        <input class="input_form" name="cpf" value="${cliente.cpf}" disabled>
-                        <p class="p_form">Alterar Senha</p>
-                        <input type="password" class="input_form" name="senha" value="${cliente.senha}">
-                        <p class="p_form">E-mail</p>
-                        <input class="input_form" name="email" value="${cliente.email}" disabled>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="p_form">Nome Completo</p>
+                                <input class="input_form" name="nome" value="${usuario.nome}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="p_form">CPF</p>
+                                <input class="input_form" name="cpf" value="${usuario.cpf}" disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="p_form">Alterar Senha</p>
+                                <input type="password" class="input_form" name="senha" value="${usuario.senha}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="p_form">E-mail</p>
+                                <input class="input_form" name="email" value="${usuario.email}" disabled>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button type="submit" class="submit">Alterar</button>
+                            </div>
+                        </div>
 
                         <hr/>
 
-                        <h2 class="titulo">Endereços</h2>
+                        <div class="container" align="center">
+                            <h2 class="titulo">Endereços</h2>
+                        </div>
 
-                        <c:forEach var="endereco" items="${enderecos}" varStatus="t">
 
-                            <c:if test="${endereco.titulo != '' && endereco.titulo != null}">
-                                <h3>${t.index} - <a href="AlterarEndereco?id=${endereco.id}">${endereco.titulo}</a></h3>
-                                </c:if>
-                                <c:if test="${endereco.titulo == '' || endereco.titulo == null}">
-                                <h3>${t.index} - <a href="AlterarEndereco?id=${endereco.id}">${endereco.cep}</a></h3>
-                                </c:if>
+                        <div class="row d-flex justify-content-center">
+                            <c:forEach var="endereco" items="${enderecos}" varStatus="t">
+                                <div class="col-lg-6">
+                                    <c:choose>
+                                        <c:when test="${endereco.status == true}">
+                                            <c:if test="${endereco.titulo != '' && endereco.titulo != null}">
+                                                <a href="AlterarEndereco?id=${endereco.id}"><p class="submit lightgreen">${t.index + 1} - ${endereco.titulo}</p></a>
+                                            </c:if>
+                                            <c:if test="${endereco.titulo == '' || endereco.titulo == null}">
+                                                <a href="AlterarEndereco?id=${endereco.id}"><p class="submit lightgreen">${t.index + 1} - ${endereco.cep}</p></a>
+                                            </c:if>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:if test="${endereco.titulo != '' && endereco.titulo != null}">
+                                                <a href="AlterarEndereco?id=${endereco.id}"><p class="submit false">${t.index + 1} - ${endereco.titulo}</p></a>
+                                            </c:if>
+                                            <c:if test="${endereco.titulo == '' || endereco.titulo == null}">
+                                                <a href="AlterarEndereco?id=${endereco.id}"><p class="submit false">${t.index + 1} - ${endereco.cep}</p></a>
+                                            </c:if>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </c:forEach>
+                            <div class="col-lg-6">
+                                <a href="AlterarEndereco?id=0"><p class="submit yellow">Novo endereço</p></a>
+                            </div>
+                        </div>
 
-                        </c:forEach>
 
-                        <a href="AlterarEndereco?id=0" class="submit yellow">Novo endereço</a>
-
-                        <hr/>
-
-                        <button type="submit" class="submit">Alterar</button>
                     </form>
                 </div>
             </div>

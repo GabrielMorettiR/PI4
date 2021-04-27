@@ -8,7 +8,6 @@ package Servlet;
 import DAOs.ClienteDAO;
 import DAOs.EnderecoDAO;
 import DAOs.UsuarioDAO;
-import Entidades.Cliente;
 import Entidades.Endereco;
 import Entidades.Usuario;
 import java.io.IOException;
@@ -35,20 +34,15 @@ public class AlterarDados extends HttpServlet {
             throws ServletException, IOException {
 
         int id = Integer.parseInt(request.getParameter("id"));
-        
-        Cliente c = ClienteDAO.getCliente(id);
-        
-        Usuario u = UsuarioDAO.getUsuario(c.getIdusuario());
-        
-        c.setNome(u.getNome());
-        c.setEmail(u.getEmail());
-        c.setSenha(u.getSenha());
-        
-        List<Endereco> enderecos = EnderecoDAO.getEndereco(c.getId());
-                
-        request.setAttribute("cliente", c);
+        Usuario u = ClienteDAO.getCliente(id);
+        List<Endereco> enderecos = EnderecoDAO.getEndereco(u.getId());
+
+        for (int i = 0; i < enderecos.size(); i++) {
+            System.out.println(enderecos.get(i));
+        }
+
+        request.setAttribute("usuario", u);
         request.setAttribute("enderecos", enderecos);
-        request.setAttribute("idusuario", u.getId());
 
         RequestDispatcher rd = getServletContext()
                 .getRequestDispatcher("/Cliente/AlteracaoDados.jsp");
@@ -61,30 +55,19 @@ public class AlterarDados extends HttpServlet {
 
         int idusuario = Integer.parseInt(request.getParameter("idusuario"));
         String nome = request.getParameter("nome");
-//        String senha = request.getParameter("senha");
-
-        String cep = request.getParameter("cep");
-        String logradouro = request.getParameter("rua");
-        int numero = Integer.parseInt(request.getParameter("numero"));
-        String complemento = request.getParameter("complemento");
-        String bairro = request.getParameter("bairro");
-        String cidade = request.getParameter("cidade");
-        String uf = request.getParameter("uf");
-        
-        Endereco e = new Endereco(cep, logradouro, numero, complemento, bairro, cidade, uf);
+//        String senha = request.getParameter("senha");        
 
         Usuario u = new Usuario();
         u.setNome(nome);
         u.setId(idusuario);
 //        u.setSenha(senha);
         try {
-            UsuarioDAO.updateClienteDados(u);
-            EnderecoDAO.updateEndereco(e);
+            ClienteDAO.updateCliente(u);
             response.sendRedirect("Principal");
 
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 }

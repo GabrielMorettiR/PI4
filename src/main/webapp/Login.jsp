@@ -30,28 +30,6 @@
             body{
                 background-color: rgba(20,20,20,0.03);
             }
-            .p_form{
-                width: 80%;
-                text-align: left;
-            }
-            .input_form{
-                width: 80%;
-            }
-            .entrar{
-                margin: 5px;
-                padding: 5px 10px 5px 10px;
-                width: 80%;
-                background-color: #00cc33;
-                border: 2px solid #00cc33;
-                border-radius: 5px;
-                transition-duration: 0.2s;
-                color: white;
-            }
-            .entrar:hover{
-                background-color: white;
-                border: 2px solid #00cc33;
-                color: #00cc33;
-            }
             .cadastro{
                 margin: 5px;
                 padding: 5px 10px 5px 10px;
@@ -70,11 +48,6 @@
             #titulo{
                 margin: 20px 0 10px 0;
                 width: 60%;
-            }
-            #main{
-                box-shadow: 0 0 5px 2px #999;
-                max-width: 500px;
-                min-width: 200px;
             }
             #divisao{
                 width: 80%;
@@ -106,16 +79,31 @@
                 </div>
                 <div id="main" class="container" align="center">
                     <form action="Login" method="POST">
-                        <p class="p_form">E-mail: </p>
-                        <input name="login" class="input_form" required>
-                        <p class="p_form">Senha: </p>
-                        <input type="password" name="senha" class="input_form" required>
-                        <br/>
-                        <button type="submit" class="entrar">Login</button>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="p_form">E-mail: </p>
+                                <input name="login" class="input_form" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="p_form">Senha: </p>
+                                <input type="password" name="senha" class="input_form" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button type="submit" class="submit green">Login</button>
+                            </div>
+                        </div>
                     </form>
                     <hr id="divisao"/>
                     <form action="Cadastro.jsp">
-                        <button type="submit" class="cadastro">Cadastre-se</button>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button type="submit" class="submit lightgreen">Cadastre-se</button>
+                            </div>
+                        </div>
                     </form>
 
                 </div>
@@ -137,14 +125,14 @@
             checkMsg(msg);
 
             function checkMsg(msg) {
-                
+
                 var num = parseInt(msg);
-                switch(num){
+                switch (num) {
                     case 0:
                         document.getElementById('loginnf').hidden = false;
                         break;
                 }
-                
+
             }
 
         </script>

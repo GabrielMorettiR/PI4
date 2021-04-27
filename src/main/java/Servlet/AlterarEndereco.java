@@ -8,7 +8,6 @@ package Servlet;
 import DAOs.ClienteDAO;
 import DAOs.EnderecoDAO;
 import DAOs.UsuarioDAO;
-import Entidades.Cliente;
 import Entidades.Endereco;
 import Entidades.Usuario;
 import java.io.IOException;
@@ -35,16 +34,18 @@ public class AlterarEndereco extends HttpServlet {
             throws ServletException, IOException {
 
         int id = Integer.parseInt(request.getParameter("id"));
-
         HttpSession sessao = request.getSession();
         Usuario u = (Usuario) sessao.getAttribute("usuario");
-                
         Endereco end = EnderecoDAO.getEnderecoById(id);
-
-        Cliente c = ClienteDAO.getCliente(u.getId());
-
+        System.out.println(u.getId());
+        boolean status = end.isStatus();
+        if (status) {
+            request.setAttribute("status", "Ativo");
+        } else {
+            request.setAttribute("status", "Inativo");
+        }
         request.setAttribute("endereco", end);
-        request.setAttribute("idcliente", c.getId());
+        request.setAttribute("idcliente", u.getId());
 
         RequestDispatcher rd = getServletContext()
                 .getRequestDispatcher("/Cliente/AlterarEndereco.jsp");
@@ -65,8 +66,9 @@ public class AlterarEndereco extends HttpServlet {
         String bairro = request.getParameter("bairro");
         String cidade = request.getParameter("cidade");
         String uf = request.getParameter("uf");
+        boolean status = Boolean.parseBoolean(request.getParameter("status"));
 
-        Endereco e = new Endereco(cep, rua, numero, comp, bairro, cidade, uf);
+        Endereco e = new Endereco(cep, rua, numero, comp, bairro, cidade, uf, status);
         e.setId(id);
 
         try {

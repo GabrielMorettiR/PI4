@@ -111,13 +111,13 @@
                     <c:choose>
                         <c:when test="${id > 0}">
                             <h1 id="titulo">Alteração de Dados de Endereço -
-                            <c:if test="${endereco.titulo != '' && endereco.titulo != null}">
-                                ${endereco.titulo}
-                            </c:if>
-                            <c:if test="${endereco.titulo == '' || endereco.titulo == null}">
-                                ${endereco.cep}
-                            </c:if>
-                        </h1>
+                                <c:if test="${endereco.titulo != '' && endereco.titulo != null}">
+                                    ${endereco.titulo}
+                                </c:if>
+                                <c:if test="${endereco.titulo == '' || endereco.titulo == null}">
+                                    ${endereco.cep}
+                                </c:if>
+                            </h1>
                         </c:when>
                         <c:otherwise>
                             <h1 id="titulo">Novo Endereço</h1>
@@ -127,8 +127,8 @@
                 </div>
                 <div id="main" class="container" align="center">
                     <form method="POST" action="AlterarEndereco">
-                        <input name="id" value="${endereco.id}" hidden required>
-                        <input name="idcliente" value="${idcliente}" hidden required>
+                        <input name="id" value="${endereco.id}" hidden>
+                        <input name="idcliente" value="${idcliente}" hidden>
                         <div class="row">
                             <div class="col-lg-4">
                                 <p class="p_form">CEP </p>
@@ -141,7 +141,6 @@
                         </div>
 
                         <div class="row">
-
                             <div class="col-lg-2">
                                 <p class="p_form">Número </p>
                                 <input name="numero" class="input_form" value="${endereco.numero}" required>
@@ -157,16 +156,34 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-10">
+                            <div class="col-lg-8">
                                 <p class="p_form">Cidade </p>
-                                <input name="cidade" id="cidade" class="input_form" value="${endereco.bairro}" required>
+                                <input name="cidade" id="cidade" class="input_form" value="${endereco.cidade}" required>
                             </div>
                             <div class="col-lg-2">
                                 <p class="p_form">UF </p>
                                 <input name="uf" id="uf" class="input_form" value="${endereco.uf}" required>
                             </div>
+                            <div class="col-lg-2">
+                                <p class="p_form">Status
+                                    <%                    Object p = request.getAttribute("status");
+                                        if (p.equals("Ativo")) {
+                                            out.print("<input id='switch-shadow' class='switch switch--shadow' name='status' type='checkbox' value='${status}' checked/>"
+                                                    + "<label for='switch-shadow'></label>");
+                                        } else {
+                                            out.print("<input id='switch-shadow' class='switch switch--shadow' name='status' type='checkbox' value='${status}'/>"
+                                                    + "<label for='switch-shadow'></label>");
+                                        }
+                                    %>
+                                </p>
+                            </div>
                         </div>
-                        <button type="submit" class="submit">Salvar</button>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button type="submit" class="submit">Salvar</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

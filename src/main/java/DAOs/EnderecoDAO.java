@@ -91,7 +91,7 @@ public class EnderecoDAO {
         
         List<Endereco> enderecos = new ArrayList();
         try {
-            String query = "SELECT c.idusuario, c.IDENDERECO, e.* FROM clienteendereco as c join endereco as e on e.id = c.idendereco where idusuario = ?";
+            String query = "SELECT c.idusuario, c.IDENDERECO, e.* FROM clienteendereco as c join endereco as e on e.id = c.idendereco where c.idusuario = ?";
             Connection con = ConexaoBD.getConexao();
 
             PreparedStatement ps = con.prepareStatement(query);
@@ -110,6 +110,7 @@ public class EnderecoDAO {
                 e.setBairro(rs.getString("bairro"));
                 e.setCidade(rs.getString("cidade"));
                 e.setUf(rs.getString("uf"));
+                e.setStatus(rs.getBoolean("status"));
                 enderecos.add(e);
             }
 
@@ -143,6 +144,7 @@ public class EnderecoDAO {
                 e.setBairro(rs.getString("bairro"));
                 e.setCidade(rs.getString("cidade"));
                 e.setUf(rs.getString("uf"));
+                e.setStatus(rs.getBoolean("status"));
             }
 
         } catch (SQLException | ClassNotFoundException ex) {

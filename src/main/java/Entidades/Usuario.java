@@ -22,6 +22,7 @@ public class Usuario {
     private boolean status;
     private int tipoCadastro;
     private String email;
+    private String cpf;
 
     public Usuario() {
     }

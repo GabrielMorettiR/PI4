@@ -8,7 +8,6 @@ package Servlet;
 import DAOs.ClienteDAO;
 import DAOs.EnderecoDAO;
 import DAOs.UsuarioDAO;
-import Entidades.Cliente;
 import Entidades.Endereco;
 import Entidades.Usuario;
 import java.io.IOException;
@@ -44,19 +43,21 @@ public class Cadastro extends HttpServlet {
         String bairro = request.getParameter("bairro");
         String cidade = request.getParameter("cidade");
         String uf = request.getParameter("uf");
-
-        Cliente c = null;
-        Endereco e = new Endereco(cep, logradouro, numero, complemento, bairro, cidade, uf);
+        
+        Usuario u = null;
+        Endereco e = new Endereco(cep, logradouro, numero, complemento, bairro, cidade, uf, true);
         try {
-            c = new Cliente(UsuarioDAO.nextId(), cpf);
+            u = new Usuario();
+            u.setId(UsuarioDAO.nextId());
+            u.setCpf(cpf);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
         }
-        c.setNome(nome);
-        c.setSenha(c.criptografar(senha));
-        c.setStatus(true);
-        c.setTipoCadastro(3);
-        c.setEmail(email);
+        u.setNome(nome);
+        u.setSenha(u.criptografar(senha));
+        u.setStatus(true);
+        u.setTipoCadastro(3);
+        u.setEmail(email);
 
         List<Usuario> usuarios = UsuarioDAO.getUsuarios();
 
@@ -70,7 +71,7 @@ public class Cadastro extends HttpServlet {
 
         try {
             EnderecoDAO.vinculaEndereco(ClienteDAO.nextId(), EnderecoDAO.nextId());
-            ClienteDAO.cadCliente(c);
+            UsuarioDAO.cadUsuario(u);
             EnderecoDAO.cadEndereco(e);
             response.sendRedirect("Principal?msg=1");
         } catch (ClassNotFoundException | SQLException ex) {

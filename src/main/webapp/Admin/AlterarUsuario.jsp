@@ -48,8 +48,12 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button type="submit" class="submit">Alterar</button>
+                            </div>
+                        </div>
 
-                        <button type="submit" class="submit">Alterar</button>
                     </form>
                 </div>
             </div>

@@ -10,96 +10,93 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous"></script>
-         <script>
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+        <script>
 
-        $(document).ready(function() {
+            $(document).ready(function () {
 
-            function limpa_formulário_cep() {
-                // Limpa valores do formulário de cep.
-                $("#rua").val("");
-                $("#bairro").val("");
-                $("#cidade").val("");
-                $("#uf").val("");                
-            }           
-            
-            $("#cep").blur(function() {                
-                var cep = $(this).val().replace(/\D/g, '');                
-                if (cep != "") {                  
-                    var validacep = /^[0-9]{8}$/;                    
-                    if(validacep.test(cep)) {                        
-                        $("#rua").val("...");
-                        $("#bairro").val("...");
-                        $("#cidade").val("...");
-                        $("#uf").val("...");
-                        $("#ibge").val("...");
-                        
-                        $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
-
-                            if (!("erro" in dados)) {
-                                
-                                $("#rua").val(dados.logradouro);
-                                $("#bairro").val(dados.bairro);
-                                $("#cidade").val(dados.localidade);
-                                $("#uf").val(dados.uf);
-                                $("#ibge").val(dados.ibge);
-                            } //end if.
-                            else {                                
-                                limpa_formulário_cep();
-                                alert("CEP não encontrado.");
-                            }
-                        });
-                    } 
-                    else {                        
-                        limpa_formulário_cep();
-                        alert("Formato de CEP inválido.");
-                    }
-                } 
-                else {                    
-                    limpa_formulário_cep();
+                function limpa_formulário_cep() {
+                    // Limpa valores do formulário de cep.
+                    $("#rua").val("");
+                    $("#bairro").val("");
+                    $("#cidade").val("");
+                    $("#uf").val("");
                 }
+
+                $("#cep").blur(function () {
+                    var cep = $(this).val().replace(/\D/g, '');
+                    if (cep != "") {
+                        var validacep = /^[0-9]{8}$/;
+                        if (validacep.test(cep)) {
+                            $("#rua").val("...");
+                            $("#bairro").val("...");
+                            $("#cidade").val("...");
+                            $("#uf").val("...");
+                            $("#ibge").val("...");
+
+                            $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
+
+                                if (!("erro" in dados)) {
+
+                                    $("#rua").val(dados.logradouro);
+                                    $("#bairro").val(dados.bairro);
+                                    $("#cidade").val(dados.localidade);
+                                    $("#uf").val(dados.uf);
+                                    $("#ibge").val(dados.ibge);
+                                } //end if.
+                                else {
+                                    limpa_formulário_cep();
+                                    alert("CEP não encontrado.");
+                                }
+                            });
+                        } else {
+                            limpa_formulário_cep();
+                            alert("Formato de CEP inválido.");
+                        }
+                    } else {
+                        limpa_formulário_cep();
+                    }
+                });
             });
-        });
 
-    </script>    
-    <script type="text/javascript">
-    $(function()
-{    
-    $('#cpf').blur(function()
-    {
-        var cpf = $('#cpf').val().replace(/[^0-9]/g, '').toString();
-
-        if( cpf.length == 11 )
-        {
-            var v = [];
-            
-            v[0] = 1 * cpf[0] + 2 * cpf[1] + 3 * cpf[2];
-            v[0] += 4 * cpf[3] + 5 * cpf[4] + 6 * cpf[5];
-            v[0] += 7 * cpf[6] + 8 * cpf[7] + 9 * cpf[8];
-            v[0] = v[0] % 11;
-            v[0] = v[0] % 10;
-            
-            v[1] = 1 * cpf[1] + 2 * cpf[2] + 3 * cpf[3];
-            v[1] += 4 * cpf[4] + 5 * cpf[5] + 6 * cpf[6];
-            v[1] += 7 * cpf[7] + 8 * cpf[8] + 9 * v[0];
-            v[1] = v[1] % 11;
-            v[1] = v[1] % 10;
-            
-            if ( (v[0] != cpf[9]) || (v[1] != cpf[10]) )
+        </script>    
+        <script type="text/javascript">
+            $(function ()
             {
-                alert('CPF inválido: ' + cpf);
-                 $('#cpf').val('');                
-            }
-        }
-        else
-        {
-            alert('CPF inválido:' + cpf);
-             $('#cpf').val('');            
-        }
-    });
-});
-</script>
+                $('#cpf').blur(function ()
+                {
+                    var cpf = $('#cpf').val().replace(/[^0-9]/g, '').toString();
+
+                    if (cpf.length == 11)
+                    {
+                        var v = [];
+
+                        v[0] = 1 * cpf[0] + 2 * cpf[1] + 3 * cpf[2];
+                        v[0] += 4 * cpf[3] + 5 * cpf[4] + 6 * cpf[5];
+                        v[0] += 7 * cpf[6] + 8 * cpf[7] + 9 * cpf[8];
+                        v[0] = v[0] % 11;
+                        v[0] = v[0] % 10;
+
+                        v[1] = 1 * cpf[1] + 2 * cpf[2] + 3 * cpf[3];
+                        v[1] += 4 * cpf[4] + 5 * cpf[5] + 6 * cpf[6];
+                        v[1] += 7 * cpf[7] + 8 * cpf[8] + 9 * v[0];
+                        v[1] = v[1] % 11;
+                        v[1] = v[1] % 10;
+
+                        if ((v[0] != cpf[9]) || (v[1] != cpf[10]))
+                        {
+                            alert('CPF inválido: ' + cpf);
+                            $('#cpf').val('');
+                        }
+                    } else
+                    {
+                        alert('CPF inválido:' + cpf);
+                        $('#cpf').val('');
+                    }
+                });
+            });
+        </script>
         <title>JSP Page</title>
 
         <style>
@@ -192,7 +189,11 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="submit">Enviar</button>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button type="submit" class="submit">Enviar</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -215,8 +216,7 @@
                             var nomes = texto[i];
                             if (nomes.length < 3) {
                                 aviso.textContent = "Um dos nomes é muito curto";
-                            }
-                            else{
+                            } else {
                                 aviso.textContent = " ";
                             }
                         }

@@ -51,7 +51,7 @@
                             </div>
                             <div class="col-lg-3">
                                 <p class="p_form">preço</p>
-                        <input class="input_form" name="preco" value="${produto.preco}">
+                                <input class="input_form" name="preco" value="${produto.preco}">
                             </div>
                             <div class="col-lg-3">
                                 <p class="p_form">Status
@@ -65,11 +65,20 @@
                                         }
                                     %>
                                 </p>
-
                             </div>
                         </div>
-                        <input type='file' id='imagens' class="custom-file-input" name='filename' accept="image/*">
-                        <button type="submit" class="submit">Alterar</button>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="p_form">Adicionar Imagem</p>
+                                <input type='file' id='imagens' name='filename' accept="image/*">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button type="submit" class="submit">Alterar</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

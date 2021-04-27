@@ -22,25 +22,45 @@
                 <div id="main" class="container" align="center">
                     <form action="CadastrarUsuario" method="POST">
                         <input class="p_form" name="idprod" value="${idprod}" hidden>
-                        <p class="p_form">Nome Usuário</p>
-                        <input class="input_form" name="nome" minlength="5" required>
-                        <p class="p_form">E-mail: </p>
-                        <input type="email" name="email" class="input_form" required>
-                        <p class="p_form">Senha</p>
-                        <input type="password" class="input_form" name="senha" minlength="3" required>
-                        <p class="p_form">Tipo de Usuário</p>
-                        <select name="tipocad" class="select_form">
-                            <c:forEach var="tipos" items="${GetTipos}">
-                                <option value="${tipos.id}">${tipos.titulo}</option>
-                            </c:forEach>
-                        </select>
-                        <p class="p_form">Status
-                            <input id='switch-shadow' class='switch switch--shadow' name='status' type='checkbox' value='${status}'/>
-                            <label for='switch-shadow'></label>
-                        </p>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="p_form">Nome Usuário</p>
+                                <input class="input_form" name="nome" minlength="5" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="p_form">E-mail: </p>
+                                <input type="email" name="email" class="input_form" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <p class="p_form">Senha</p>
+                                <input type="password" class="input_form" name="senha" minlength="3" required>
+                            </div>
+                            <div class="col-lg-4">
+                                <p class="p_form">Tipo de Usuário</p>
+                                <select name="tipocad" class="select_form">
+                                    <c:forEach var="tipos" items="${GetTipos}">
+                                        <option value="${tipos.id}">${tipos.titulo}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <p class="p_form">Status
+                                    <input id='switch-shadow' class='switch switch--shadow' name='status' type='checkbox' value='${status}'/>
+                                    <label for='switch-shadow'></label>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button type="submit" class="submit">Enviar</button>
+                            </div>
+                        </div>
 
-                        <br/>
-                        <button type="submit" class="submit">Enviar</button>
+
                     </form>
                 </div>
             </div>
