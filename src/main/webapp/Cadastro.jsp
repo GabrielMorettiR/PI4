@@ -107,6 +107,9 @@
                 color: #ff6666;
                 text-align: left;
             }
+            #avisonome{
+                margin-bottom: 0;
+            }
         </style>
     </head>
     <body>
@@ -158,30 +161,26 @@
                                 <p class="p_form">CEP </p>
                                 <input type="number" name="cep" id="cep" class="input_form" required>
                             </div>
-                        </div>
-
-                        <div class="row">
                             <div class="col-lg-8">
                                 <p class="p_form">Logradouro </p>
                                 <input name="rua" id="rua" class="input_form" required>
                             </div>
-                            <div class="col-lg-4">
-                                <p class="p_form">Número </p>
-                                <input type="number" name="numero" class="input_form" required>
-                            </div>
                         </div>
 
                         <div class="row">
+                            <div class="col-lg-3">
+                                <p class="p_form">Número </p>
+                                <input type="number" name="numero" class="input_form" required>
+                            </div>
                             <div class="col-lg-4">
                                 <p class="p_form">Complemento </p>
                                 <input name="complemento" class="input_form">
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-lg-5">
                                 <p class="p_form">Bairro </p>
                                 <input name="bairro" id="bairro" class="input_form" required>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-lg-10">
                                 <p class="p_form">Cidade </p>

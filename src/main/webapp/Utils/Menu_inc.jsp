@@ -144,7 +144,7 @@
                 <ul class="navbar-nav px-3">
                     <li class="nav-item">
                         <div class="select">
-                            <a class="option" href="AlterarDados?id=${sessionScope.usuario.id}">Alterar dados</a>
+                            <a class="selectbtn" href="AlterarDados?id=${sessionScope.usuario.id}">Alterar dados</a>
                         </div>
                     </li>
                 </ul>

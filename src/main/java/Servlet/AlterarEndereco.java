@@ -14,7 +14,6 @@ import Entidades.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,68 +22,64 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Gabriel
  */
-public class AlterarDados extends HttpServlet {
+public class AlterarEndereco extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         int id = Integer.parseInt(request.getParameter("id"));
-        
-        Cliente c = ClienteDAO.getCliente(id);
-        
-        Usuario u = UsuarioDAO.getUsuario(c.getIdusuario());
-        
-        c.setNome(u.getNome());
-        c.setEmail(u.getEmail());
-        c.setSenha(u.getSenha());
-        
-        List<Endereco> enderecos = EnderecoDAO.getEndereco(c.getId());
+
+        HttpSession sessao = request.getSession();
+        Usuario u = (Usuario) sessao.getAttribute("usuario");
                 
-        request.setAttribute("cliente", c);
-        request.setAttribute("enderecos", enderecos);
-        request.setAttribute("idusuario", u.getId());
+        Endereco end = EnderecoDAO.getEnderecoById(id);
+
+        Cliente c = ClienteDAO.getCliente(u.getId());
+
+        request.setAttribute("endereco", end);
+        request.setAttribute("idcliente", c.getId());
 
         RequestDispatcher rd = getServletContext()
-                .getRequestDispatcher("/Cliente/AlteracaoDados.jsp");
+                .getRequestDispatcher("/Cliente/AlterarEndereco.jsp");
         rd.forward(request, response);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int idusuario = Integer.parseInt(request.getParameter("idusuario"));
-        String nome = request.getParameter("nome");
-//        String senha = request.getParameter("senha");
-
+        int id = Integer.parseInt(request.getParameter("id"));
+        int idCliente = Integer.parseInt(request.getParameter("idcliente"));
         String cep = request.getParameter("cep");
-        String logradouro = request.getParameter("rua");
+        String rua = request.getParameter("rua");
         int numero = Integer.parseInt(request.getParameter("numero"));
-        String complemento = request.getParameter("complemento");
+        String comp = request.getParameter("complemento");
         String bairro = request.getParameter("bairro");
         String cidade = request.getParameter("cidade");
         String uf = request.getParameter("uf");
-        
-        Endereco e = new Endereco(cep, logradouro, numero, complemento, bairro, cidade, uf);
 
-        Usuario u = new Usuario();
-        u.setNome(nome);
-        u.setId(idusuario);
-//        u.setSenha(senha);
+        Endereco e = new Endereco(cep, rua, numero, comp, bairro, cidade, uf);
+        e.setId(id);
+
         try {
-            UsuarioDAO.updateClienteDados(u);
-            EnderecoDAO.updateEndereco(e);
-            response.sendRedirect("Principal");
+            if (id > 0) {
+                EnderecoDAO.updateEndereco(e);
+            } else {
+                EnderecoDAO.cadEndereco(e);
+                EnderecoDAO.vinculaEndereco(idCliente, EnderecoDAO.nextId());
+            }
 
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlterarEndereco.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 }

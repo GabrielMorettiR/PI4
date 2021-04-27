@@ -85,6 +85,10 @@
         <servlet-name>AlterarDados</servlet-name>
         <servlet-class>Servlet.AlterarDados</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AlterarEndereco</servlet-name>
+        <servlet-class>Servlet.AlterarEndereco</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetProdutos</servlet-name>
         <url-pattern>/GetProdutos</url-pattern>
@@ -159,6 +163,10 @@
     <servlet-mapping>
         <servlet-name>AlterarDados</servlet-name>
         <url-pattern>/AlterarDados</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlterarEndereco</servlet-name>
+        <url-pattern>/AlterarEndereco</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
