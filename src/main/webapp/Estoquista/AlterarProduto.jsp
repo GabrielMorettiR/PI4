@@ -23,7 +23,7 @@
         <div class="d-flex justify-content-center">
             <div class="d-flex flex-column justify-content-center" style="width:70%">
                 <div class="container" align="center">
-                    <h1 id="titulo">Cadastro de Usuário</h1>
+                    <h1 id="titulo">Alterar Produto</h1>
                 </div>
                 <div id="main" class="container" align="center">
                     <form action="AlterarProduto" method="POST" enctype="multipart/form-data">
