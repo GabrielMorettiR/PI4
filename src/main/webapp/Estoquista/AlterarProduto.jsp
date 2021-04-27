@@ -26,7 +26,7 @@
                     <h1 id="titulo">Cadastro de Usuário</h1>
                 </div>
                 <div id="main" class="container" align="center">
-                    <form action="AlterarProduto" method="POST">
+                    <form action="AlterarProduto" method="POST" enctype="multipart/form-data">
                         <input class="input_form" name="id" value="${produto.id}" hidden>
                         <div class="row">
                             <div class="col-lg-12">
@@ -68,12 +68,7 @@
 
                             </div>
                         </div>
-
-
-
-
-
-                        
+                        <input type='file' id='imagens' class="custom-file-input" name='filename' accept="image/*">
                         <button type="submit" class="submit">Alterar</button>
                     </form>
                 </div>

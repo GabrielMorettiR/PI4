@@ -41,7 +41,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  * @author Gabriel
  */
 @WebServlet(name = "PostProdutos", urlPatterns = {"/PostProdutos"}, initParams = {
-    @WebInitParam(name = "diretorioUpload", value = "F:/Projetos/ProjetoIntegrador/PI4/src/main/webapp/Imagens/"),
+    @WebInitParam(name = "diretorioUpload", value = "C:/Users/tabat/Documents/NetBeansProjects/PI4/src/main/webapp/Imagens/"),
     @WebInitParam(name = "contextoAcessoUpload", value = "/teste-uploads")})
 @MultipartConfig(maxFileSize = 20848820) // 5MB == 20848820 bytes == 5*1024*1024
 public class PostProdutos extends HttpServlet {
