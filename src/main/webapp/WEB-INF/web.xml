@@ -89,6 +89,10 @@
         <servlet-name>AlterarEndereco</servlet-name>
         <servlet-class>Servlet.AlterarEndereco</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ExcluirImagem</servlet-name>
+        <servlet-class>Servlet.ExcluirImagem</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetProdutos</servlet-name>
         <url-pattern>/GetProdutos</url-pattern>
@@ -167,6 +171,10 @@
     <servlet-mapping>
         <servlet-name>AlterarEndereco</servlet-name>
         <url-pattern>/AlterarEndereco</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExcluirImagem</servlet-name>
+        <url-pattern>/ExcluirImagem</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

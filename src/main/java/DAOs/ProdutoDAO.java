@@ -104,12 +104,13 @@ public class ProdutoDAO {
         int quantidade = 0;
         double preco = 0;
         try {
-            String query = "select p.ID, p.NOMEPRODUTO, p.NOMEEXTENSO, p.ESTRELAS,"
-                    + " p.STATUS, p.QUANTIDADE, p.PRECO, i.DIR from produto as p join"
-                    + " imagens as i on i.IDPRODUTO = p.id where p.ID = " + id + " and i.CAPA";
+            String query = "select * from produto where id = ?";
             Connection con = ConexaoBD.getConexao();
 
             PreparedStatement ps = con.prepareStatement(query);
+            
+            ps.setInt(1, id);
+            
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 id = rs.getInt("id");
@@ -119,9 +120,7 @@ public class ProdutoDAO {
                 status = rs.getBoolean("status");
                 quantidade = rs.getInt("quantidade");
                 preco = rs.getDouble("preco");
-                String dir = rs.getString("dir");
                 p = new Produto(id, nomeproduto, nomeextenso, estrelas, status, quantidade, preco);
-                p.setDir(dir);
             }
 
         } catch (SQLException | ClassNotFoundException ex) {
@@ -174,22 +173,6 @@ public class ProdutoDAO {
         }
     }
 
-    public static int nextId() throws ClassNotFoundException, SQLException {
-        Connection con = ConexaoBD.getConexao();
-        String query = "select MAX(id) from produto";
-
-        PreparedStatement ps;
-
-        ps = con.prepareStatement(query);
-        ResultSet rs = ps.executeQuery();
-
-        int prox = 0;
-        if (rs.next()) {
-            prox = rs.getInt("1");
-        }
-        return prox + 1;
-    }
-
     public static void deleteProduto(int id) throws ClassNotFoundException, SQLException {
         Connection con = ConexaoBD.getConexao();
         String query = "";
@@ -223,6 +206,22 @@ public class ProdutoDAO {
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public static int nextId() throws ClassNotFoundException, SQLException {
+        Connection con = ConexaoBD.getConexao();
+        String query = "select id from produto order by id desc fetch first row only";
+
+        PreparedStatement ps;
+
+        ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        int prox = 0;
+        if (rs.next()) {
+            prox = rs.getInt("id");
+        }
+        return prox + 1;
     }
 
 }

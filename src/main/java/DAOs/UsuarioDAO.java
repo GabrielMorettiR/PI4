@@ -176,7 +176,7 @@ public class UsuarioDAO {
     
     public static int nextId() throws ClassNotFoundException, SQLException {
         Connection con = ConexaoBD.getConexao();
-        String query = "select MAX(id) from usuario";
+        String query = "select id from usuario order by id desc fetch first row only";
 
         PreparedStatement ps;
 
@@ -185,7 +185,7 @@ public class UsuarioDAO {
 
         int prox = 0;
         if (rs.next()) {
-            prox = rs.getInt("1");
+            prox = rs.getInt("id");
         }
         return prox + 1;
     }

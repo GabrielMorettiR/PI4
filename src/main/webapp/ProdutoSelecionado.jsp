@@ -21,9 +21,9 @@
                 <div class="col-lg-5 col-md-5 col-sm-5">
                     <div class="col-md-12"> 
                         <div class="col-lg-12 col-md-12 col-sm-12" align="center">
-                            
+
                             <div class="container">
-                                
+
                                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                                     <!-- Indicators -->
                                     <ol class="carousel-indicators">
@@ -36,13 +36,13 @@
                                     <!-- Wrapper for slides -->
                                     <div class="carousel-inner">
                                         <div class="item active">
-                                            <img class="img-produto" src="${produto.dir}" alt="Capa do produto">
+                                            <img class="img-produto" src="${capa.dir}" alt="Capa do produto">
                                         </div>
 
                                         <c:forEach var="imagem" items="${imagens}" varStatus="i">
-                                                <div class="item">
-                                                    <img class="img-produto" src="${imagem.dir}" alt="">
-                                                </div>
+                                            <!--                                                <div class="item">
+                                                                                                <img class="img-produto" src="${imagem.dir}" alt="">
+                                                                                            </div>-->
                                         </c:forEach>
 
                                     </div>

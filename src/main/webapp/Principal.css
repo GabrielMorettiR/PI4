@@ -12,3 +12,6 @@
 .card-body > h5, p{
     font-family: 'Arvo', sans-serif;
 }
+.card-img-top{
+    max-width: 300px;
+}

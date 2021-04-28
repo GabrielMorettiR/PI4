@@ -307,6 +307,16 @@ thead .sorting{
     border: 2px solid #999;
     color: #999;
 }
+.imagensLista{
+    width: 100px;
+}
+.imagensLista{
+    border: 2px solid transparent;
+    max-width: 100px;
+}
+.imagensLista:hover{
+    border: 2px solid #d33333;
+}
 /*CSS APENAS DO SLIDER*/
 
 .switch {

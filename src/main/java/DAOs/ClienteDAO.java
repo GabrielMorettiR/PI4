@@ -21,6 +21,7 @@ import java.util.logging.Logger;
  * @author Gabriel
  */
 public class ClienteDAO {
+
     public static void cadCliente(Usuario u) throws ClassNotFoundException, SQLException {
 
         Connection con = ConexaoBD.getConexao();
@@ -68,16 +69,16 @@ public class ClienteDAO {
         }
         return users;
     }
-    
+
     public static Usuario getCliente(int id) {
 
         Usuario u = new Usuario();
         try {
             String query = "select * from usuario where id = " + id;
             Connection con = ConexaoBD.getConexao();
-            
+
             PreparedStatement ps = con.prepareStatement(query);
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 u.setId(rs.getInt("id"));
@@ -92,7 +93,7 @@ public class ClienteDAO {
         }
         return u;
     }
-    
+
     public static void updateCliente(Usuario u) throws ClassNotFoundException, SQLException {
 
         Connection con = ConexaoBD.getConexao();
@@ -109,20 +110,21 @@ public class ClienteDAO {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static int nextId() throws ClassNotFoundException, SQLException {
         Connection con = ConexaoBD.getConexao();
-        String query = "select MAX(id) from usuario";
+        String query = "select id from usuario order by id desc fetch first row only";
 
         PreparedStatement ps;
 
         ps = con.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
-        
+
         int prox = 0;
         if (rs.next()) {
-            prox = rs.getInt("1");
+            prox = rs.getInt("id");
         }
         return prox + 1;
+
     }
 }

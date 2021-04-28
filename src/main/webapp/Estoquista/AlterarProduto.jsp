@@ -68,9 +68,14 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <p class="p_form">Adicionar Imagem</p>
                                 <input type='file' id='imagens' name='filename' accept="image/*">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p class="p_form">Adicionar como capa? &nbsp; <input type="checkbox" name="capa"></p>
                             </div>
                         </div>
 
@@ -80,6 +85,27 @@
                             </div>
                         </div>
                     </form>
+<!--                    <div class="row">
+                        <c:if test="${capa.dir=='(unknown)'}">
+                            <form action="ExcluirImagem" method="POST">
+                                <input type="hidden" name="id" value="${capa.id}" />
+                                <div class="col-lg-3 capa">
+                                    <p>Capa</p>
+                                    <button type="submit"><img class="imagensLista" src="${capa.dir}" style="padding-top: 1%" alt=""></button>
+                                </div>
+                            </form>
+                        </c:if>
+
+
+                        <c:forEach var="imagem" items="${imagem}">
+                            <form action="ExcluirImagem" method="POST">
+                                <input type="hidden" name="id" value="${imagem.id}" />
+                                <div class="col-lg-3 capa">
+                                    <button type="submit"><img class="imagensLista" src="${imagem.dir}" style="padding-top: 1%" alt=""></button>
+                                </div>
+                            </form>
+                        </c:forEach>
+                    </div>-->
                 </div>
             </div>
         </div>

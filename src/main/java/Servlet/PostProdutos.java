@@ -40,8 +40,14 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author Gabriel
  */
+
+/* diretorio imagens Moretti = F:/Projetos/ProjetoIntegrador/PI4/src/main/webapp/Imagens/
+
+    diretorio imagens Ivan = C:/Users/tabat/Documents/NetBeansProjects/PI4/src/main/webapp/Imagens/
+*/
+
 @WebServlet(name = "PostProdutos", urlPatterns = {"/PostProdutos"}, initParams = {
-    @WebInitParam(name = "diretorioUpload", value = "C:/Users/tabat/Documents/NetBeansProjects/PI4/src/main/webapp/Imagens/"),
+    @WebInitParam(name = "diretorioUpload", value = "F:/Projetos/ProjetoIntegrador/PI4/src/main/webapp/Imagens/"),
     @WebInitParam(name = "contextoAcessoUpload", value = "/teste-uploads")})
 @MultipartConfig(maxFileSize = 20848820) // 5MB == 20848820 bytes == 5*1024*1024
 public class PostProdutos extends HttpServlet {
@@ -82,10 +88,9 @@ public class PostProdutos extends HttpServlet {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);
         }
-         
-        String path = "Imagens/";
-        String filepath = request.getParameter("filename"); // puxa o diretorio do arquivo do user
 
+        String path = "Imagens/";
+        String filepath = request.getParameter("filename"); // puxa o diretorio do arquivo do user     
         String nomeprod = request.getParameter("nomeproduto");
         String nomeext = request.getParameter("nomeextenso");
         int estrelas = Integer.parseInt(request.getParameter("estrelas"));
@@ -100,39 +105,47 @@ public class PostProdutos extends HttpServlet {
 //        if (filepath != null) {
         Part filePart = request.getPart("filename"); // Retrieves <input type="file" name="arquivo">
 
-        // Recupara o valor configurado no @WebInitParam acima
-        String diretorio = getInitParameter("diretorioUpload");
+        String teste = filePart + "";
+        teste = teste.substring(10, 11);
+        String nomeArquivo = "";
+        boolean img = true;
 
-        String nomeArquivo = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-        InputStream conteudoArquivo = filePart.getInputStream();
+        if (teste.equals(",")) {
+            img = false;
+        }
 
-        // **** TRATAR O InputStream conforme necessidade
-        // Pega os bytes e salva no disco
-        
-        int a = (nomeArquivo.length() - 4);
-        
-        System.out.println("formato do arquivo: ");
-        
-        nomeArquivo = idprod + "_" + idimg + nomeArquivo.substring(a);
-        
-        Path destino = Paths.get(diretorio + nomeArquivo);
-        Files.copy(conteudoArquivo, destino);
+        if (img) {
 
-        
-        
-        // Mensagens e feedback para usuário:
-        request.setAttribute("msg", "Arquivo carregado com sucesso.");
-        String contextoAcessoUpload = getInitParameter("contextoAcessoUpload");
-        String urlAcessoUpload = contextoAcessoUpload + "/" + nomeArquivo;
-        request.setAttribute("urlAcessoUpload", urlAcessoUpload);
+            // Recupara o valor configurado no @WebInitParam acima
+            String diretorio = getInitParameter("diretorioUpload");
 
+            nomeArquivo = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+            InputStream conteudoArquivo = filePart.getInputStream();
+
+            // **** TRATAR O InputStream conforme necessidade
+            // Pega os bytes e salva no disco
+            int a = (nomeArquivo.length() - 4);
+
+            System.out.println("formato do arquivo: ");
+
+            nomeArquivo = idprod + "_" + idimg + nomeArquivo.substring(a);
+
+            Path destino = Paths.get(diretorio + nomeArquivo);
+            Files.copy(conteudoArquivo, destino);
+
+            // Mensagens e feedback para usuário:
+            request.setAttribute("msg", "Arquivo carregado com sucesso.");
+            String contextoAcessoUpload = getInitParameter("contextoAcessoUpload");
+            String urlAcessoUpload = contextoAcessoUpload + "/" + nomeArquivo;
+            request.setAttribute("urlAcessoUpload", urlAcessoUpload);
+        }
 //        }
         try {
 //            ProdutoDAO.cadProduto(new Produto(id, nomeprod, nomeext, estrelas, stat, quantidade, preco));
             ProdutoDAO.cadProduto(nomeprod, nomeext, estrelas, stat, quantidade, preco);
-
-            ImagemDAO.cadImagem(path + nomeArquivo, idprod, true);
-
+            if (img) {
+                ImagemDAO.cadImagem(path + nomeArquivo, idprod, true);
+            }
             response.sendRedirect("GetProdutos");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);
