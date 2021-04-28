@@ -1,9 +1,3 @@
-create table Cliente(
-id int primary key generated always as identity,
-idusuario int,
-cpf char(11)
-);
-
 create table clienteendereco(
 idusuario int,
 idendereco int
@@ -51,5 +45,6 @@ nome char(200),
 senha char(300),
 status boolean,
 tipocadastro int,
-email char(100)
+email char(100),
+cpf char(11)
 );
