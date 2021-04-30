@@ -90,8 +90,12 @@
         <servlet-class>Servlet.AlterarEndereco</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ExcluirImagem</servlet-name>
-        <servlet-class>Servlet.ExcluirImagem</servlet-class>
+        <servlet-name>GerenciarImagens</servlet-name>
+        <servlet-class>Servlet.GerenciarImagens</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AlterarCapa</servlet-name>
+        <servlet-class>Servlet.AlterarCapa</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GetProdutos</servlet-name>
@@ -173,8 +177,12 @@
         <url-pattern>/AlterarEndereco</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ExcluirImagem</servlet-name>
-        <url-pattern>/ExcluirImagem</url-pattern>
+        <servlet-name>GerenciarImagens</servlet-name>
+        <url-pattern>/GerenciarImagens</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlterarCapa</servlet-name>
+        <url-pattern>/AlterarCapa</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

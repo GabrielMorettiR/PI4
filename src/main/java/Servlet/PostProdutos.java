@@ -126,8 +126,6 @@ public class PostProdutos extends HttpServlet {
             // Pega os bytes e salva no disco
             int a = (nomeArquivo.length() - 4);
 
-            System.out.println("formato do arquivo: ");
-
             nomeArquivo = idprod + "_" + idimg + nomeArquivo.substring(a);
 
             Path destino = Paths.get(diretorio + nomeArquivo);
@@ -144,7 +142,7 @@ public class PostProdutos extends HttpServlet {
 //            ProdutoDAO.cadProduto(new Produto(id, nomeprod, nomeext, estrelas, stat, quantidade, preco));
             ProdutoDAO.cadProduto(nomeprod, nomeext, estrelas, stat, quantidade, preco);
             if (img) {
-                ImagemDAO.cadImagem(path + nomeArquivo, idprod, true);
+                ImagemDAO.cadImagem(path + nomeArquivo, idprod, true, true);
             }
             response.sendRedirect("GetProdutos");
         } catch (ClassNotFoundException | SQLException ex) {

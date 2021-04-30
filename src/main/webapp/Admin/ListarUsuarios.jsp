@@ -39,7 +39,16 @@
                                 <tr>
                                     <td>${usuarios.nome}</td>
                                     <td>${usuarios.email}</td>
-                                    <td>${usuarios.status}</td>
+                                    <td>${usuarios.status}
+                                    <%
+
+                                        Object status = request.getAttribute("usuarios.status");
+
+                                        boolean stat = Boolean.parseBoolean(status + "");
+                                        out.write(stat + "");
+
+                                    %>
+                                    </td>
                                     <td>${usuarios.tipoCadastro}</td>
                                     <td><a class="editar" href="EditarUsuario?id=${usuarios.id}">Editar</a></td>
                                     <td>

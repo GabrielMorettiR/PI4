@@ -26,9 +26,7 @@ public class ProdutoSelecionado extends HttpServlet {
         Produto p = ProdutoDAO.getProduto(id);
         
         Imagem capa = ImagemDAO.getCapa(id);
-        List<Imagem> imgs = ImagemDAO.getProdImagens(id);
-        
-        System.out.println("QTD IMAGENS: " + imgs.size());
+        List<Imagem> imgs = ImagemDAO.getImgByProd(id, 0);
         
         request.setAttribute("produto", p);
         request.setAttribute("capa", capa);

@@ -37,7 +37,6 @@ public class AlterarEndereco extends HttpServlet {
         HttpSession sessao = request.getSession();
         Usuario u = (Usuario) sessao.getAttribute("usuario");
         Endereco end = EnderecoDAO.getEnderecoById(id);
-        System.out.println(u.getId());
         boolean status = end.isStatus();
         if (status) {
             request.setAttribute("status", "Ativo");

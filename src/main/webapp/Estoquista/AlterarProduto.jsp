@@ -81,31 +81,16 @@
 
                         <div class="row">
                             <div class="col-lg-12">
+                                <a href="GerenciarImagens?id=${produto.id}" class="submit lightgreen">Gerenciar Imagens</a>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
                                 <button type="submit" class="submit">Alterar</button>
                             </div>
                         </div>
                     </form>
-<!--                    <div class="row">
-                        <c:if test="${capa.dir=='(unknown)'}">
-                            <form action="ExcluirImagem" method="POST">
-                                <input type="hidden" name="id" value="${capa.id}" />
-                                <div class="col-lg-3 capa">
-                                    <p>Capa</p>
-                                    <button type="submit"><img class="imagensLista" src="${capa.dir}" style="padding-top: 1%" alt=""></button>
-                                </div>
-                            </form>
-                        </c:if>
-
-
-                        <c:forEach var="imagem" items="${imagem}">
-                            <form action="ExcluirImagem" method="POST">
-                                <input type="hidden" name="id" value="${imagem.id}" />
-                                <div class="col-lg-3 capa">
-                                    <button type="submit"><img class="imagensLista" src="${imagem.dir}" style="padding-top: 1%" alt=""></button>
-                                </div>
-                            </form>
-                        </c:forEach>
-                    </div>-->
                 </div>
             </div>
         </div>

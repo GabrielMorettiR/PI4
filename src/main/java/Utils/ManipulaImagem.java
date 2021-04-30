@@ -25,11 +25,8 @@ public class ManipulaImagem {
         Graphics2D g2d = null;;
         String filename = idprod + "_" + idimg;
         BufferedImage image = null;
-        File oldfile = new File(path);        
+        File oldfile = new File(path);
 
-        System.out.println("nomeImagem " + filename);
-
-        System.out.println(path + " aaaa " + "meudeus" + " AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         String arquivo = idprod + "_" + idimg; // cria nome pro arquivo do sistema
 
         /*AVISO - PASTA PODE MUDAR DEPENDENDO DE ONDE ESTÁ O SEU PROJETO NO SEU PC

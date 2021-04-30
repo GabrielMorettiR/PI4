@@ -45,14 +45,6 @@ public class AlterarProduto extends HttpServlet {
 
         int id = Integer.parseInt(request.getParameter("id"));
 
-        Imagem capa = ImagemDAO.getCapa(id);
-        request.setAttribute("capa", capa);
-
-        List<Imagem> imgs = ImagemDAO.getProdImagens(id);
-        request.setAttribute("imagem", imgs);
-
-        System.out.println(imgs.size());
-
         Produto p = ProdutoDAO.getProduto(id);
         request.setAttribute("produto", p);
 
@@ -62,17 +54,9 @@ public class AlterarProduto extends HttpServlet {
             request.setAttribute("status", "Inativo");
         }
 
-        boolean ver = Boolean.valueOf(request.getParameter("ver"));
-
-        if (!ver) {
-            RequestDispatcher rd = getServletContext()
-                    .getRequestDispatcher("/Estoquista/AlterarProduto.jsp");
-            rd.forward(request, response);
-        } else {
-            RequestDispatcher rd = getServletContext()
-                    .getRequestDispatcher("/VerProduto.jsp");
-            rd.forward(request, response);
-        }
+        RequestDispatcher rd = getServletContext()
+                .getRequestDispatcher("/Estoquista/AlterarProduto.jsp");
+        rd.forward(request, response);
     }
 
     @Override
@@ -94,7 +78,7 @@ public class AlterarProduto extends HttpServlet {
         if (strCapa == null) {
             capa = false;
         }
-        
+
         int quantidade = Integer.parseInt(request.getParameter("qtd"));
         double preco = Double.parseDouble(request.getParameter("preco"));
         Produto p = new Produto(id, nomeprod, nomeext, estrelas, stat, quantidade, preco);
@@ -132,8 +116,6 @@ public class AlterarProduto extends HttpServlet {
             // Pega os bytes e salva no disco
             int a = (nomeArquivo.length() - 4);
 
-            System.out.println("formato do arquivo: ");
-
             nomeArquivo = idprod + "_" + idimg + nomeArquivo.substring(a);
 
             Path destino = Paths.get(diretorio + nomeArquivo);
@@ -149,7 +131,7 @@ public class AlterarProduto extends HttpServlet {
         try {
             ProdutoDAO.updateProduto(p);
             if (img) {
-                ImagemDAO.cadImagem(path + nomeArquivo, idprod, capa);
+                ImagemDAO.cadImagem(path + nomeArquivo, idprod, capa, true);
             }
 
             response.sendRedirect("GetProdutos?sucesso=true");

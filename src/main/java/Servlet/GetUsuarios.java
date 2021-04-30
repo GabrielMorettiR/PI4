@@ -28,9 +28,7 @@ public class GetUsuarios extends HttpServlet {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         
         HttpSession sessao = httpRequest.getSession();
-        
-        sessao.setAttribute("Camada", 2);
-        
+                
         RequestDispatcher rd = getServletContext()
                 .getRequestDispatcher("/Admin/ListarUsuarios.jsp");
         rd.forward(request, response);

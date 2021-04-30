@@ -37,10 +37,6 @@ public class AlterarDados extends HttpServlet {
         Usuario u = ClienteDAO.getCliente(id);
         List<Endereco> enderecos = EnderecoDAO.getEndereco(u.getId());
 
-        for (int i = 0; i < enderecos.size(); i++) {
-            System.out.println(enderecos.get(i));
-        }
-
         request.setAttribute("usuario", u);
         request.setAttribute("enderecos", enderecos);
 

@@ -9,9 +9,6 @@ import DAOs.ImagemDAO;
 import Entidades.Imagem;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,17 +18,19 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Gabriel
  */
-public class ExcluirImagem extends HttpServlet {
-    
+public class AlterarCapa extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int id = Integer.parseInt(request.getParameter("id"));
-        System.out.println("id " + id);
-        Imagem i = ImagemDAO.getImgById(id);
-        System.out.println(i.getDir());
-        ImagemDAO.deleteImg(i);
-        response.sendRedirect("GetProdutos");
+        int a = Integer.parseInt(request.getParameter("idimg"));
+        int idproduto = Integer.parseInt(request.getParameter("idprod"));
+        
+        Imagem i = ImagemDAO.getImgById(a);
+        
+        ImagemDAO.toggleCapa(i);
+        
+        response.sendRedirect("GerenciarImagens?id=" + idproduto);
     }
+    
 }

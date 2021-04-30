@@ -97,7 +97,7 @@
                 </li>
             </ul>
 
-            <c:if test="${sessionScope.usuario.admin}">
+            <c:if test="${1 > 2}">
                 <ul class="navbar-nav px-3">
                     <li class="nav-item">
                         <div class="select">

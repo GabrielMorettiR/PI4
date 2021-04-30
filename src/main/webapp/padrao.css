@@ -171,6 +171,15 @@ thead .sorting{
     border: 2px solid #18e1a5;
     color: #18e1a5;
 }
+.red{
+    background-color: #ff6666 !important;
+    border: 2px solid #ff6666;
+}
+.red:hover{
+    background-color: white !important;
+    border: 2px solid #ff6666;
+    color: #ff6666;
+}
 .submit disabled{
     background-color: #dddddd;
     color: #999;
