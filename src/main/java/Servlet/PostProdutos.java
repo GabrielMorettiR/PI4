@@ -144,10 +144,9 @@ public class PostProdutos extends HttpServlet {
             if (img) {
                 ImagemDAO.cadImagem(path + nomeArquivo, idprod, true, true);
             }
-            response.sendRedirect("GetProdutos");
+            response.sendRedirect("GetProdutos?msg=100");
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);
-
+            response.sendRedirect("GetProdutos?msg=101");
         }
     }
 }

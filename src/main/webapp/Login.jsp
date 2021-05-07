@@ -108,7 +108,7 @@
 
                 </div>
             </div>
-            <footer class="footer">
+            <footer class="footerPers">
                 2021 <i class="fas fa-copyright"></i> &nbsp;Nerdolas.Store
                 <i class="fas fa-code"></i> &nbsp;Bruno de Marzio  &nbsp;
                 <i class="fas fa-code"></i> &nbsp;Gabriel Moretti  &nbsp;

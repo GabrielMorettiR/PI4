@@ -28,6 +28,12 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
         <style>
+            .navbar{
+
+            }
+            .navbar-brand{
+                font-size: 22px;
+            }
             .infoSessao{
                 color:white;
             }
@@ -42,6 +48,7 @@
                 color: white;
                 border-radius: 5px;
                 transition-duration: 0.2s;
+                font-size: 16px;
             }
             .botao:hover{
                 background-color: white;
@@ -147,27 +154,36 @@
                             <a class="selectbtn" href="AlterarDados?id=${sessionScope.usuario.id}">Alterar dados</a>
                         </div>
                     </li>
+                    <li class="nav-item">
+                        <div class="select">
+                            <a class="selectbtn" href="Carrinho"><i class="fas fa-shopping-cart"></i></a>
+                        </div>
+                    </li>
                 </ul>
             </c:if>
 
             <ul class="navbar-nav px-3">
-                <li class="nav-item">
-                    <a class="botao botao-login" href="Login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="botao botao-logout" href="Logout">Sair</a>
-                </li>
-            </ul>
+                <% if (usuario == null) {
+                        out.write("<li class='nav-item'><a class='botao botao-login' href='Login'> Login </a></li>");
+                    } else {
+                        out.write("<li class='nav-item'><a class='botao botao-logout' href='Logout'>Sair</a></li>");
+                    }
 
-            <footer class="footer">
-                2021 <i class="fas fa-copyright"></i> &nbsp;Nerdolas.Store &nbsp;
-                <i class="fas fa-code"></i> &nbsp;Bruno de Marzio  &nbsp;
-                <i class="fas fa-code"></i> &nbsp;Gabriel Moretti  &nbsp;
-                <i class="fas fa-code"></i> &nbsp;Ivan Takano  &nbsp;
-                <i class="fas fa-code"></i> &nbsp;Lucas Santiago 
-            </footer>
+                %>
+
+
+            </ul>
         </div>
     </nav>
+
+    <footer class="footerPers">
+        2021 <i class="fas fa-copyright"></i> &nbsp;Nerdolas.Store &nbsp;
+        <i class="fas fa-code"></i> &nbsp;Bruno de Marzio  &nbsp;
+        <i class="fas fa-code"></i> &nbsp;Gabriel Moretti  &nbsp;
+        <i class="fas fa-code"></i> &nbsp;Ivan Takano  &nbsp;
+        <i class="fas fa-code"></i> &nbsp;Lucas Santiago 
+    </footer>
+
     <div id="aviso" class="aviso" style="display: none">
         <div id="modalAv" class="modal-aviso">
             <h3 id="avisoTitulo" align="left">Titulo</h3>
@@ -187,16 +203,76 @@
         function checkMsg(msg) {
             var num = parseInt(msg);
             var aviso = document.getElementById('aviso');
+            var modalAv = document.getElementById('modalAv');
             aviso.style.display = 'block';
             var titulo = document.getElementById('avisoTitulo');
             var desc = document.getElementById('avisoDescricao');
-            switch (num) {
+            
+        if(num%2 == 0){
+            modalAv.style.backgroundColor = '#18e1a5';
+        } else {
+            modalAv.style.backgroundColor = '#ff6666';
+        }
+        
+        switch (num) {
                 case 0:
                     break;
+                case 100:
+                    titulo.textContent = 'Sucesso';
+                    desc.textContent = 'Produto cadastrado';
+                    break;
+                case 101:
+                    titulo.textContent = 'Erro';
+                    desc.textContent = 'Erro ao cadastrar produto';
+                    break;
+                case 200:
+                    titulo.textContent = 'Sucesso';
+                    desc.textContent = 'Usuário cadastrado';
+                    break;
+                case 201:
+                    titulo.textContent = 'Erro';
+                    desc.textContent = 'Erro ao cadastrar usuário';
+                    break;
+                case 300:
+                    titulo.textContent = 'Sucesso';
+                    desc.textContent = 'Cadastro realizado com sucesso';
+                    break;
+                case 301:
+                    titulo.textContent = 'Erro';
+                    desc.textContent = 'Erro ao realizar cadastro';
+                    break;
+                case 302:
+                    titulo.textContent = 'Sucesso';
+                    desc.textContent = 'Dados alterados';
+                    break;
+                case 303:
+                    titulo.textContent = 'Erro';
+                    desc.textContent = 'Erro ao alterar dados';
+                    break;
+                case 304:
+                    titulo.textContent = 'Sucesso';
+                    desc.textContent = 'Endereço cadastrado';
+                    break;
+                case 305:
+                    titulo.textContent = 'Erro';
+                    desc.textContent = 'Erro ao cadastrar endereço';
+                    break;
+                case 306:
+                    titulo.textContent = 'Sucesso';
+                    desc.textContent = 'Endereço alterado';
+                    break;
+                case 307:
+                    titulo.textContent = 'Erro';
+                    desc.textContent = 'Erro ao alterar endereço';
+                    break;
+                case 308:
+                    titulo.textContent = 'Erro';
+                    desc.textContent = 'As senhas devem ser iguais';
+                    break;
                 case 900:
-
                     titulo.textContent = 'Erro';
                     desc.textContent = 'Email já cadastrado';
+                    break;
                 case 1000:
 
                     break;

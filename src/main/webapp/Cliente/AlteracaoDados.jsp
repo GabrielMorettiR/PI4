@@ -65,7 +65,7 @@
 
         </script>    
 
-        <title>JSP Page</title>
+        <title>Dados do Cliente</title>
     </head>
     <body>
         <%@include file="/Utils/Menu_inc.jsp" %>
@@ -77,6 +77,7 @@
                 </div>
                 <div id="main" class="container" align="center">
                     <form action="AlterarDados" method="POST">
+                        <input class="input_form" name="idusuario" value="${usuario.id}" hidden>
                         <div class="row">
                             <div class="col-lg-12">
                                 <p class="p_form">Nome Completo</p>
@@ -90,9 +91,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <p class="p_form">Alterar Senha</p>
-                                <input type="password" class="input_form" name="senha" value="${usuario.senha}">
+                                <input id="senha" type="password" class="input_form" name="senha" value="">
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="p_form">Confirmar Senha</p>
+                                <input id="confSenha" type="password" class="input_form" name="confSenha" value="">
                             </div>
                         </div>
                         <div class="row">
@@ -104,7 +109,7 @@
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <button type="submit" class="submit">Alterar</button>
+                                <button id="submit" type="submit" class="submit">Alterar</button>
                             </div>
                         </div>
 

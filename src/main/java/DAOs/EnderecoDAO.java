@@ -30,6 +30,8 @@ public class EnderecoDAO {
         try {
             ps = con.prepareStatement(query);
 
+            System.out.println(idCliente);
+            
             ps.setInt(1, idCliente);
             ps.setInt(2, idEndereco);
 
@@ -42,7 +44,7 @@ public class EnderecoDAO {
     public static void cadEndereco(Endereco e) throws ClassNotFoundException, SQLException {
 
         Connection con = ConexaoBD.getConexao();
-        String query = "insert into endereco(titulo, cep, logradouro, numero, complemento, bairro, cidade, uf) values (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "insert into endereco(titulo, cep, logradouro, numero, complemento, bairro, cidade, uf, status) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(query);
@@ -55,6 +57,7 @@ public class EnderecoDAO {
             ps.setString(6, e.getBairro());
             ps.setString(7, e.getCidade());
             ps.setString(8, e.getUf());
+            ps.setBoolean(9, e.isStatus());
 
             ps.execute();
         } catch (SQLException ex) {
@@ -167,6 +170,6 @@ public class EnderecoDAO {
         if (rs.next()) {
             prox = rs.getInt("id");
         }
-        return prox + 1;
+        return prox;
     }
 }

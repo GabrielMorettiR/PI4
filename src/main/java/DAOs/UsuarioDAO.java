@@ -25,7 +25,7 @@ public class UsuarioDAO {
     public static void cadUsuario(Usuario u) throws ClassNotFoundException, SQLException {
 
         Connection con = ConexaoBD.getConexao();
-        String query = "insert into usuario(nome, senha, status, tipocadastro, email) values (?,?,?,?,?)";
+        String query = "insert into usuario(nome, senha, status, tipocadastro, email, cpf) values (?,?,?,?,?,?)";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(query);
@@ -35,6 +35,7 @@ public class UsuarioDAO {
             ps.setBoolean(3, u.isStatus());
             ps.setInt(4, u.getTipoCadastro());
             ps.setString(5, u.getEmail());
+            ps.setString(6, u.getCpf());
 
             ps.execute();
         } catch (SQLException ex) {
@@ -84,13 +85,14 @@ public class UsuarioDAO {
                 u.setSenha(rs.getString("senha"));
                 u.setTipoCadastro(rs.getInt("tipoCadastro"));
                 u.setEmail(rs.getString("email"));
+                u.setCpf(rs.getString("cpf"));
             }
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return u;
     }
-    
+
     public static Usuario getUsuario(String email) {
 
         Usuario u = new Usuario();
@@ -101,7 +103,7 @@ public class UsuarioDAO {
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setString(1, email);
-            
+
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -110,7 +112,7 @@ public class UsuarioDAO {
                 u.setSenha(rs.getString("senha"));
                 u.setTipoCadastro(rs.getInt("tipoCadastro"));
                 u.setEmail(email);
-            } else{
+            } else {
                 return null;
             }
         } catch (SQLException | ClassNotFoundException ex) {
@@ -118,25 +120,45 @@ public class UsuarioDAO {
         }
         return u;
     }
-    
+
     public static void updateClienteDados(Usuario p) throws ClassNotFoundException, SQLException {
         Connection con = ConexaoBD.getConexao();
 
-        String query = "update usuario set nome = ? where id = ?";
+        String senha = "";
 
+        if (!"".equals(p.getSenha())) {
+            senha = ", senha = ?";
+        }
+        
+        String query = "update usuario set nome = ?" + senha + " where id = ?";
+
+        
+        
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(query);
 
+            System.out.println(query);
+            
             ps.setString(1, p.getNome());
-            ps.setInt(2, p.getId());
+            
+            if (!"".equals(p.getSenha())) {
+                
+                System.out.println(p.getSenha());
+                System.out.println(p.getId());
+                ps.setString(2, p.getSenha());
+                ps.setInt(3, p.getId());
+            } else{
+                System.out.println("entrou no else errado");
+                ps.setInt(2, p.getId());
+            }
 
             ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static void updateUsuario(Usuario p) throws ClassNotFoundException, SQLException {
         Connection con = ConexaoBD.getConexao();
 
@@ -173,7 +195,7 @@ public class UsuarioDAO {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static int nextId() throws ClassNotFoundException, SQLException {
         Connection con = ConexaoBD.getConexao();
         String query = "select id from usuario order by id desc fetch first row only";
@@ -187,6 +209,6 @@ public class UsuarioDAO {
         if (rs.next()) {
             prox = rs.getInt("id");
         }
-        return prox + 1;
+        return prox;
     }
 }

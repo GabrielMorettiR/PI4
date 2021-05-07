@@ -5,10 +5,8 @@
  */
 package Servlet;
 
-import DAOs.UsuarioDAO;
-import Entidades.Usuario;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,32 +18,24 @@ import javax.servlet.http.HttpSession;
  *
  * @author Gabriel
  */
-public class Login extends HttpServlet {
+public class Carrinho extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        session.invalidate();
-        response.sendRedirect("Login.jsp");
+
+         HttpSession sessao = request.getSession();
+         sessao.getAttribute("carrinho");
+        
+        RequestDispatcher rd = getServletContext()
+                .getRequestDispatcher("/Cliente/Carrinho.jsp");
+        rd.forward(request, response);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String login = request.getParameter("login");
-        String senha = request.getParameter("senha");
-
-        Usuario usuario = UsuarioDAO.getUsuario(login);
-
-        if (usuario != null && usuario.validar(senha)) {
-            HttpSession sessao = request.getSession();
-            sessao.setAttribute("usuario", usuario);
-            response.sendRedirect("Principal");
-        } else {
-            response.sendRedirect("Login.jsp?msg=0");
-        }
-
     }
+
 }

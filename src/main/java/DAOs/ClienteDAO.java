@@ -97,13 +97,14 @@ public class ClienteDAO {
     public static void updateCliente(Usuario u) throws ClassNotFoundException, SQLException {
 
         Connection con = ConexaoBD.getConexao();
-        String query = "update usuario set nome = ? where id = ?";
+        String query = "update usuario set nome = ?, senha = ? where id = ?";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(query);
 
             ps.setString(1, u.getNome());
             ps.setString(2, u.getSenha());
+            ps.setInt(3, u.getId());
 
             ps.execute();
         } catch (SQLException ex) {

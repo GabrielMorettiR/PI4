@@ -32,10 +32,9 @@ public class AlterarUsuario extends HttpServlet {
         p.setTipoCadastro(tipo);
         try {
             UsuarioDAO.updateUsuario(p);
-            response.sendRedirect("GetUsuarios?sucesso=true");
-
+            response.sendRedirect("GetUsuarios?msg=300");
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendRedirect("GetUsuarios?msg=301");
         }
     }
 }

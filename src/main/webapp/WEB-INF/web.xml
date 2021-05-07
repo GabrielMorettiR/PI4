@@ -97,6 +97,10 @@
         <servlet-name>AlterarCapa</servlet-name>
         <servlet-class>Servlet.AlterarCapa</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Carrinho</servlet-name>
+        <servlet-class>Servlet.Carrinho</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetProdutos</servlet-name>
         <url-pattern>/GetProdutos</url-pattern>
@@ -183,6 +187,10 @@
     <servlet-mapping>
         <servlet-name>AlterarCapa</servlet-name>
         <url-pattern>/AlterarCapa</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Carrinho</servlet-name>
+        <url-pattern>/Carrinho</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

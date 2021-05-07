@@ -6,6 +6,7 @@
 package Entidades;
 
 
+import DAOs.TipoUsuarioDAO;
 import lombok.Getter;
 import lombok.Setter;
 

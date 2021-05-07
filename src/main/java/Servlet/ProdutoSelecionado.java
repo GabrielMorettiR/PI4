@@ -29,7 +29,6 @@ public class ProdutoSelecionado extends HttpServlet {
         List<Imagem> imgs = ImagemDAO.getImgByProd(id, 0);
         
         request.setAttribute("produto", p);
-        request.setAttribute("capa", capa);
         request.setAttribute("imagens", imgs);
         request.setAttribute("estrelas", p.getEstrelas());
 

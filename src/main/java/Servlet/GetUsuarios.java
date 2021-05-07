@@ -23,12 +23,7 @@ public class GetUsuarios extends HttpServlet {
 
         List<Usuario> usuarios = UsuarioDAO.getUsuarios();
         request.setAttribute("GetUsuarios", usuarios);
-
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        HttpServletResponse httpResponse = (HttpServletResponse) response;
-        
-        HttpSession sessao = httpRequest.getSession();
-                
+                        
         RequestDispatcher rd = getServletContext()
                 .getRequestDispatcher("/Admin/ListarUsuarios.jsp");
         rd.forward(request, response);

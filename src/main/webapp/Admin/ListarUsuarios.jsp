@@ -39,17 +39,32 @@
                                 <tr>
                                     <td>${usuarios.nome}</td>
                                     <td>${usuarios.email}</td>
-                                    <td>${usuarios.status}
-                                    <%
-
-                                        Object status = request.getAttribute("usuarios.status");
-
-                                        boolean stat = Boolean.parseBoolean(status + "");
-                                        out.write(stat + "");
-
-                                    %>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${usuarios.status}">
+                                                Ativo
+                                            </c:when>
+                                            <c:otherwise>
+                                                Inativo
+                                            </c:otherwise>
+                                        </c:choose>
                                     </td>
-                                    <td>${usuarios.tipoCadastro}</td>
+                                    <td> 
+                                        <c:choose>
+                                            <c:when test="${usuarios.tipoCadastro == 1}">
+                                                <%
+                                                    TipoUsuario tu1 = TipoUsuarioDAO.getTipoUsuario(1);
+                                                    out.write(tu1.getTitulo());
+                                                %>
+                                            </c:when>
+                                            <c:when test="${usuarios.tipoCadastro == 2}">
+                                                <%
+                                                    TipoUsuario tu2 = TipoUsuarioDAO.getTipoUsuario(2);
+                                                    out.write(tu2.getTitulo());
+                                                %>
+                                            </c:when>
+                                        </c:choose>
+                                    </td>
                                     <td><a class="editar" href="EditarUsuario?id=${usuarios.id}">Editar</a></td>
                                     <td>
                                         <form action="ToggleUsuario" method="POST">

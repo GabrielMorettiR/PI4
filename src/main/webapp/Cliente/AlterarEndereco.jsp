@@ -130,6 +130,12 @@
                         <input name="id" value="${endereco.id}" hidden>
                         <input name="idcliente" value="${idcliente}" hidden>
                         <div class="row">
+                            <div class="col-lg-12">
+                                <p class="p_form">Título </p>
+                                <input name="titulo" id="tituloEndereco" class="input_form" value="${endereco.titulo}" placeholder="Digite aqui um nome para reconhecer o endereço">
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-lg-4">
                                 <p class="p_form">CEP </p>
                                 <input name="cep" id="cep" class="input_form" value="${endereco.cep}" required>

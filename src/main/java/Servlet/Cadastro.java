@@ -34,8 +34,8 @@ public class Cadastro extends HttpServlet {
         String nome = request.getParameter("nome");
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
-
         String cpf = request.getParameter("cpf");
+
         String cep = request.getParameter("cep");
         String logradouro = request.getParameter("rua");
         String complemento = request.getParameter("complemento");
@@ -43,16 +43,11 @@ public class Cadastro extends HttpServlet {
         String bairro = request.getParameter("bairro");
         String cidade = request.getParameter("cidade");
         String uf = request.getParameter("uf");
-        
+
         Usuario u = null;
         Endereco e = new Endereco(cep, logradouro, numero, complemento, bairro, cidade, uf, true);
-        try {
-            u = new Usuario();
-            u.setId(UsuarioDAO.nextId());
-            u.setCpf(cpf);
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        u = new Usuario();
+        u.setCpf(cpf);
         u.setNome(nome);
         u.setSenha(u.criptografar(senha));
         u.setStatus(true);
@@ -62,20 +57,26 @@ public class Cadastro extends HttpServlet {
         List<Usuario> usuarios = UsuarioDAO.getUsuarios();
 
         for (int i = 0; i < usuarios.size(); i++) {
+            
             Usuario user = usuarios.get(i);
+            
             if (email.equals(user.getEmail())) {
                 response.sendRedirect("Cadastro.jsp?msg=900");
+                return;
+            } else if (cpf.equals(user.getCpf())){
+                response.sendRedirect("Cadastro.jsp?msg=901");
                 return;
             }
         }
 
         try {
-            EnderecoDAO.vinculaEndereco(ClienteDAO.nextId(), EnderecoDAO.nextId());
             UsuarioDAO.cadUsuario(u);
             EnderecoDAO.cadEndereco(e);
-            response.sendRedirect("Principal?msg=1");
+            EnderecoDAO.vinculaEndereco(UsuarioDAO.nextId(), EnderecoDAO.nextId());
+            response.sendRedirect("Principal?msg=200");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(PostProdutos.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendRedirect("Cadastro.jsp?msg=201");
         }
     }
 }

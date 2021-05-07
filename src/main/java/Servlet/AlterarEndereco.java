@@ -5,7 +5,6 @@
  */
 package Servlet;
 
-import DAOs.ClienteDAO;
 import DAOs.EnderecoDAO;
 import DAOs.UsuarioDAO;
 import Entidades.Endereco;
@@ -58,6 +57,7 @@ public class AlterarEndereco extends HttpServlet {
 
         int id = Integer.parseInt(request.getParameter("id"));
         int idCliente = Integer.parseInt(request.getParameter("idcliente"));
+        String titulo = request.getParameter("titulo");
         String cep = request.getParameter("cep");
         String rua = request.getParameter("rua");
         int numero = Integer.parseInt(request.getParameter("numero"));
@@ -65,9 +65,15 @@ public class AlterarEndereco extends HttpServlet {
         String bairro = request.getParameter("bairro");
         String cidade = request.getParameter("cidade");
         String uf = request.getParameter("uf");
-        boolean status = Boolean.parseBoolean(request.getParameter("status"));
+        String status = request.getParameter("status");
 
-        Endereco e = new Endereco(cep, rua, numero, comp, bairro, cidade, uf, status);
+        boolean stat = true;
+        if (status == null) {
+            stat = false;
+        }
+        
+        Endereco e = new Endereco(cep, rua, numero, comp, bairro, cidade, uf, stat);
+        e.setTitulo(titulo);
         e.setId(id);
 
         try {
@@ -77,9 +83,23 @@ public class AlterarEndereco extends HttpServlet {
                 EnderecoDAO.cadEndereco(e);
                 EnderecoDAO.vinculaEndereco(idCliente, EnderecoDAO.nextId());
             }
-
+            
+            
+            int msg = 0;
+            if (id > 0) {
+                msg = 306;
+            } else {
+                msg = 304;
+            }
+            response.sendRedirect("AlterarDados?msg=" + msg + "&id=" + idCliente);
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(AlterarEndereco.class.getName()).log(Level.SEVERE, null, ex);
+            int msg = 0;
+            if (id > 0) {
+                msg = 307;
+            } else {
+                msg = 305;
+            }
+            response.sendRedirect("AlterarDados?msg=" + msg + "&id=" + idCliente);
         }
 
     }

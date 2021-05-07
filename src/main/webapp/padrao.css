@@ -14,6 +14,7 @@ a:hover{
 }
 h1, h2{
     font-family: 'Nunito', sans-serif;
+    text-align: center;
 }
 .p_form{
     font-family: 'Nunito', sans-serif;
@@ -32,6 +33,7 @@ h1, h2{
     border: 1px solid #bbb;
     border-radius: 5px;
     font-family: 'Arvo', serif;
+    font-size: 16px;
 }
 #main{
     width: 80%;
@@ -138,6 +140,7 @@ thead .sorting{
     transition-duration: 0.2s;
     width: 100%;
     text-align: center;
+    font-size: 16px;
 }
 .submit:hover{
     background-color: white;
@@ -185,16 +188,19 @@ thead .sorting{
     color: #999;
     border: #333;
 }
-.footer{
+.footerPers{
     font-family: 'K2D', sans-serif;
     text-align: center;
     padding: 20px;
     width: 100%;
-    background-color: #a6cbf3;
+    background-color: #a6cbf3 !important;
     position: fixed;
     bottom:0;
     left:0;
     box-shadow: 0 0 5px 2px #999;
+    color: black;
+    font-size: 14px;
+    z-index: 99;
 }
 #tabContainer{
     background-color: white;
@@ -247,6 +253,7 @@ thead .sorting{
 .titulo{
     margin: 20px 0 10px 0;
     width: 60%;
+    font-size: 28px;
 }
 .disabled{
     background-color: #eee;
@@ -283,7 +290,9 @@ thead .sorting{
     padding: 40px 0 40px 0;
 }
 .img-produto{
-    width: 250px;
+    width: 60%;
+    max-width: 300px;
+    min-width: 150px;
 }
 .excluir{
     background-color: red;
