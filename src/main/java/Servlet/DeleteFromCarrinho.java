@@ -22,15 +22,14 @@ import javax.servlet.http.HttpSession;
  *
  * @author Gabriel
  */
-public class DownQuantidadeProduto extends HttpServlet {
+public class DeleteFromCarrinho extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String redirect = ConfigCarrinho.diminuiQuantidade(request, response);
         
+        String redirect = ConfigCarrinho.deleteFrom(request, response);
+
         response.sendRedirect(redirect);
     }
-
 }

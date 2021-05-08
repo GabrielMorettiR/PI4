@@ -109,6 +109,10 @@
         <servlet-name>UpQuantidadeProduto</servlet-name>
         <servlet-class>Servlet.UpQuantidadeProduto</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteFromCarrinho</servlet-name>
+        <servlet-class>Servlet.DeleteFromCarrinho</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetProdutos</servlet-name>
         <url-pattern>/GetProdutos</url-pattern>
@@ -207,6 +211,10 @@
     <servlet-mapping>
         <servlet-name>UpQuantidadeProduto</servlet-name>
         <url-pattern>/UpQuantidadeProduto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteFromCarrinho</servlet-name>
+        <url-pattern>/DeleteFromCarrinho</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

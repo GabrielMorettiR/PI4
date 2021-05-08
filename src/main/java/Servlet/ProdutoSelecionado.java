@@ -4,6 +4,7 @@ import DAOs.ImagemDAO;
 import DAOs.ProdutoDAO;
 import Entidades.Imagem;
 import Entidades.Produto;
+import Utils.ConfigCarrinho;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,37 +47,7 @@ public class ProdutoSelecionado extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession sessao = request.getSession();
-        Object teste = sessao.getAttribute("carrinho");
-
-        Produto p = ProdutoDAO.getProduto(Integer.parseInt(request.getParameter("id")));
-
-        Map<Integer, Produto> carrinho = new HashMap<>();
-
-        if (teste == null) {
-            sessao.setAttribute("carrinho", carrinho);
-        } else {
-            carrinho = (Map<Integer, Produto>) sessao.getAttribute("carrinho");
-        }
-
-        if (carrinho.containsKey(p.getId())) {
-            Produto prod = carrinho.get(p.getId());
-            prod.setQuantidade(prod.getQuantidade() + 1);
-            carrinho.replace(p.getId(), prod);
-        } else {
-            p.setQuantidade(1);
-            carrinho.put(p.getId(), p);
-        }
-
-        if (carrinho.size() > 0) {
-            int size = 0;
-            for (Map.Entry<Integer, Produto> entry : carrinho.entrySet()) {
-                size = size + entry.getValue().getQuantidade();
-                System.out.println(entry.getValue().getQuantidade());
-            }
-            sessao.setAttribute("produtos", size);
-        }
-
+        ConfigCarrinho.addProduto(request, response);
         response.sendRedirect("Carrinho");
     }
 }

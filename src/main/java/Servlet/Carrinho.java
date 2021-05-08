@@ -5,12 +5,9 @@
  */
 package Servlet;
 
-import DAOs.ProdutoDAO;
+import DAOs.CarrinhoDAO;
 import Entidades.Produto;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,11 +26,21 @@ public class Carrinho extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-         HttpSession sessao = request.getSession();
-         Map<Integer, Produto> carrinho = (Map<Integer, Produto>)sessao.getAttribute("carrinho");
-         
-         request.setAttribute("carrinho", carrinho);
-         
+        HttpSession sessao = request.getSession();
+        Map<Integer, Produto> carrinho = (Map<Integer, Produto>) sessao.getAttribute("carrinho");
+        double frete = CarrinhoDAO.getFrete();
+        Object subtotal = sessao.getAttribute("subtotal");
+        double total = 0;
+        
+        
+        if(subtotal != null){
+            total = Double.parseDouble(subtotal.toString()) + frete;
+        }
+
+        request.setAttribute("frete", frete);
+        request.setAttribute("total", total);
+        request.setAttribute("carrinho", carrinho);
+
         RequestDispatcher rd = getServletContext()
                 .getRequestDispatcher("/Carrinho.jsp");
         rd.forward(request, response);

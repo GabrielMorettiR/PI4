@@ -11,7 +11,9 @@ package DAOs;
  */
 public class CarrinhoDAO {
     
-    public void addProduto(){
+    public static double getFrete(){
+        
+        return 11.90;
         
     }
     

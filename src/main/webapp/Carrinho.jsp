@@ -33,6 +33,9 @@
                 border: 2px solid #007bff;
                 color: #007bff;
             }
+            .trash{
+                width: 40px !important;
+            }
         </style>
     </head>
     <body>
@@ -60,7 +63,7 @@
                                     <li>
                                         <form method="POST" action="DownQuantidadeProduto">
                                             <input hidden name="id" value="${produto.key}"/>
-                                            <button class="setquantidade"><</button>
+                                            <button class="setquantidade"><i class="fas fa-minus" title="diminuir quantidade"></i></button>
                                         </form>
                                     </li>
                                     <li>
@@ -70,14 +73,64 @@
                                     <li>
                                         <form method="POST" action="UpQuantidadeProduto">
                                             <input hidden name="id" value="${produto.key}"/>
-                                            <button class="setquantidade">></button>
+                                            <button class="setquantidade"><i class="fas fa-plus" title="aumentar quantidade"></i></button>
                                         </form>
                                     </li>
                                 </ul>
                             </div>
+                            <div class="col-lg-6" align="right">
+                                <div>
+                                    <form action="DeleteFromCarrinho" method="POST">
+                                        <input hidden name="id" value="${produto.key}"/>
+                                        <button class="submit red trash" title="excluir item"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
+
+                                </div>
+                            </div>
                         </div>
                         <hr class="divisao" />
                     </c:forEach>
+                    <c:choose>
+                        <c:when test="${carrinho.size() > 0}">
+                            <div class="row">
+                                <div class="col-lg-6" align="left">
+                                    <p>Subtotal</p>
+                                </div>
+                                <div class="col-lg-6" align="right">
+                                    <p>R$ ${subtotal}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6" align="left">
+                                    <p>Frete ( Endereço )</p>
+                                </div>
+                                <div class="col-lg-6" align="right">
+                                    <p>R$ ${frete}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6" align="left">
+                                    <p>TOTAL</p>
+                                </div>
+                                <div class="col-lg-6" align="right">
+                                    <p>R$ ${total}</p>
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-lg-6">
+                                    <button class="submit">Comprar</button>
+                                </div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="row">
+                                <div class="col-lg-12" align="center">
+                                    <p>Você não possui nenhum produto em seu carrinho</p>
+                                    <a class="submit" href="Principal">Ver Produtos </a>
+                                </div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
 
                 </div>
             </div>
