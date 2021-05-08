@@ -5,8 +5,13 @@
  */
 package Servlet;
 
+import DAOs.ProdutoDAO;
+import Entidades.Produto;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,10 +30,12 @@ public class Carrinho extends HttpServlet {
             throws ServletException, IOException {
 
          HttpSession sessao = request.getSession();
-         sessao.getAttribute("carrinho");
-        
+         Map<Integer, Produto> carrinho = (Map<Integer, Produto>)sessao.getAttribute("carrinho");
+         
+         request.setAttribute("carrinho", carrinho);
+         
         RequestDispatcher rd = getServletContext()
-                .getRequestDispatcher("/Cliente/Carrinho.jsp");
+                .getRequestDispatcher("/Carrinho.jsp");
         rd.forward(request, response);
 
     }

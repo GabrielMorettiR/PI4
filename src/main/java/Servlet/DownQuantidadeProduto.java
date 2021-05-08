@@ -1,15 +1,16 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Servlet;
 
-import DAOs.ImagemDAO;
 import DAOs.ProdutoDAO;
-import Entidades.Imagem;
 import Entidades.Produto;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,29 +19,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Bruno
+ * @author Gabriel
  */
-public class ProdutoSelecionado extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        int id = Integer.parseInt(request.getParameter("id"));
-
-        Produto p = ProdutoDAO.getProduto(id);
-
-        Imagem capa = ImagemDAO.getCapa(id);
-        List<Imagem> imgs = ImagemDAO.getImgByProd(id, 0);
-
-        request.setAttribute("produto", p);
-        request.setAttribute("imagens", imgs);
-        request.setAttribute("estrelas", p.getEstrelas());
-
-        RequestDispatcher rd = getServletContext()
-                .getRequestDispatcher("/ProdutoSelecionado.jsp");
-        rd.forward(request, response);
-    }
+public class DownQuantidadeProduto extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -54,18 +35,21 @@ public class ProdutoSelecionado extends HttpServlet {
         Map<Integer, Produto> carrinho = new HashMap<>();
 
         if (teste == null) {
-            sessao.setAttribute("carrinho", carrinho);
+            response.sendRedirect("Principal");
+            return;
         } else {
             carrinho = (Map<Integer, Produto>) sessao.getAttribute("carrinho");
         }
 
-        if (carrinho.containsKey(p.getId())) {
-            Produto prod = carrinho.get(p.getId());
-            prod.setQuantidade(prod.getQuantidade() + 1);
+        Produto prod = carrinho.get(p.getId());
+
+        if (prod.getQuantidade() > 1) {
+            prod.setQuantidade(prod.getQuantidade() - 1);
+            prod.setPreco(p.getPreco() * prod.getQuantidade());
             carrinho.replace(p.getId(), prod);
         } else {
-            p.setQuantidade(1);
-            carrinho.put(p.getId(), p);
+            response.sendRedirect("Carrinho?msg=311");
+            return;
         }
 
         if (carrinho.size() > 0) {
@@ -76,7 +60,8 @@ public class ProdutoSelecionado extends HttpServlet {
             }
             sessao.setAttribute("produtos", size);
         }
-
+        
         response.sendRedirect("Carrinho");
     }
+
 }

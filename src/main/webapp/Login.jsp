@@ -49,11 +49,6 @@
                 margin: 20px 0 10px 0;
                 width: 60%;
             }
-            #divisao{
-                width: 80%;
-                border: 1px dashed #999;
-                border-radius: 2px;
-            }
             .navbar-brand{
                 width: 10rem;
                 font-size: 25px;
@@ -97,7 +92,7 @@
                             </div>
                         </div>
                     </form>
-                    <hr id="divisao"/>
+                    <hr class="divisao"/>
                     <form action="Cadastro.jsp">
                         <div class="row">
                             <div class="col-lg-12">

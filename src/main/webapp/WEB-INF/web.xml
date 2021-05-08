@@ -101,6 +101,14 @@
         <servlet-name>Carrinho</servlet-name>
         <servlet-class>Servlet.Carrinho</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DownQuantidadeProduto</servlet-name>
+        <servlet-class>Servlet.DownQuantidadeProduto</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpQuantidadeProduto</servlet-name>
+        <servlet-class>Servlet.UpQuantidadeProduto</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetProdutos</servlet-name>
         <url-pattern>/GetProdutos</url-pattern>
@@ -191,6 +199,14 @@
     <servlet-mapping>
         <servlet-name>Carrinho</servlet-name>
         <url-pattern>/Carrinho</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DownQuantidadeProduto</servlet-name>
+        <url-pattern>/DownQuantidadeProduto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpQuantidadeProduto</servlet-name>
+        <url-pattern>/UpQuantidadeProduto</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

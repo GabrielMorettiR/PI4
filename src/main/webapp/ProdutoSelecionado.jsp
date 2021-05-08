@@ -126,7 +126,11 @@
                         </div>
 
                         <p>&numsp;</p>
-                        <button class="submit lightgreen" id="btnAddCarrinho">Adicionar ao carrinho</button>
+                        <form action="ProdutoSelecionado" method="POST">
+                            <input name="id" value="${produto.id}" hidden/>
+                            <button class="submit lightgreen" id="btnAddCarrinho">Adicionar ao carrinho</button>
+                        </form>
+                        
                     </div>
                 </div>
             </div>

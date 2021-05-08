@@ -335,6 +335,11 @@ thead .sorting{
 .imagensLista:hover{
     border: 2px solid #d33333;
 }
+.divisao{
+    width: 80%;
+    border: 1px dashed #999;
+    border-radius: 2px;
+}
 /*CSS APENAS DO SLIDER*/
 
 .switch {
