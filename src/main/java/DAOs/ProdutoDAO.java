@@ -33,6 +33,7 @@ public class ProdutoDAO {
         boolean status = false;
         int quantidade = 0;
         double preco = 0;
+        
         try {
             String query = "select p.ID, p.NOMEPRODUTO, p.NOMEEXTENSO, p.ESTRELAS,"
                     + " p.STATUS, p.QUANTIDADE, p.PRECO, i.DIR from produto as p join"
@@ -108,9 +109,9 @@ public class ProdutoDAO {
             Connection con = ConexaoBD.getConexao();
 
             PreparedStatement ps = con.prepareStatement(query);
-            
+
             ps.setInt(1, id);
-            
+
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 id = rs.getInt("id");
@@ -207,7 +208,7 @@ public class ProdutoDAO {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static int nextId() throws ClassNotFoundException, SQLException {
         Connection con = ConexaoBD.getConexao();
         String query = "select id from produto order by id desc fetch first row only";
