@@ -117,6 +117,10 @@
         <servlet-name>CheckoutCompra</servlet-name>
         <servlet-class>Servlet.CheckoutCompra</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CompraRealizada</servlet-name>
+        <servlet-class>Servlet.CompraRealizada</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetProdutos</servlet-name>
         <url-pattern>/GetProdutos</url-pattern>
@@ -223,6 +227,10 @@
     <servlet-mapping>
         <servlet-name>CheckoutCompra</servlet-name>
         <url-pattern>/CheckoutCompra</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompraRealizada</servlet-name>
+        <url-pattern>/CompraRealizada</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

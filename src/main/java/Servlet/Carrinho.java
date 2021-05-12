@@ -50,10 +50,10 @@ public class Carrinho extends HttpServlet {
             total = Double.parseDouble(subtotal.toString()) + frete;
         }
 
-        request.setAttribute("frete", frete);
-        request.setAttribute("total", total);
-        request.setAttribute("carrinho", carrinho);
-        request.setAttribute("enderecos", enderecos);
+        sessao.setAttribute("frete", frete);
+        sessao.setAttribute("total", total);
+        sessao.setAttribute("carrinho", carrinho);
+        sessao.setAttribute("enderecos", enderecos);
 
         RequestDispatcher rd = getServletContext()
                 .getRequestDispatcher("/Carrinho.jsp");
@@ -68,9 +68,8 @@ public class Carrinho extends HttpServlet {
         HttpSession sessao = request.getSession();
 
         Usuario user = (Usuario) sessao.getAttribute("usuario");
-        int pagto = Integer.parseInt(request.getParameter("pagto"));
+//        int pagto = Integer.parseInt(request.getParameter("pagto"));
 
-        System.out.println(pagto);
 
         if (user == null) {
             response.sendRedirect("Login");

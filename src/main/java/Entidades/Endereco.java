@@ -25,6 +25,7 @@ public class Endereco {
     private String cidade;
     private String uf;
     private boolean status;
+    private int tipo;
 
     public Endereco() {
     }
@@ -38,5 +39,13 @@ public class Endereco {
         this.cidade = cidade;
         this.uf = uf;
         this.status = status;
+    }
+    
+    public boolean isEntrega(){
+        return this.tipo == 1;
+    }
+    
+    public boolean isCobranca(){
+        return this.tipo == 2;
     }
 }

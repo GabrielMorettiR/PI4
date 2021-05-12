@@ -27,44 +27,54 @@
 
                     <c:forEach var="produto" items="${carrinho}">
                         <div class="row">
-                            <div class="col-lg-6" align="left">
-                                <p>${produto.value.nomeproduto}</p>
+                            <div class="col-lg-4" align="left">
+                                <p><img class="img-produto" src="${produto.value.dir}" alt="capa"/></p>
                             </div>
-                            <div class="col-lg-6" align="right">
-                                <p>R$ ${produto.value.preco}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6" align="left">
-                                <ul class="qtd">
-                                    <li>
-                                        <form method="POST" action="DownQuantidadeProduto">
-                                            <input hidden name="id" value="${produto.key}"/>
-                                            <button class="setquantidade"><i class="fas fa-minus" title="diminuir quantidade"></i></button>
-                                        </form>
-                                    </li>
-                                    <li>
-                                        <p>${produto.value.quantidade}</p>
-                                    </li>
+                            <div class="col-lg-8 d-flex justify-content-between">
+                                <div class="row">
 
-                                    <li>
-                                        <form method="POST" action="UpQuantidadeProduto">
-                                            <input hidden name="id" value="${produto.key}"/>
-                                            <button class="setquantidade"><i class="fas fa-plus" title="aumentar quantidade"></i></button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-6" align="right">
-                                <div>
-                                    <form action="DeleteFromCarrinho" method="POST">
-                                        <input hidden name="id" value="${produto.key}"/>
-                                        <button class="submit red trash" title="excluir item"><i class="fas fa-trash-alt"></i></button>
-                                    </form>
+                                    <div class="col-lg-6" align="left">
+                                        <p>${produto.value.nomeproduto}</p>
+                                    </div>
+                                    <div class="col-lg-6" align="right">
+                                        <p>R$ ${produto.value.preco}</p>
+                                    </div>
 
+                                    <br/>
+                                    <div class="col-lg-8" align="left">
+                                        <ul class="qtd">
+                                            <li>
+                                                <form method="POST" action="DownQuantidadeProduto">
+                                                    <input hidden name="id" value="${produto.key}"/>
+                                                    <button class="setquantidade"><i class="fas fa-minus" title="diminuir quantidade"></i></button>
+                                                </form>
+                                            </li>
+                                            <li>
+                                                <p>${produto.value.quantidade}</p>
+                                            </li>
+
+                                            <li>
+                                                <form method="POST" action="UpQuantidadeProduto">
+                                                    <input hidden name="id" value="${produto.key}"/>
+                                                    <button class="setquantidade"><i class="fas fa-plus" title="aumentar quantidade"></i></button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-4" align="right">
+                                        <div>
+                                            <form action="DeleteFromCarrinho" method="POST">
+                                                <input hidden name="id" value="${produto.key}"/>
+                                                <button class="submit red trash" title="excluir item"><i class="fas fa-trash-alt"></i></button>
+                                            </form>
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
+
                         <hr class="divisao" />
                     </c:forEach>
                     <c:choose>
@@ -117,7 +127,7 @@
                                 <div class="col-lg-4">
                                     <button type="button" class="submit lightgreen" id="pix">Pix</button>
                                 </div>
-                                
+
                             </div>
 
                             <div class="row d-flex justify-content-center">
@@ -147,9 +157,7 @@
 
 
             function setValue(i) {
-                console.log('aaaa' + i);
                 var pagto = document.getElementById('pagto');
-                pagto.textContent = i;
             }
 
             $('#ccredito').click(function () {

@@ -5,6 +5,7 @@
  */
 package Utils;
 
+import DAOs.ImagemDAO;
 import DAOs.ProdutoDAO;
 import Entidades.Produto;
 import java.text.DecimalFormat;
@@ -72,7 +73,10 @@ public class ConfigCarrinho {
         HttpSession sessao = request.getSession();
         Object teste = sessao.getAttribute("carrinho");
 
-        Produto p = ProdutoDAO.getProduto(Integer.parseInt(request.getParameter("id")));
+        int id = Integer.parseInt(request.getParameter("id"));
+        
+        Produto p = ProdutoDAO.getProduto(id);
+        p.setDir(ImagemDAO.getCapa(id).getDir());
 
         Map<Integer, Produto> carrinho = new HashMap<>();
 

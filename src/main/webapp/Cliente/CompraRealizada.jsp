@@ -1,9 +1,14 @@
+<%-- 
+    Document   : CompraRealizada
+    Created on : 11/05/2021, 22:10:21
+    Author     : Gabriel
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="carrinho.css"/>
         <title>JSP Page</title>
     </head>
     <body>
@@ -12,7 +17,7 @@
         <div class="d-flex justify-content-center">
             <div class="d-flex flex-column justify-content-center" style="width:100%">
                 <div class="container" align="center">
-                    <h1 id="titulo">Checkout</h1>
+                    <h1 id="titulo">Sua compra foi realizada com sucesso!</h1>
                 </div>
                 <div id="main" class="container" align="center">
 
@@ -35,15 +40,6 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="col-lg-6" align="right">
-                                    <div>
-                                        <form action="DeleteFromCarrinho" method="POST">
-                                            <input hidden name="id" value="${produto.key}"/>
-                                            <button class="submit red trash" title="excluir item"><i class="fas fa-trash-alt"></i></button>
-                                        </form>
-
-                                    </div>
-                                </div>
                             </div>
                             <hr class="divisao" />
                         </c:forEach>
@@ -52,12 +48,6 @@
                         <h2 class="titulo">Pagamento</h2>
 
                         <div class="row">
-                            <div class="col-lg-6" align="left">
-                                <p>Subtotal</p>
-                            </div>
-                            <div class="col-lg-6" align="right">
-                                <p>R$ ${subtotal}</p>
-                            </div>
                             <div class="col-lg-9" align="left">
                                 <div class="row">
                                     <div class="col-lg-4" align="left">
@@ -70,20 +60,20 @@
                                 </div>
                             </div>
                             <div class="col-lg-3" align="right">
-                                <p>R$ ${frete}</p>
+                                <p>R$ ${venda.frete}</p>
                             </div>
                             <div class="col-lg-6" align="left">
                                 <p>Método Pagamento</p>
                             </div>
                             <div class="col-lg-6" align="right">
-                                <p>Boleto</p>
+                                <p>PAGTO</p>
                             </div>
                             <div class="col-lg-6" align="left">
-                                <p>TOTAL</p>
+                                <p>Valor Total: </p>
                             </div>
                             <div class="col-lg-6" align="right">
 
-                                <p>R$ ${total}</p>
+                                <p>R$ ${venda.preco}</p>
                             </div>
                         </div>
                     </div>
@@ -91,11 +81,12 @@
                         <div class="row d-flex justify-content-center">
                             <div class="col-lg-8">
                                 <form method="POST" action="CheckoutCompra">
-                                    <button type="submit" class="submit">Finalizar Compra</button>
+                                    <a href="Principal" class="submit">Voltar ao site</a>
                                 </form>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
