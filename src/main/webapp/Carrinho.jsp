@@ -25,7 +25,7 @@
                 </div>
                 <div id="main" class="container" align="center">
 
-                    <c:forEach var="produto" items="${carrinho}">
+                    <c:forEach var="produto" items="${carrinho}" varStatus="loop">
                         <div class="row">
                             <div class="col-lg-4" align="left">
                                 <p><img class="img-produto" src="${produto.value.dir}" alt="capa"/></p>
@@ -40,7 +40,6 @@
                                         <p>R$ ${produto.value.preco}</p>
                                     </div>
 
-                                    <br/>
                                     <div class="col-lg-8" align="left">
                                         <ul class="qtd">
                                             <li>
@@ -61,83 +60,99 @@
                                             </li>
                                         </ul>
                                     </div>
+
                                     <div class="col-lg-4" align="right">
                                         <div>
                                             <form action="DeleteFromCarrinho" method="POST">
                                                 <input hidden name="id" value="${produto.key}"/>
                                                 <button class="submit red trash" title="excluir item"><i class="fas fa-trash-alt"></i></button>
                                             </form>
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
-                        <hr class="divisao" />
+                        <c:if test="${!loop.last}">
+                            <hr class="divisao" />
+                        </c:if>
+
                     </c:forEach>
+
                     <c:choose>
                         <c:when test="${carrinho.size() > 0}">
-                            <div class="row">
-                                <div class="col-lg-6" align="left">
-                                    <p>Subtotal</p>
-                                </div>
-                                <div class="col-lg-6" align="right">
-                                    <p>R$ ${subtotal}</p>
-                                </div>
-                                <div class="col-lg-9" align="left">
-                                    <div class="row">
-                                        <div class="col-lg-4" align="left">
-                                            <p>Frete</p>
-                                        </div>
-                                        <div class="col-lg-8" align="right">
-                                            <select name="tipocad" class="select_form">
-                                                <c:forEach var="endereco" items="${enderecos}">
-                                                    <c:choose>
-                                                        <c:when test="${endereco.titulo == null}">
-                                                            <option value="${endereco.cep}">${endereco.cep}</option>          
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <option value="${endereco.cep}">${endereco.titulo}</option>    
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
-
+                            <form method="POST" action="Carrinho">
+                                <div class="row">
+                                    <div class="col-lg-6" align="left">
+                                        <p>Subtotal</p>
+                                    </div>
+                                    <div class="col-lg-6" align="right">
+                                        <p>R$ ${subtotal}</p>
                                     </div>
                                 </div>
-                                <div class="col-lg-3" align="right">
-                                    <p>R$ ${frete}</p>
-                                </div>
-                            </div>
-                            <div class="row d-flex justify-content-center">
-                                <div class="col-lg-12">
-                                    <h2 class="titulo">Formas de Pagamento</h2>
-                                </div>
-                            </div>
-                            <div class="row d-flex justify-content-center">
-                                <div class="col-lg-4">
-                                    <button type="button" class="submit green" id="ccredito">Cartão de Crédito</button>
-                                </div>
-                                <div class="col-lg-4">
-                                    <button type="button" class="submit yellow" id="boleto">Boleto</button>
-                                </div>
-                                <div class="col-lg-4">
-                                    <button type="button" class="submit lightgreen" id="pix">Pix</button>
+                                <div class="blocoCheck">
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-lg-12">
+                                            <h2 class="titulo">Formas de Pagamento</h2>
+                                            <hr/>
+                                        </div>
+                                    </div>
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-lg-4">
+                                            <button type="button" class="submit green" id="ccredito">Cartão de Crédito</button>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <button type="button" class="submit yellow" id="boleto">Boleto</button>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <button type="button" class="submit lightgreen" id="pix">Pix</button>
+                                        </div>
+                                        <input id="pagto" name="pagto">
+                                    </div>
                                 </div>
 
-                            </div>
+                                <div class="blocoCheck">
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-lg-12">
+                                            <h2 class="titulo">Entrega</h2>
+                                            <hr/>
+                                        </div>
+                                    </div>
 
-                            <div class="row d-flex justify-content-center">
-                                <div class="col-lg-12">
-                                    <form method="POST" action="Carrinho">
-                                        <input hidden id="pagto" name="pagto"/>
-                                        <button class="submit">Comprar</button>    
-                                    </form>
+                                    <div class="row">
+                                        <div class="col-lg-9" align="left">
+                                            <div class="row">
+                                                <div class="col-lg-4" align="left">
+                                                    <p>Frete</p>
+                                                </div>
+                                                <div class="col-lg-8" align="right">
+                                                    <select name="tipocad" class="select_form">
+                                                        <c:forEach var="endereco" items="${enderecos}">
+                                                            <c:choose>
+                                                                <c:when test="${endereco.titulo == null}">
+                                                                    <option value="${endereco.id}">${endereco.cep}</option>          
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <option value="${endereco.id}">${endereco.titulo}</option>    
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3" align="right">
+                                            <p>R$ ${frete}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-lg-12">
+                                        <button id="comprar" class="submit">Comprar</button>
+                                    </div>
+                                </div>
+                            </form>
                         </c:when>
                         <c:otherwise>
                             <div class="row">
@@ -157,8 +172,10 @@
 
 
             function setValue(i) {
-                var pagto = document.getElementById('pagto');
+                document.getElementById('pagto').value = i;
             }
+
+            
 
             $('#ccredito').click(function () {
 

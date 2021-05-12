@@ -6,6 +6,7 @@
 package Utils;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,5 +28,11 @@ public class Utils {
             RequestDispatcher requestDispatcher = request
                     .getRequestDispatcher("/Protegido/erro.jsp");
             requestDispatcher.forward(request, response);
+    }
+    
+    public static Double retornaReal(double valor){        
+        DecimalFormat nf = new DecimalFormat("#.##");
+
+        return Double.parseDouble(nf.format(valor).replace(',', '.'));
     }
 }

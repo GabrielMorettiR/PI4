@@ -151,20 +151,27 @@
                 <ul class="navbar-nav px-3">
                     <li class="nav-item">
                         <div class="select">
-                            <a class="selectbtn" href="AlterarDados?id=${sessionScope.usuario.id}">Alterar dados</a>
+                            <a class="selectbtn" href="MinhasCompras">Minhas Compras</a>
                         </div>
-                    </li></ul></c:if>
-                <ul class="navbar-nav px-3">
+                    </li>
                     <li class="nav-item">
                         <div class="select">
-                            <a class="selectbtn" href="Carrinho">&nbsp;<i class="fas fa-shopping-cart"></i> &nbsp; <span class="badge badge-warning">${sessionScope.produtos}</span></a>
+                            <a class="selectbtn" href="AlterarDados?id=${sessionScope.usuario.id}">Alterar dados</a>
                         </div>
                     </li>
                 </ul>
+            </c:if>
+            <ul class="navbar-nav px-3">
+                <li class="nav-item">
+                    <div class="select">
+                        <a class="selectbtn" href="Carrinho">&nbsp;<i class="fas fa-shopping-cart"></i> &nbsp; <span class="badge badge-warning">${sessionScope.produtos}</span></a>
+                    </div>
+                </li>
+            </ul>
 
 
 
-                <ul class="navbar-nav px-3">
+            <ul class="navbar-nav px-3">
                 <% if (usuario == null) {
                         out.write("<li class='nav-item'><a class='botao botao-login' href='Login'> Login </a></li>");
                     } else {
@@ -263,6 +270,12 @@
                     break;
                 case 311:
                     desc.textContent = 'Mínimo da quantidade do produto selecionado';
+                    break;
+                case 313:
+                    desc.textContent = 'Selecione uma forma de pagamento';
+                    break;
+                case 315:
+                    desc.textContent = 'Selecione um endereço de entrega';
                     break;
                 case 900:
                     desc.textContent = 'Email já cadastrado';

@@ -340,6 +340,11 @@ thead .sorting{
     border: 1px dashed #999;
     border-radius: 2px;
 }
+.blocoCheck{
+    border: 1px solid #333;
+    margin: 30px;
+    border-radius: 10px;
+}
 /*CSS APENAS DO SLIDER*/
 
 .switch {

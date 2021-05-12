@@ -10,7 +10,9 @@ import DAOs.EnderecoDAO;
 import Entidades.Endereco;
 import Entidades.Produto;
 import Entidades.Usuario;
+import Utils.Utils;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +53,7 @@ public class Carrinho extends HttpServlet {
         }
 
         sessao.setAttribute("frete", frete);
-        sessao.setAttribute("total", total);
+        sessao.setAttribute("total", Utils.retornaReal(total));
         sessao.setAttribute("carrinho", carrinho);
         sessao.setAttribute("enderecos", enderecos);
 
@@ -68,15 +70,25 @@ public class Carrinho extends HttpServlet {
         HttpSession sessao = request.getSession();
 
         Usuario user = (Usuario) sessao.getAttribute("usuario");
-//        int pagto = Integer.parseInt(request.getParameter("pagto"));
-
-
+        
+        if (request.getParameter("pagto") == null || "".equals(request.getParameter("pagto"))) {
+            response.sendRedirect("Carrinho?msg=313");
+        } else {
+            int pagto = Integer.parseInt(request.getParameter("pagto"));
+            sessao.setAttribute("pagto", pagto);
+        }
+        
         if (user == null) {
             response.sendRedirect("Login");
         } else {
             response.sendRedirect("CheckoutCompra");
         }
-
+        
+        if (request.getParameter("tipocad") == null || "".equals(request.getParameter("tipocad"))) {
+            response.sendRedirect("Carrinho?msg=315");
+        } else {
+            int identrega = Integer.parseInt(request.getParameter("tipocad"));
+            sessao.setAttribute("entrega", identrega);
+        }
     }
-
 }

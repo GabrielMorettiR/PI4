@@ -16,9 +16,9 @@
                 </div>
                 <div id="main" class="container" align="center">
 
-                    <div class="">
+                    <div class="blocoCheck">
                         <h2 class="titulo">Produtos</h2>
-                        <c:forEach var="produto" items="${carrinho}">
+                        <c:forEach var="produto" items="${carrinho}" varStatus="loop">
                             <div class="row">
                                 <div class="col-lg-6" align="left">
                                     <p>${produto.value.nomeproduto}</p>
@@ -45,18 +45,28 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr class="divisao" />
+
+                            <c:if test="${!loop.last}">
+                                <hr class="divisao" />
+                            </c:if>
+
                         </c:forEach>
                     </div>
-                    <div class="">
+                    <div class="blocoCheck">
                         <h2 class="titulo">Pagamento</h2>
 
                         <div class="row">
                             <div class="col-lg-6" align="left">
+                                <p>Forma Pagto</p>
+                            </div>
+                            <div class="col-lg-6" align="right">
+                                <p>${pagto}</p>
+                            </div>
+                            <div class="col-lg-6" align="left">
                                 <p>Subtotal</p>
                             </div>
                             <div class="col-lg-6" align="right">
-                                <p>R$ ${subtotal}</p>
+                                <p>R$ ${sessionScope.subtotal}</p>
                             </div>
                             <div class="col-lg-9" align="left">
                                 <div class="row">
@@ -64,26 +74,24 @@
                                         <p>Frete</p>
                                     </div>
                                     <div class="col-lg-8" align="right">
-                                        ENDEREÇO SELECIONADO
+                                        <c:if test="${endereco.titulo != '' && endereco.titulo != null}">
+                                            ${endereco.titulo}
+                                        </c:if>
+                                        <c:if test="${endereco.titulo == '' || endereco.titulo == null}">
+                                            ${endereco.cep}
+                                        </c:if>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="col-lg-3" align="right">
-                                <p>R$ ${frete}</p>
-                            </div>
-                            <div class="col-lg-6" align="left">
-                                <p>Método Pagamento</p>
-                            </div>
-                            <div class="col-lg-6" align="right">
-                                <p>Boleto</p>
+                                <p>R$ ${sessionScope.frete}</p>
                             </div>
                             <div class="col-lg-6" align="left">
                                 <p>TOTAL</p>
                             </div>
                             <div class="col-lg-6" align="right">
 
-                                <p>R$ ${total}</p>
+                                <p>R$ ${sessionScope.total}</p>
                             </div>
                         </div>
                     </div>

@@ -121,6 +121,14 @@
         <servlet-name>CompraRealizada</servlet-name>
         <servlet-class>Servlet.CompraRealizada</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MinhasCompras</servlet-name>
+        <servlet-class>Servlet.MinhasCompras</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetalhesVenda</servlet-name>
+        <servlet-class>Servlet.DetalhesVenda</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetProdutos</servlet-name>
         <url-pattern>/GetProdutos</url-pattern>
@@ -231,6 +239,14 @@
     <servlet-mapping>
         <servlet-name>CompraRealizada</servlet-name>
         <url-pattern>/CompraRealizada</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MinhasCompras</servlet-name>
+        <url-pattern>/MinhasCompras</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetalhesVenda</servlet-name>
+        <url-pattern>/DetalhesVenda</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

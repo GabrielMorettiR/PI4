@@ -11,11 +11,11 @@ import DAOs.VendaDAO;
 import Entidades.Endereco;
 import Entidades.Produto;
 import Entidades.Usuario;
+import Entidades.Venda;
+import Utils.Data;
+import Utils.Utils;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,14 +39,20 @@ public class CheckoutCompra extends HttpServlet {
         HttpSession sessao = request.getSession();
         double frete = CarrinhoDAO.getFrete();
         Object subtotal = sessao.getAttribute("subtotal");
+        String pagto = Venda.formaPagto(sessao.getAttribute("pagto").toString());
+        Endereco e = EnderecoDAO.getEnderecoById(Integer.parseInt(sessao.getAttribute("entrega").toString()));
         double total = 0;
 
         if (subtotal != null) {
             total = Double.parseDouble(subtotal.toString()) + frete;
+            total = Utils.retornaReal(total);
         }
-
+        
+        request.setAttribute("endereco", e);
+        request.setAttribute("pagto", pagto);
         request.setAttribute("frete", frete);
         request.setAttribute("total", total);
+        
 
         RequestDispatcher rd = getServletContext()
                 .getRequestDispatcher("/Cliente/Checkout.jsp");
@@ -63,13 +69,14 @@ public class CheckoutCompra extends HttpServlet {
 
         int idcli = u.getId();
         double frete = Double.parseDouble(sessao.getAttribute("frete").toString());
-//        Object pagto = sessao.getAttribute("pagto");
-        double total = Double.parseDouble(sessao.getAttribute("total").toString());
-        Object c = sessao.getAttribute("carrinho");
-        Map<Integer, Produto> carrinho = (Map<Integer, Produto>) c;
+        int pagto = Integer.parseInt(sessao.getAttribute("pagto").toString());
+        int identrega = Integer.parseInt(sessao.getAttribute("entrega").toString());
+        double total = Utils.retornaReal(Double.parseDouble(sessao.getAttribute("total").toString()));
+        Map<Integer, Produto> carrinho = (Map<Integer, Produto>) sessao.getAttribute("carrinho");
+        Data data = Data.getDataAtual();
 
         try {
-            VendaDAO.novaVenda(idcli, frete, total, carrinho);
+            VendaDAO.novaVenda(idcli, frete, total, carrinho, pagto, data, identrega);
             response.sendRedirect("CompraRealizada");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(CheckoutCompra.class.getName()).log(Level.SEVERE, null, ex);

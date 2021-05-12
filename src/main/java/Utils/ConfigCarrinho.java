@@ -8,7 +8,6 @@ package Utils;
 import DAOs.ImagemDAO;
 import DAOs.ProdutoDAO;
 import Entidades.Produto;
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -44,9 +43,7 @@ public class ConfigCarrinho {
             subtotal = subtotal + entry.getValue().getPreco();
         }
 
-        DecimalFormat nf = new DecimalFormat("#.##");
-
-        double sub = Double.parseDouble(nf.format(subtotal).replace(',', '.'));
+        double sub = Utils.retornaReal(subtotal);
 
         sessao.setAttribute("subtotal", sub);
     }
@@ -60,9 +57,7 @@ public class ConfigCarrinho {
         }
         
 
-        DecimalFormat nf = new DecimalFormat("#.##");
-
-        double preco = Double.parseDouble(nf.format(p.getPreco() * prod.getQuantidade()).replace(',', '.'));
+        double preco = Utils.retornaReal(p.getPreco() * prod.getQuantidade());
 
         prod.setPreco(preco);
 
