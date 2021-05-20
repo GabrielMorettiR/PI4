@@ -1,14 +1,10 @@
-<%-- 
-    Document   : AlterarEndereco
-    Created on : 26/04/2021, 20:08:24
-    Author     : Gabriel
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <link rel="stylesheet" href="checkbox.css"/>
 
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
                 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -109,8 +105,8 @@
                 <div class="container" align="center">
 
                     <c:choose>
-                        <c:when test="${id > 0}">
-                            <h1 id="titulo">Alteração de Dados de Endereço -
+                        <c:when test="${endereco.id > 0}">
+                            <h1 id="titulo">Edição de Endereço -
                                 <c:if test="${endereco.titulo != '' && endereco.titulo != null}">
                                     ${endereco.titulo}
                                 </c:if>
@@ -181,6 +177,34 @@
                                                     + "<label for='switch-shadow'></label>");
                                         }
                                     %>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <p class="p_form">Para entregar
+                                    <c:choose>
+                                        <c:when test="${endereco.tipo == 1 || endereco.tipo == 3}">
+                                            <input type="checkbox" name="entrega" class="plus-minus" checked>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input type="checkbox" name="entrega" class="plus-minus">
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                </p>
+                            </div>
+                            <div class="col-lg-5">
+                                <p class="p_form">Para cobrar
+                                    <c:choose>
+                                        <c:when test="${endereco.tipo >= 2}">
+                                            <input type="checkbox" name="cobranca" class="plus-minus" checked>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input type="checkbox" name="cobranca" class="plus-minus">
+                                        </c:otherwise>
+                                    </c:choose>
                                 </p>
                             </div>
                         </div>

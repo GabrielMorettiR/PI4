@@ -123,24 +123,39 @@
                         <div class="row d-flex justify-content-center">
                             <c:forEach var="endereco" items="${enderecos}" varStatus="t">
                                 <div class="col-lg-6">
-                                    <c:choose>
-                                        <c:when test="${endereco.status == true}">
-                                            <c:if test="${endereco.titulo != '' && endereco.titulo != null}">
-                                                <a href="AlterarEndereco?id=${endereco.id}"><p class="submit lightgreen">${t.index + 1} - ${endereco.titulo}</p></a>
+                                    <a href="AlterarEndereco?id=${endereco.id}">
+                                        <p class="submit lightgreen">
+                                            <c:choose>
+                                                <c:when test="${endereco.status == true}">
+
+                                                    <c:if test="${endereco.titulo != '' && endereco.titulo != null}">
+                                                        ${t.index + 1} - ${endereco.titulo}  
+                                                    </c:if>
+                                                    <c:if test="${endereco.titulo == '' || endereco.titulo == null}">
+                                                        ${t.index + 1} - ${endereco.cep}
+                                                    </c:if>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:if test="${endereco.titulo != '' && endereco.titulo != null}">
+                                                        ${t.index + 1} - ${endereco.titulo}
+                                                    </c:if>
+                                                    <c:if test="${endereco.titulo == '' || endereco.titulo == null}">
+                                                        ${t.index + 1} - ${endereco.cep}
+                                                    </c:if>
+
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <c:if test="${endereco.tipo == 1 || endereco.tipo == 3}">
+                                                &nbsp;&nbsp;&nbsp;<i class="fas fa-shipping-fast"></i>
                                             </c:if>
-                                            <c:if test="${endereco.titulo == '' || endereco.titulo == null}">
-                                                <a href="AlterarEndereco?id=${endereco.id}"><p class="submit lightgreen">${t.index + 1} - ${endereco.cep}</p></a>
+                                            <c:if test="${endereco.tipo == 2 || endereco.tipo == 3}">
+                                                <c:if test="${endereco.tipo == 2}">
+                                                    &nbsp;&nbsp;&nbsp;
+                                                </c:if>
+                                                <i class="fas fa-money-bill-wave"></i>
                                             </c:if>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <c:if test="${endereco.titulo != '' && endereco.titulo != null}">
-                                                <a href="AlterarEndereco?id=${endereco.id}"><p class="submit false">${t.index + 1} - ${endereco.titulo}</p></a>
-                                            </c:if>
-                                            <c:if test="${endereco.titulo == '' || endereco.titulo == null}">
-                                                <a href="AlterarEndereco?id=${endereco.id}"><p class="submit false">${t.index + 1} - ${endereco.cep}</p></a>
-                                            </c:if>
-                                        </c:otherwise>
-                                    </c:choose>
+                                        </p>
+                                    </a>
                                 </div>
                             </c:forEach>
                             <div class="col-lg-6">

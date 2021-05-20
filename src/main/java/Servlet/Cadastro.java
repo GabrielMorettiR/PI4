@@ -36,6 +36,7 @@ public class Cadastro extends HttpServlet {
         String senha = request.getParameter("senha");
         String cpf = request.getParameter("cpf");
 
+        String titulo = request.getParameter("titulo");
         String cep = request.getParameter("cep");
         String logradouro = request.getParameter("rua");
         String complemento = request.getParameter("complemento");
@@ -45,7 +46,7 @@ public class Cadastro extends HttpServlet {
         String uf = request.getParameter("uf");
 
         Usuario u = null;
-        Endereco e = new Endereco(cep, logradouro, numero, complemento, bairro, cidade, uf, true);
+        Endereco e = new Endereco(titulo, cep, logradouro, numero, complemento, bairro, cidade, uf, true);
         u = new Usuario();
         u.setCpf(cpf);
         u.setNome(nome);

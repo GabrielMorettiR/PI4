@@ -67,14 +67,29 @@ public class AlterarEndereco extends HttpServlet {
         String uf = request.getParameter("uf");
         String status = request.getParameter("status");
 
+        String auxEnt = request.getParameter("entrega");
+        String auxCob = request.getParameter("cobranca");
+        int tipo = 0;
+
+        if (auxEnt != null) {
+            tipo = 1;
+        }
+        if (auxCob != null) {
+            if (tipo == 1) {
+                tipo = 3;
+            } else {
+                tipo = 2;
+            }
+        }
+
         boolean stat = true;
         if (status == null) {
             stat = false;
         }
-        
-        Endereco e = new Endereco(cep, rua, numero, comp, bairro, cidade, uf, stat);
-        e.setTitulo(titulo);
+
+        Endereco e = new Endereco(titulo, cep, rua, numero, comp, bairro, cidade, uf, stat);
         e.setId(id);
+        e.setTipo(tipo);
 
         try {
             if (id > 0) {
@@ -83,8 +98,7 @@ public class AlterarEndereco extends HttpServlet {
                 EnderecoDAO.cadEndereco(e);
                 EnderecoDAO.vinculaEndereco(idCliente, EnderecoDAO.nextId());
             }
-            
-            
+
             int msg = 0;
             if (id > 0) {
                 msg = 306;

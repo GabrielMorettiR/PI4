@@ -129,6 +129,14 @@
         <servlet-name>DetalhesVenda</servlet-name>
         <servlet-class>Servlet.DetalhesVenda</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListarPedidos</servlet-name>
+        <servlet-class>Servlet.ListarPedidos</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProximaEtapa</servlet-name>
+        <servlet-class>Servlet.ProximaEtapa</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetProdutos</servlet-name>
         <url-pattern>/GetProdutos</url-pattern>
@@ -247,6 +255,14 @@
     <servlet-mapping>
         <servlet-name>DetalhesVenda</servlet-name>
         <url-pattern>/DetalhesVenda</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListarPedidos</servlet-name>
+        <url-pattern>/ListarPedidos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProximaEtapa</servlet-name>
+        <url-pattern>/ProximaEtapa</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

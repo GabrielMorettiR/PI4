@@ -26,6 +26,7 @@ public class Venda {
     private int cobranca;
     private int status;
     private Data data;
+    private String cliente;
 
     public Venda() {
     }
@@ -38,11 +39,11 @@ public class Venda {
         this.entrega = entrega;
         this.cobranca = cobranca;
     }
-    
-    public String date(){
-        if(data != null){
+
+    public String date() {
+        if (data != null) {
             return data.getDataOrdem();
-        } else{
+        } else {
             return "data não encontrada";
         }
     }
@@ -51,23 +52,25 @@ public class Venda {
         switch (this.status) {
             case 0:
                 return "Aguardando pagamento";
+            case -1:
+                return "Pagamento rejeitado";
             case 1:
                 return "Pagamento confirmado";
             case 2:
-                return "Com a Transportadora";
+                return "Aguardando retirada";
             case 3:
-                return "Em rota de entrega";
-            case 10:
-                return "Pedido entregue";
+                return "Em trânsito";
+            case 4:
+                return "Entregue";
             default:
                 return "erro";
         }
     }
 
     public static String formaPagto(Object i) {
-        
+
         int cod = Integer.parseInt(i.toString());
-                
+
         switch (cod) {
             case 1:
                 return "Cartão de Crédito";

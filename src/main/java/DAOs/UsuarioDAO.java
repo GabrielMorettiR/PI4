@@ -132,8 +132,6 @@ public class UsuarioDAO {
         
         String query = "update usuario set nome = ?" + senha + " where id = ?";
 
-        
-        
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(query);

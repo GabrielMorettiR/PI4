@@ -40,7 +40,7 @@ public class Carrinho extends HttpServlet {
         List<Endereco> enderecos = new ArrayList<>();
 
         if (user != null) {
-            enderecos = EnderecoDAO.getEndereco(user.getId());
+            enderecos = EnderecoDAO.getEndereco(user.getId(), 3);
         }
 
         Map<Integer, Produto> carrinho = (Map<Integer, Produto>) sessao.getAttribute("carrinho");
@@ -70,13 +70,6 @@ public class Carrinho extends HttpServlet {
         HttpSession sessao = request.getSession();
 
         Usuario user = (Usuario) sessao.getAttribute("usuario");
-        
-        if (request.getParameter("pagto") == null || "".equals(request.getParameter("pagto"))) {
-            response.sendRedirect("Carrinho?msg=313");
-        } else {
-            int pagto = Integer.parseInt(request.getParameter("pagto"));
-            sessao.setAttribute("pagto", pagto);
-        }
         
         if (user == null) {
             response.sendRedirect("Login");

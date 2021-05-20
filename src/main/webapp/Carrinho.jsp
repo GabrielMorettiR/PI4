@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
@@ -90,26 +90,6 @@
                                         <p>R$ ${subtotal}</p>
                                     </div>
                                 </div>
-                                <div class="blocoCheck">
-                                    <div class="row d-flex justify-content-center">
-                                        <div class="col-lg-12">
-                                            <h2 class="titulo">Formas de Pagamento</h2>
-                                            <hr/>
-                                        </div>
-                                    </div>
-                                    <div class="row d-flex justify-content-center">
-                                        <div class="col-lg-4">
-                                            <button type="button" class="submit green" id="ccredito">Cartão de Crédito</button>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <button type="button" class="submit yellow" id="boleto">Boleto</button>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <button type="button" class="submit lightgreen" id="pix">Pix</button>
-                                        </div>
-                                        <input id="pagto" name="pagto">
-                                    </div>
-                                </div>
 
                                 <div class="blocoCheck">
                                     <div class="row d-flex justify-content-center">
@@ -167,63 +147,5 @@
                 </div>
             </div>
         </div>
-
-        <script>
-
-
-            function setValue(i) {
-                document.getElementById('pagto').value = i;
-            }
-
-            
-
-            $('#ccredito').click(function () {
-
-                var teste = $('#ccredito').hasClass("selecionado");
-
-                if (teste) {
-                    $('#ccredito').removeClass("selecionado");
-                    setValue(0);
-                } else {
-                    $('#ccredito').addClass("selecionado");
-                    setValue(1);
-                }
-
-                $('#boleto').removeClass("selecionado");
-                $('#pix').removeClass("selecionado");
-
-            });
-            $('#boleto').click(function () {
-                var teste = $('#boleto').hasClass("selecionado");
-
-                if (teste) {
-                    $('#boleto').removeClass("selecionado");
-                    setValue(0);
-                } else {
-                    $('#boleto').addClass("selecionado");
-                    setValue(2);
-                }
-
-                $('#ccredito').removeClass("selecionado");
-                $('#pix').removeClass("selecionado");
-            });
-            $('#pix').click(function () {
-
-                var teste = $('#pix').hasClass("selecionado");
-
-                if (teste) {
-                    $('#pix').removeClass("selecionado");
-                    setValue(0);
-                } else {
-                    $('#pix').addClass("selecionado");
-                    setValue(3);
-                }
-
-                $('#boleto').removeClass("selecionado");
-                $('#ccredito').removeClass("selecionado");
-            });
-
-        </script>
-
     </body>
 </html>

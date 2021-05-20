@@ -12,6 +12,7 @@ import Entidades.Endereco;
 import Entidades.Produto;
 import Entidades.Usuario;
 import Entidades.Venda;
+import Utils.ConfigCarrinho;
 import Utils.Data;
 import Utils.Utils;
 import java.io.IOException;
@@ -39,7 +40,7 @@ public class CheckoutCompra extends HttpServlet {
         HttpSession sessao = request.getSession();
         double frete = CarrinhoDAO.getFrete();
         Object subtotal = sessao.getAttribute("subtotal");
-        String pagto = Venda.formaPagto(sessao.getAttribute("pagto").toString());
+//        String pagto = Venda.formaPagto(sessao.getAttribute("pagto").toString());
         Endereco e = EnderecoDAO.getEnderecoById(Integer.parseInt(sessao.getAttribute("entrega").toString()));
         double total = 0;
 
@@ -49,7 +50,7 @@ public class CheckoutCompra extends HttpServlet {
         }
         
         request.setAttribute("endereco", e);
-        request.setAttribute("pagto", pagto);
+//        request.setAttribute("pagto", pagto);
         request.setAttribute("frete", frete);
         request.setAttribute("total", total);
         
@@ -67,6 +68,13 @@ public class CheckoutCompra extends HttpServlet {
 
         Usuario u = (Usuario) sessao.getAttribute("usuario");
 
+        if (request.getParameter("pagto") == null || "".equals(request.getParameter("pagto"))) {
+            response.sendRedirect("CheckoutCompra?msg=313");
+        } else {
+            int pagto = Integer.parseInt(request.getParameter("pagto"));
+            sessao.setAttribute("pagto", pagto);
+        }
+        
         int idcli = u.getId();
         double frete = Double.parseDouble(sessao.getAttribute("frete").toString());
         int pagto = Integer.parseInt(sessao.getAttribute("pagto").toString());
@@ -77,6 +85,9 @@ public class CheckoutCompra extends HttpServlet {
 
         try {
             VendaDAO.novaVenda(idcli, frete, total, carrinho, pagto, data, identrega);
+            carrinho = null;
+            sessao.setAttribute("carrinho", carrinho);
+            sessao.setAttribute("produtos", 0);
             response.sendRedirect("CompraRealizada");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(CheckoutCompra.class.getName()).log(Level.SEVERE, null, ex);

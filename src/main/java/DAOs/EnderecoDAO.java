@@ -31,7 +31,7 @@ public class EnderecoDAO {
             ps = con.prepareStatement(query);
 
             System.out.println(idCliente);
-            
+
             ps.setInt(1, idCliente);
             ps.setInt(2, idEndereco);
 
@@ -44,7 +44,7 @@ public class EnderecoDAO {
     public static void cadEndereco(Endereco e) throws ClassNotFoundException, SQLException {
 
         Connection con = ConexaoBD.getConexao();
-        String query = "insert into endereco(titulo, cep, logradouro, numero, complemento, bairro, cidade, uf, status) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "insert into endereco(titulo, cep, logradouro, numero, complemento, bairro, cidade, uf, status, tipo) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(query);
@@ -58,19 +58,20 @@ public class EnderecoDAO {
             ps.setString(7, e.getCidade());
             ps.setString(8, e.getUf());
             ps.setBoolean(9, e.isStatus());
+            ps.setInt(10, e.getTipo());
 
             ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static void updateEndereco(Endereco e) throws ClassNotFoundException, SQLException {
 
         Connection con = ConexaoBD.getConexao();
-        String query = "update endereco set titulo = ?, cep = ?, logradouro = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, uf = ? where id = ?";
+        String query = "update endereco set titulo = ?, cep = ?, logradouro = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, uf = ?, tipo = ? where id = ?";
         PreparedStatement ps;
-        
+
         try {
             ps = con.prepareStatement(query);
 
@@ -82,19 +83,39 @@ public class EnderecoDAO {
             ps.setString(6, e.getBairro());
             ps.setString(7, e.getCidade());
             ps.setString(8, e.getUf());
-            ps.setInt(9, e.getId());
+            ps.setInt(9, e.getTipo());
+            ps.setInt(10, e.getId());
 
             ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static List<Endereco> getEndereco(int id) { // receber id do CLIENTE
-        
+
+    public static List<Endereco> getEndereco(int id, int tipos) { // receber id do CLIENTE
+
+        String condicao = "";
+
+        switch (tipos) {
+            case 1:
+                condicao = "and tipo = 1";
+                break;
+            case 2:
+                condicao = "and tipo = 2";
+                break;
+            case 3:
+                condicao = "and (tipo = 1 or tipo = 3)";
+                break;
+            case 4:
+                condicao = "and (tipo = 2 or tipo = 3)";
+                break;
+        }
+
         List<Endereco> enderecos = new ArrayList();
         try {
-            String query = "SELECT c.idusuario, c.IDENDERECO, e.* FROM clienteendereco as c join endereco as e on e.id = c.idendereco where c.idusuario = ?";
+            String query = "SELECT c.idusuario, c.IDENDERECO, e.* FROM clienteendereco"
+                    + " as c join endereco as e on e.id = c.idendereco where c.idusuario = ?"
+                    + condicao;
             Connection con = ConexaoBD.getConexao();
 
             PreparedStatement ps = con.prepareStatement(query);
@@ -114,6 +135,7 @@ public class EnderecoDAO {
                 e.setCidade(rs.getString("cidade"));
                 e.setUf(rs.getString("uf"));
                 e.setStatus(rs.getBoolean("status"));
+                e.setTipo(rs.getInt("tipo"));
                 enderecos.add(e);
             }
 
@@ -123,8 +145,8 @@ public class EnderecoDAO {
 
         return enderecos;
     }
-    
-    public static Endereco getEnderecoById(int id) { // receber id do CLIENTE
+
+    public static Endereco getEnderecoById(int id) { // receber id de um endereço
 
         Endereco e = new Endereco();
         try {
@@ -137,7 +159,7 @@ public class EnderecoDAO {
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                
+
                 e.setId(rs.getInt("id"));
                 e.setTitulo(rs.getString("titulo"));
                 e.setCep(rs.getString("cep"));
@@ -148,6 +170,7 @@ public class EnderecoDAO {
                 e.setCidade(rs.getString("cidade"));
                 e.setUf(rs.getString("uf"));
                 e.setStatus(rs.getBoolean("status"));
+                e.setTipo(rs.getInt("tipo"));
             }
 
         } catch (SQLException | ClassNotFoundException ex) {

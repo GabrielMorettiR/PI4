@@ -30,7 +30,8 @@ public class Endereco {
     public Endereco() {
     }
     
-    public Endereco(String cep, String logradouro, int numero, String complemento, String bairro, String cidade, String uf, boolean status) {
+    public Endereco(String titulo, String cep, String logradouro, int numero, String complemento, String bairro, String cidade, String uf, boolean status) {
+        this.titulo = titulo;
         this.cep = cep;
         this.logradouro = logradouro;
         this.numero = numero;

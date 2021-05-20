@@ -12,28 +12,58 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="stylesheet" href="Principal.css">
         <title>Nerdolas.Store | Home</title>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+
     </head>    
     <body>
         <%@include file="/Utils/Menu_inc.jsp" %>
 
-        <div class="d-flex justify-content-center container">
-            <div class="row">
+        <div class="d-flex justify-content-center">
+            <div class="d-flex flex-column justify-content-center" style="width:100%">
+                <div id="main" class="container" align="center">
 
-                <c:forEach var="produtos" items="${GetProdutos}">
-                    <input class="input_form" name="status" value="${produto.id}" hidden>
-                    <div class="col-12 col-sm-6 col-md-4" style="width: 10rem">
-
-                        <a href="ProdutoSelecionado?id=${produtos.id}">
-                            <div class="card-body">
-                                <img class="card-img-top" src="${produtos.dir}" style="padding-top: 1%" alt="${produtos.nomeproduto}">
-                                <h5 class="card-title">${produtos.nomeproduto}</h5>
-                                <p class="card-text">R$ ${produtos.preco}</p>
-                            </div>
-                        </a>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input type="text" name="busca" id="buscaProdutos" class="input_form" placeholder="Busque um produto">
+                        </div>
                     </div>
-                </c:forEach>
+                    <div class="row" id="divProdutos">
+                        <c:forEach var="produtos" items="${GetProdutos}">
+                            <input class="input_form" name="status" value="${produto.id}" hidden>
+                            <div class="col-12 col-sm-6 col-md-4" style="width: 10rem">
+
+                                <a href="ProdutoSelecionado?id=${produtos.id}">
+                                    <div class="card-body">
+                                        <img class="card-img-top" src="${produtos.dir}" style="padding-top: 1%" alt="${produtos.nomeproduto}">
+                                        <h5 class="card-title">${produtos.nomeproduto}</h5>
+                                        <p class="card-text">R$ ${produtos.preco}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <script>
+            $('#buscaProdutos').on('change', function () {
+                var busca = $('#buscaProdutos').val();
+                $.ajax({
+                    method: "POST",
+                    url: "Servlet/Principal",
+                    data: {
+                        busca: busca
+                    }
+                }).done(function () {
+                    $('#divProdutos').load();
+                });
+            });
+        </script>
+
     </body>
 
 </html>

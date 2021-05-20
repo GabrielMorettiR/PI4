@@ -23,8 +23,14 @@ import java.util.logging.Logger;
  */
 public class ProdutoDAO {
 
-    public static List<Produto> getClienteProdutos() {
+    public static List<Produto> getClienteProdutos(String busca) {
 
+        String filtro = "";
+        
+        if(busca == null || !busca.equals("")){
+            filtro = " and UPPER(p.nomeproduto) like UPPER('%" + busca + "%')";
+        }
+        
         List<Produto> produtos = new ArrayList();
         int id = 0;
         String nomeproduto = "";
@@ -33,11 +39,12 @@ public class ProdutoDAO {
         boolean status = false;
         int quantidade = 0;
         double preco = 0;
-        
+        //SELECT * FROM PRODUTO where UPPER(nomeproduto) like '%C%';
         try {
             String query = "select p.ID, p.NOMEPRODUTO, p.NOMEEXTENSO, p.ESTRELAS,"
                     + " p.STATUS, p.QUANTIDADE, p.PRECO, i.DIR from produto as p join"
-                    + " imagens as i on i.IDPRODUTO = p.id where p.status = true and i.CAPA";
+                    + " imagens as i on i.IDPRODUTO = p.id where p.status = true and i.CAPA"
+                    + filtro;
             Connection con = ConexaoBD.getConexao();
 
             PreparedStatement ps = con.prepareStatement(query);

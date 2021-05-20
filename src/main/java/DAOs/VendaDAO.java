@@ -8,16 +8,12 @@ package DAOs;
 import BD.ConexaoBD;
 import Entidades.Produto;
 import Entidades.Venda;
-import Servlet.Carrinho;
 import Utils.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +31,7 @@ public class VendaDAO {
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(query);
-            
+
             ps.setInt(1, idCliente);
             ps.setDouble(2, frete);
             ps.setDouble(3, total);
@@ -43,7 +39,7 @@ public class VendaDAO {
             ps.setString(5, data.toDB());
             ps.setDouble(6, 1); // <--- 1 é a primeira fase da venda de um produto
             ps.setDouble(7, identrega);
-            
+
             ps.execute();
 
             vendeProdutos(carrinho);
@@ -52,18 +48,18 @@ public class VendaDAO {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static Venda getVendaById(int id){
-        
+
+    public static Venda getVendaById(int id) {
+
         Venda v = new Venda();
-        
+
         try {
             String query = "select * from venda where id = ?";
             Connection con = ConexaoBD.getConexao();
             PreparedStatement ps = con.prepareStatement(query);
-            
+
             ps.setInt(1, id);
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 v.setId(rs.getInt("id"));
@@ -83,18 +79,18 @@ public class VendaDAO {
         }
         return v;
     }
-    
-    public static Map<Integer, Venda> getVendasByCliente(int id){
-        
+
+    public static Map<Integer, Venda> getVendasByCliente(int id) {
+
         Map<Integer, Venda> vendas = new HashMap<>();
-        
+
         try {
             String query = "select * from venda where idcliente = ? order by data desc";
             Connection con = ConexaoBD.getConexao();
             PreparedStatement ps = con.prepareStatement(query);
-            
+
             ps.setInt(1, id);
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Venda v = new Venda();
@@ -108,7 +104,7 @@ public class VendaDAO {
                 Data dt = new Data(rs.getString("data"));
                 dt.setData();
                 v.setData(dt);
-                
+
                 vendas.put(v.getId(), v);
             }
 
@@ -117,17 +113,58 @@ public class VendaDAO {
         }
         return vendas;
     }
-    
-    public static Map<Integer, Produto> getProdutosByVenda(int id){
+
+    public static Map<Integer, Venda> getVendasGerais(int filtragem) {
+
+        String filtro = "";
+
+        switch (filtragem) {
+            case 0:
+                filtro = "";
+                break;
+        }
+
+        Map<Integer, Venda> vendas = new HashMap<>();
+
+        try {
+            String query = "select v.*, u.NOME from venda as v join usuario as u on v.IDCLIENTE = u.ID order by data desc" + filtro;
+            Connection con = ConexaoBD.getConexao();
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Venda v = new Venda();
+                v.setId(rs.getInt("id"));
+                v.setIdcliente(rs.getInt("idcliente"));
+                v.setPreco(rs.getDouble("preco"));
+                v.setFrete(rs.getDouble("frete"));
+                v.setStatus(rs.getInt("status"));
+                v.setEntrega(rs.getInt("identrega"));
+                v.setCobranca(rs.getInt("idcobranca"));
+                v.setCliente(rs.getString("nome"));
+                Data dt = new Data(rs.getString("data"));
+                dt.setData();
+                v.setData(dt);
+
+                vendas.put(v.getId(), v);
+            }
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return vendas;
+    }
+
+    public static Map<Integer, Produto> getProdutosByVenda(int id) {
         Map<Integer, Produto> produtos = new HashMap<>();
-        
+
         try {
             String query = "select * from prodvenda where idvenda = ?";
             Connection con = ConexaoBD.getConexao();
             PreparedStatement ps = con.prepareStatement(query);
-            
+
             ps.setInt(1, id);
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Produto p = ProdutoDAO.getProduto(rs.getInt("idproduto"));
@@ -139,7 +176,7 @@ public class VendaDAO {
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return produtos;
     }
 
@@ -163,6 +200,23 @@ public class VendaDAO {
                 Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    public static void proximaEtapa(int idvenda) throws ClassNotFoundException, SQLException {
+        Connection con = ConexaoBD.getConexao();
+        String query = "update venda set status = status + 1 where id = ?";
+
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(query);
+
+            ps.setInt(1, idvenda);
+
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     public static int nextId() throws ClassNotFoundException, SQLException {
