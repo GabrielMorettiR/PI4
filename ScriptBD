@@ -29,7 +29,8 @@ nomeextenso char(1800),
 estrelas int,
 status boolean,
 quantidade int,
-preco double
+preco double,
+categoria int
 );
 
 
@@ -47,4 +48,29 @@ status boolean,
 tipocadastro int,
 email char(100),
 cpf char(11)
+);
+
+create table venda(
+id int primary key generated always as identity,
+preco double,
+idcliente int,
+frete double,
+pagamento int,
+status int,
+data date,
+identrega int,
+idcobranca int
+);
+
+create table prodvenda(
+id int primary key generated always as identity,
+quantidade int,
+preco double,
+idvenda int,
+idproduto int
+)
+
+create table categoria(
+id int,
+titulo char(30)
 );
