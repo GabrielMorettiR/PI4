@@ -68,7 +68,7 @@ quantidade int,
 preco double,
 idvenda int,
 idproduto int
-)
+);
 
 create table categoria(
 id int,
