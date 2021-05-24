@@ -5,11 +5,11 @@
  */
 package Servlet;
 
-import DAOs.CarrinhoDAO;
 import DAOs.EnderecoDAO;
 import Entidades.Endereco;
 import Entidades.Produto;
 import Entidades.Usuario;
+import Utils.CalculadorFrete;
 import Utils.Utils;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -33,22 +33,22 @@ public class Carrinho extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        double total = 0;
+        double frete = 0;
         HttpSession sessao = request.getSession();
-
+        CalculadorFrete cf = new CalculadorFrete();
         Usuario user = (Usuario) sessao.getAttribute("usuario");
-
         List<Endereco> enderecos = new ArrayList<>();
+        Object subtotal = sessao.getAttribute("subtotal");
 
         if (user != null) {
             enderecos = EnderecoDAO.getEndereco(user.getId(), 3);
         }
 
         Map<Integer, Produto> carrinho = (Map<Integer, Produto>) sessao.getAttribute("carrinho");
-        double frete = CarrinhoDAO.getFrete();
-        Object subtotal = sessao.getAttribute("subtotal");
-        double total = 0;
-
+        
         if (subtotal != null) {
+            frete = cf.getFrete(Double.parseDouble(subtotal.toString()));
             total = Double.parseDouble(subtotal.toString()) + frete;
         }
 

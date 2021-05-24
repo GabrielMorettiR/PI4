@@ -29,6 +29,7 @@
                         <thead>
                             <tr>
                                 <th>Produto</th>
+                                <th>Categoria</th>
                                 <th>Descrição</th>
                                 <th>Avaliação</th>
                                 <th>Status</th>
@@ -43,6 +44,7 @@
                             <c:forEach var="produtos" items="${GetProdutos}">
                                 <tr>
                                     <td>${produtos.nomeproduto}</td>
+                                    <td>${produtos.categoria}</td>
                                     <td>${produtos.nomeextenso}</td>
                                     <td>${produtos.estrelas}</td>
                                     <td>${produtos.status}</td>

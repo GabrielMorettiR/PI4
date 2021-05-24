@@ -2,6 +2,20 @@
     width: 95% !important;
 }
 
+navbar-nav>li>a{
+    height: 30px !important;
+    padding-top: 1px !important;
+}
+
+.carousel{
+    height: 350px !important;
+    width: 400px !important;
+}
+
+.navbar{
+    padding: .5rem 1rem;
+}
+
 .produto{
     width: 80%;
     border: 1px solid #007bff;
@@ -51,8 +65,4 @@
     width: 200px;
     font-size: 22px;
     font-weight: bold;
-}
-#myCarousel{
-    max-height: 390px;
-    min-height: 190px !important;
 }

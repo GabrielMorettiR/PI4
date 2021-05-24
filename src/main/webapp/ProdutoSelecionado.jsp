@@ -25,20 +25,23 @@
                     <div class="container">
 
                         <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                            <!-- Indicators -->
-                            <ol class="carousel-indicators">
 
-                                <c:forEach var="imagem" items="${imagens}" varStatus="i">
-                                    <c:choose>
-                                        <c:when test="${i.index == 0}">
-                                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                            </c:when>
-                                            <c:otherwise>
-                                            <li data-target="#myCarousel" data-slide-to="${i.index}"></li>
-                                            </c:otherwise>
-                                        </c:choose>
-                                </c:forEach>
-                            </ol>
+                            <!-- Indicators -->
+                            <div id="carrossel">
+                                <ol class="carousel-indicators">
+
+                                    <c:forEach var="imagem" items="${imagens}" varStatus="i">
+                                        <c:choose>
+                                            <c:when test="${i.index == 0}">
+                                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                <li data-target="#myCarousel" data-slide-to="${i.index}"></li>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                </ol>
+                            </div>
 
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
@@ -130,7 +133,7 @@
                             <input name="id" value="${produto.id}" hidden/>
                             <button class="submit lightgreen" id="btnAddCarrinho">Adicionar ao carrinho</button>
                         </form>
-                        
+
                     </div>
                 </div>
             </div>

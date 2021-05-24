@@ -22,10 +22,10 @@
                 <div id="main" class="container" align="center">
 
                     <c:forEach var="venda" items="${vendas}" varStatus="loop">
-                        <p>${venda.value.id} - R$ ${venda.value.preco}</p>
-                        <p>Status: ${venda.value.situacao()}</p>
-                        <p>Data da compra: ${venda.value.date()}</p>
-                        <a class="submit" href="DetalhesVenda?idvenda=${venda.value.id}">Detalhes</a>
+                        <p>${venda.id} - R$ ${venda.preco}</p>
+                        <p>Status: ${venda.situacao()}</p>
+                        <p>Data da compra: ${venda.date()}</p>
+                        <a class="submit" href="DetalhesVenda?idvenda=${venda.id}">Detalhes</a>
 
                         <c:if test="${!loop.last}">
                             <hr class="divisao" />

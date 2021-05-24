@@ -29,10 +29,16 @@
                     <form action="AlterarProduto" method="POST" enctype="multipart/form-data">
                         <input class="input_form" name="id" value="${produto.id}" hidden>
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <p class="p_form">Nome Produto</p>
                                 <input class="input_form" name="nomeproduto" value="${produto.nomeproduto}">
                             </div>
+                            <p class="p_form">Categoria</p>
+                            <select name="categoria" class="select_form">
+                                <c:forEach var="categ" items="${categorias}">
+                                    <option value="${categ.value.id}">${categ.value.titulo}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
@@ -47,7 +53,7 @@
                             </div>
                             <div class="col-lg-3">
                                 <p class="p_form">Quantidade</p>
-                                <input class="input_form" type="number" name="qtd" value="${produto.quantidade}">
+                                <input class="input_form" type="number" min="0" name="qtd" value="${produto.quantidade}">
                             </div>
                             <div class="col-lg-3">
                                 <p class="p_form">preço</p>

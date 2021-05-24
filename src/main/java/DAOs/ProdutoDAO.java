@@ -11,7 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,12 +22,16 @@ import java.util.logging.Logger;
  */
 public class ProdutoDAO {
 
-    public static List<Produto> getClienteProdutos(String busca) {
+    public static List<Produto> getClienteProdutos(String busca, int categ) {
 
         String filtro = "";
+        System.out.println(categ + " categ");
         
         if(busca == null || !busca.equals("")){
             filtro = " and UPPER(p.nomeproduto) like UPPER('%" + busca + "%')";
+        }
+        if(categ > 0){
+            filtro += " and categoria = " + categ;
         }
         
         List<Produto> produtos = new ArrayList();
@@ -41,8 +44,7 @@ public class ProdutoDAO {
         double preco = 0;
         //SELECT * FROM PRODUTO where UPPER(nomeproduto) like '%C%';
         try {
-            String query = "select p.ID, p.NOMEPRODUTO, p.NOMEEXTENSO, p.ESTRELAS,"
-                    + " p.STATUS, p.QUANTIDADE, p.PRECO, i.DIR from produto as p join"
+            String query = "select p.*, i.DIR from produto as p join"
                     + " imagens as i on i.IDPRODUTO = p.id where p.status = true and i.CAPA"
                     + filtro;
             Connection con = ConexaoBD.getConexao();
@@ -58,7 +60,8 @@ public class ProdutoDAO {
                 quantidade = rs.getInt("quantidade");
                 preco = rs.getDouble("preco");
                 String dir = rs.getString("dir");
-                Produto p = new Produto(id, nomeproduto, nomeextenso, estrelas, status, quantidade, preco);
+                String categoria = CategoriaDAO.getCategoriaById(rs.getInt("categoria")).getTitulo();
+                Produto p = new Produto(id, nomeproduto, nomeextenso, estrelas, status, quantidade, preco, categoria);
                 p.setDir(dir);
                 produtos.add(p);
             }
@@ -93,7 +96,8 @@ public class ProdutoDAO {
                 status = rs.getBoolean("status");
                 quantidade = rs.getInt("quantidade");
                 preco = rs.getDouble("preco");
-                produtos.add(new Produto(id, nomeproduto, nomeextenso, estrelas, status, quantidade, preco));
+                String categoria = CategoriaDAO.getCategoriaById(rs.getInt("categoria")).getTitulo();
+                produtos.add(new Produto(id, nomeproduto, nomeextenso, estrelas, status, quantidade, preco, categoria));
             }
 
         } catch (SQLException | ClassNotFoundException ex) {
@@ -128,7 +132,8 @@ public class ProdutoDAO {
                 status = rs.getBoolean("status");
                 quantidade = rs.getInt("quantidade");
                 preco = rs.getDouble("preco");
-                p = new Produto(id, nomeproduto, nomeextenso, estrelas, status, quantidade, preco);
+                String categoria = CategoriaDAO.getCategoriaById(rs.getInt("categoria")).getTitulo();
+                p = new Produto(id, nomeproduto, nomeextenso, estrelas, status, quantidade, preco, categoria);
             }
 
         } catch (SQLException | ClassNotFoundException ex) {
@@ -137,10 +142,10 @@ public class ProdutoDAO {
         return p;
     }
 
-    public static void cadProduto(String nomeP, String nomeE, int rate, boolean stat, int qtd, double preco) throws ClassNotFoundException, SQLException {
+    public static void cadProduto(String nomeP, String nomeE, int rate, boolean stat, int qtd, double preco, int categoria) throws ClassNotFoundException, SQLException {
 
         Connection con = ConexaoBD.getConexao();
-        String query = "insert into produto(nomeproduto, nomeextenso, estrelas, status, quantidade, preco) values (?,?,?,?,?,?)";
+        String query = "insert into produto(nomeproduto, nomeextenso, estrelas, status, quantidade, preco, categoria) values (?,?,?,?,?,?,?)";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(query);
@@ -151,6 +156,7 @@ public class ProdutoDAO {
             ps.setBoolean(4, stat);
             ps.setInt(5, qtd);
             ps.setDouble(6, preco);
+            ps.setInt(7, categoria);
 
             ps.execute();
         } catch (SQLException ex) {
@@ -161,7 +167,8 @@ public class ProdutoDAO {
     public static void updateProduto(Produto p) throws ClassNotFoundException, SQLException {
         Connection con = ConexaoBD.getConexao();
 
-        String query = "update produto set nomeproduto = ?, nomeextenso = ?, estrelas = ?, status = ?, quantidade = ?, preco = ? where id = ?";
+        String query = "update produto set nomeproduto = ?, nomeextenso = ?, estrelas = ?"
+                + ", status = ?, quantidade = ?, preco = ?, categoria = ? where id = ?";
 
         PreparedStatement ps;
         try {
@@ -173,7 +180,9 @@ public class ProdutoDAO {
             ps.setBoolean(4, p.isStatus());
             ps.setInt(5, p.getQuantidade());
             ps.setDouble(6, p.getPreco());
-            ps.setInt(7, p.getId());
+            ps.setInt(7, Integer.parseInt(p.getCategoria()));
+            ps.setInt(8, p.getId());
+            
 
             ps.execute();
         } catch (SQLException ex) {

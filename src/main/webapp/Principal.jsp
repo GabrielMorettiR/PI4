@@ -27,8 +27,38 @@
 
                     <div class="row">
                         <div class="col-lg-12">
-                            <input type="text" name="busca" id="buscaProdutos" class="input_form" placeholder="Busque um produto">
+                            <form method="POST" action="Principal">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <p class="p_form">Nome</p>
+                                        <input type="text" name="busca" id="buscaProdutos" class="input_form" placeholder="Busque um produto">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <p class="p_form">Categoria</p>
+                                        <select name="categoria" class="select_form">
+                                            <option value="0">Todas</option>
+                                            <c:forEach var="categ" items="${categorias}">
+                                                <c:choose>
+                                                    <c:when test="${categ.value.id == categoria}">
+                                                        <option value="${categ.value.id}" selected>${categ.value.titulo}</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${categ.value.id}">${categ.value.titulo}</option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <button class="submit" type="submit">Buscar</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
+
                     </div>
                     <div class="row" id="divProdutos">
                         <c:forEach var="produtos" items="${GetProdutos}">
@@ -49,20 +79,20 @@
             </div>
         </div>
 
-        <script>
-            $('#buscaProdutos').on('change', function () {
-                var busca = $('#buscaProdutos').val();
-                $.ajax({
-                    method: "POST",
-                    url: "Servlet/Principal",
-                    data: {
-                        busca: busca
-                    }
-                }).done(function () {
-                    $('#divProdutos').load();
-                });
-            });
-        </script>
+        <!--        <script>
+                    $('#buscaProdutos').on('change', function () {
+                        var busca = $('#buscaProdutos').val();
+                        $.ajax({
+                            method: "GET",
+                            url: "Principal",
+                            data: {
+                                busca: busca
+                            }
+                        }).done(function () {
+                            $('#divProdutos').load();
+                        });
+                    });
+                </script>-->
 
     </body>
 

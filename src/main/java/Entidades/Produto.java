@@ -24,11 +24,12 @@ public class Produto {
     private int quantidade;
     private double preco;
     private String dir;
+    private String categoria;
 
     public Produto() {
     }
 
-    public Produto(int id, String nomeproduto, String nomeextenso, int estrelas, boolean status, int quantidade, double preco) {
+    public Produto(int id, String nomeproduto, String nomeextenso, int estrelas, boolean status, int quantidade, double preco, String categoria) {
         this.id = id;
         this.nomeproduto = nomeproduto;
         this.nomeextenso = nomeextenso;
@@ -36,5 +37,6 @@ public class Produto {
         this.status = status;
         this.quantidade = quantidade;
         this.preco = preco;
+        this.categoria = categoria;
     }
 }

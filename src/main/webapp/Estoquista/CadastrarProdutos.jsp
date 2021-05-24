@@ -23,9 +23,17 @@
                         <input class="p_form" name="idprod" value="${idprod}" hidden>
                         <input class="p_form" name="idimagem" value="${idimagem}" hidden>
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <p class="p_form">Nome</p>
                                 <input class="input_form" name="nomeproduto" required>
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="p_form">Categoria</p>
+                                <select name="categoria" class="select_form">
+                                    <c:forEach var="categ" items="${categorias}">
+                                        <option value="${categ.value.id}">${categ.value.titulo}</option>
+                                    </c:forEach>
+                                </select>
                             </div>
                         </div>
                         <div class="row">

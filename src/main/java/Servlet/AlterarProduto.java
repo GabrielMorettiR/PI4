@@ -5,8 +5,10 @@
  */
 package Servlet;
 
+import DAOs.CategoriaDAO;
 import DAOs.ImagemDAO;
 import DAOs.ProdutoDAO;
+import Entidades.Categoria;
 import Entidades.Imagem;
 import Entidades.Produto;
 import java.io.IOException;
@@ -17,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -45,8 +48,11 @@ public class AlterarProduto extends HttpServlet {
 
         int id = Integer.parseInt(request.getParameter("id"));
 
+        Map<Integer, Categoria> categorias = CategoriaDAO.getCategorias();
         Produto p = ProdutoDAO.getProduto(id);
+
         request.setAttribute("produto", p);
+        request.setAttribute("categorias", categorias);
 
         if (p.isStatus()) {
             request.setAttribute("status", "Ativo");
@@ -69,6 +75,7 @@ public class AlterarProduto extends HttpServlet {
         int estrelas = Integer.parseInt(request.getParameter("estrelas"));
         String status = request.getParameter("status");
         String strCapa = request.getParameter("capa");
+        String categ = request.getParameter("categoria");
         boolean stat = true;
         boolean capa = true;
 
@@ -81,7 +88,7 @@ public class AlterarProduto extends HttpServlet {
 
         int quantidade = Integer.parseInt(request.getParameter("qtd"));
         double preco = Double.parseDouble(request.getParameter("preco"));
-        Produto p = new Produto(id, nomeprod, nomeext, estrelas, stat, quantidade, preco);
+        Produto p = new Produto(id, nomeprod, nomeext, estrelas, stat, quantidade, preco, categ);
 
         int idprod = Integer.parseInt(request.getParameter("id"));
         int idimg = 0;

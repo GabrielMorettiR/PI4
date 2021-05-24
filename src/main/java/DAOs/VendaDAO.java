@@ -13,7 +13,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,6 +71,7 @@ public class VendaDAO {
                 v.setStatus(rs.getInt("status"));
                 v.setEntrega(rs.getInt("identrega"));
                 v.setCobranca(rs.getInt("idcobranca"));
+                v.setPagamento(rs.getInt("pagamento"));
                 Data dt = new Data(rs.getString("data"));
                 dt.setData();
                 v.setData(dt);
@@ -80,9 +83,9 @@ public class VendaDAO {
         return v;
     }
 
-    public static Map<Integer, Venda> getVendasByCliente(int id) {
+    public static List<Venda> getVendasByCliente(int id) {
 
-        Map<Integer, Venda> vendas = new HashMap<>();
+        List<Venda> vendas = new ArrayList<>();
 
         try {
             String query = "select * from venda where idcliente = ? order by data desc";
@@ -105,12 +108,13 @@ public class VendaDAO {
                 dt.setData();
                 v.setData(dt);
 
-                vendas.put(v.getId(), v);
+                vendas.add(v);
             }
 
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return vendas;
     }
 

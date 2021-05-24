@@ -1,9 +1,12 @@
 package Servlet;
 
+import DAOs.CategoriaDAO;
 import DAOs.ProdutoDAO;
+import Entidades.Categoria;
 import Entidades.Produto;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,16 +17,28 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Bruno
  */
-//@WebServlet(urlPatterns = {"/Principal",})
 public class Principal extends HttpServlet {
  
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        List<Produto> produtos = ProdutoDAO.getClienteProdutos("");
+        String nome = "";
+        int categ = 0;
         
+        if(request.getParameter("busca") != null){
+            nome  = request.getParameter("busca");
+        }
+        if(!(request.getParameter("categoria") == null) && !(request.getParameter("categoria").equals("0")) ){
+            categ  = Integer.parseInt(request.getParameter("categoria"));
+        }
+        
+        Map<Integer, Categoria> categorias = CategoriaDAO.getCategorias();
+        List<Produto> produtos = ProdutoDAO.getClienteProdutos(nome, categ);
+        
+        request.setAttribute("categoria", categ);
         request.setAttribute("GetProdutos", produtos);
+        request.setAttribute("categorias", categorias);
         
         RequestDispatcher rd = getServletContext()
                 .getRequestDispatcher("/Principal.jsp");
@@ -34,17 +49,9 @@ public class Principal extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String busca = request.getParameter("busca");
+        String nome = request.getParameter("nome");
+        String categoria = request.getParameter("categoria");
         
-        System.out.println("busca " + busca);
-        
-        List<Produto> produtos = ProdutoDAO.getClienteProdutos(busca);
-        
-        request.setAttribute("GetProdutos", produtos);
-        
-        RequestDispatcher rd = getServletContext()
-                .getRequestDispatcher("/Principal.jsp");
-        rd.forward(request, response);
+        response.sendRedirect("Principal?nome="+nome+"&categoria="+categoria);
     }
-
 }

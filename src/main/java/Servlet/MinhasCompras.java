@@ -11,6 +11,7 @@ import Entidades.Usuario;
 import Entidades.Venda;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,7 +34,7 @@ public class MinhasCompras extends HttpServlet {
         
         Usuario u = (Usuario)sessao.getAttribute("usuario");
         
-        Map<Integer, Venda> vendas = VendaDAO.getVendasByCliente(u.getId());
+        List<Venda> vendas = VendaDAO.getVendasByCliente(u.getId());
         
         request.setAttribute("vendas", vendas);
         

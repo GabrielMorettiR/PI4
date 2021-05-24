@@ -5,13 +5,13 @@
  */
 package Servlet;
 
-import DAOs.CarrinhoDAO;
 import DAOs.EnderecoDAO;
 import DAOs.VendaDAO;
 import Entidades.Endereco;
 import Entidades.Produto;
 import Entidades.Usuario;
 import Entidades.Venda;
+import Utils.CalculadorFrete;
 import Utils.ConfigCarrinho;
 import Utils.Data;
 import Utils.Utils;
@@ -37,9 +37,10 @@ public class CheckoutCompra extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        CalculadorFrete cf = new CalculadorFrete();
         HttpSession sessao = request.getSession();
-        double frete = CarrinhoDAO.getFrete();
         Object subtotal = sessao.getAttribute("subtotal");
+        double frete = cf.getFrete(Double.parseDouble(subtotal.toString()));
 //        String pagto = Venda.formaPagto(sessao.getAttribute("pagto").toString());
         Endereco e = EnderecoDAO.getEnderecoById(Integer.parseInt(sessao.getAttribute("entrega").toString()));
         double total = 0;

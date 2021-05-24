@@ -4,7 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="carrinho.css"/>
-        <title>JSP Page</title>
+        <title>Revisão da Compra</title>
     </head>
     <body>
         <%@include file="/Utils/Menu_inc.jsp" %>
@@ -69,6 +69,41 @@
                             <div class="col-lg-4">
                                 <button type="button" class="submit lightgreen" id="pix">Pix</button>
                             </div>
+                        </div>
+                    </div>
+                    <div id="cartaocredito" class="blocoCheck hidden" style="display: none">
+                        <div class="row d-flex justify-content-center">
+
+                            <div class="col-lg-12">
+                                <h2 class="titulo">Cartão de crédito</h2>
+                                <hr/>
+                            </div>
+                            <div class="col-lg-12">
+                                <p class="p_form">Numero do Cartão</p>
+                                <input class="input_form">
+                            </div>
+                            <div class="col-lg-12">
+                                &nbsp;
+                            </div>
+                            <div class="col-lg-4">
+                                <p class="p_form">CVV</p>
+                                <input class="input_form">
+                            </div>
+                            <div class="col-lg-4">
+                                <p class="p_form">Vencimento</p>
+                                <input class="input_form">
+                            </div>
+                            <div class="col-lg-4">
+                                <p class="p_form">Parcelas</p>
+                                <select name="tipocad" class="select_form">
+                                    <c:forEach var="endereco" begin="1" end="12" varStatus="loop">
+                                        <option>${loop.index}x</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            &nbsp;
                         </div>
                     </div>
 
@@ -179,11 +214,12 @@
                 if (teste) {
                     $('#ccredito').removeClass("selecionado");
                     setValue(0);
+                    $('#cartaocredito').css("display", "none");
                 } else {
                     $('#ccredito').addClass("selecionado");
                     setValue(1);
+                    $('#cartaocredito').css("display", "block");
                 }
-
                 $('#boleto').removeClass("selecionado");
                 $('#pix').removeClass("selecionado");
 
@@ -198,7 +234,7 @@
                     $('#boleto').addClass("selecionado");
                     setValue(2);
                 }
-
+                $('#cartaocredito').css("display", "none");
                 $('#ccredito').removeClass("selecionado");
                 $('#pix').removeClass("selecionado");
             });
@@ -213,7 +249,7 @@
                     $('#pix').addClass("selecionado");
                     setValue(3);
                 }
-
+                $('#cartaocredito').css("display", "none");
                 $('#boleto').removeClass("selecionado");
                 $('#ccredito').removeClass("selecionado");
             });

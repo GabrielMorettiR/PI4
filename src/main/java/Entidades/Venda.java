@@ -67,11 +67,9 @@ public class Venda {
         }
     }
 
-    public static String formaPagto(Object i) {
+    public String formaPagto() {
 
-        int cod = Integer.parseInt(i.toString());
-
-        switch (cod) {
+        switch (this.pagamento) {
             case 1:
                 return "Cartão de Crédito";
             case 2:

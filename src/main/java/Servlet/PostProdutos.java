@@ -5,26 +5,21 @@
  */
 package Servlet;
 
+import DAOs.CategoriaDAO;
 import DAOs.ImagemDAO;
 import DAOs.ProdutoDAO;
-import Utils.DiskFileItemFactory;
-import Utils.ManipulaImagem;
-import java.awt.image.BufferedImage;
-import java.io.File;
+import Entidades.Categoria;
+import Entidades.Produto;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebInitParam;
@@ -33,8 +28,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -44,8 +37,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 /* diretorio imagens Moretti = F:/Projetos/ProjetoIntegrador/PI4/src/main/webapp/Imagens/
 
     diretorio imagens Ivan = C:/Users/tabat/Documents/NetBeansProjects/PI4/src/main/webapp/Imagens/
-*/
-
+ */
 @WebServlet(name = "PostProdutos", urlPatterns = {"/PostProdutos"}, initParams = {
     @WebInitParam(name = "diretorioUpload", value = "F:/Projetos/ProjetoIntegrador/PI4/src/main/webapp/Imagens/"),
     @WebInitParam(name = "contextoAcessoUpload", value = "/teste-uploads")})
@@ -62,6 +54,8 @@ public class PostProdutos extends HttpServlet {
 
         int idprod = 0;
         int idimg = 0;
+        Map<Integer, Categoria> categorias = CategoriaDAO.getCategorias();
+
         try {
             idprod = ProdutoDAO.nextId();
             idimg = ImagemDAO.nextId();
@@ -70,6 +64,7 @@ public class PostProdutos extends HttpServlet {
         }
         request.setAttribute("idprod", idprod);
         request.setAttribute("idimagem", idimg);
+        request.setAttribute("categorias", categorias);
 
         RequestDispatcher rd = getServletContext()
                 .getRequestDispatcher("/Estoquista/CadastrarProdutos.jsp");
@@ -94,6 +89,7 @@ public class PostProdutos extends HttpServlet {
         String nomeprod = request.getParameter("nomeproduto");
         String nomeext = request.getParameter("nomeextenso");
         int estrelas = Integer.parseInt(request.getParameter("estrelas"));
+        int categoria = Integer.parseInt(request.getParameter("categoria"));
         String status = request.getParameter("status");
         boolean stat = true;
         if (status == null) {
@@ -137,10 +133,10 @@ public class PostProdutos extends HttpServlet {
             String urlAcessoUpload = contextoAcessoUpload + "/" + nomeArquivo;
             request.setAttribute("urlAcessoUpload", urlAcessoUpload);
         }
-//        }
+
         try {
-//            ProdutoDAO.cadProduto(new Produto(id, nomeprod, nomeext, estrelas, stat, quantidade, preco));
-            ProdutoDAO.cadProduto(nomeprod, nomeext, estrelas, stat, quantidade, preco);
+
+            ProdutoDAO.cadProduto(nomeprod, nomeext, estrelas, stat, quantidade, preco, categoria);
             if (img) {
                 ImagemDAO.cadImagem(path + nomeArquivo, idprod, true, true);
             }

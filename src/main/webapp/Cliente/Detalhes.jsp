@@ -21,19 +21,31 @@
                     <h1 id="titulo">Detalhes da minha compra</h1>
                 </div>
                 <div id="main" class="container" align="center">
-
-                    <p>Venda Nº ${venda.id} - R$ ${venda.preco}</p>
-                    <p>Status: ${venda.situacao()}</p>
-                    <p>Entregará em: 
-                        <c:if test="${endereco.titulo != '' && endereco.titulo != null}">
-                            ${endereco.titulo}
-                        </c:if>
-                        <c:if test="${endereco.titulo == '' || endereco.titulo == null}">
-                            ${endereco.cep}
-                        </c:if>
-                    </p>
-                    <p>Data da compra: ${venda.date()}</p>
-
+                    <div class="row d-flex justify-content-between">
+                        <div class="col-lg-9" align="left">
+                            <p>Nº ${venda.id} - Data da compra: ${venda.date()}</p>
+                        </div>
+                        <div class="col-lg-3" align="right">
+                            <p id="status">${venda.situacao()}</p>
+                        </div>
+                        <div class="col-lg-9" align="left">
+                            <p>Forma de Pagamento: ${venda.formaPagto()}</p>
+                        </div>
+                        <div class="col-lg-9" align="left">
+                            <p>Entregará em: 
+                                <c:if test="${endereco.titulo != '' && endereco.titulo != null}">
+                                    ${endereco.titulo}
+                                </c:if>
+                                <c:if test="${endereco.titulo == '' || endereco.titulo == null}">
+                                    ${endereco.cep}
+                                </c:if>
+                                 - ${endereco.logradouro}
+                            </p>
+                        </div>
+                        <div class="col-lg-3" align="right">
+                            <p> R$ ${venda.preco}</p>
+                        </div>
+                    </div>
 
                     <div class="blocoCheck">
                         <h2 class="titulo">Produtos</h2>
