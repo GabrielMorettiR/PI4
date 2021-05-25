@@ -25,7 +25,7 @@ capa boolean
 create table produto(
 id int primary key generated always as identity,
 nomeproduto char(200),
-nomeextenso char(1800),
+nomeextenso varchar(1800),
 estrelas int,
 status boolean,
 quantidade int,
@@ -43,7 +43,7 @@ descricao char(50)
 create table usuario(
 id int primary key generated always as identity,
 nome char(200),
-senha char(300),
+senha varchar(300),
 status boolean,
 tipocadastro int,
 email char(100),
