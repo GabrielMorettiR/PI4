@@ -36,6 +36,7 @@
                 font-size: 22px;
             }
             .infoSessao{
+                font-size: 20px;
                 color:white;
             }
             .infoSessao:hover{

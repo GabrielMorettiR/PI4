@@ -9,6 +9,7 @@ import DAOs.VendaDAO;
 import Entidades.Venda;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,7 +26,7 @@ public class ListarPedidos extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Map<Integer, Venda> vendas = (HashMap<Integer, Venda>) VendaDAO.getVendasGerais(0);
+        List<Venda> vendas = VendaDAO.getVendasGerais(0);
         
         request.setAttribute("vendas", vendas);
         

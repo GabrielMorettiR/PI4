@@ -23,28 +23,28 @@
                     <c:forEach var="venda" items="${vendas}" varStatus="loop">
                         <div class="row">
                             <div class="col-lg-4 d-flex justify-content-start">
-                                <p>Venda Nº ${venda.value.id}</p>
+                                <p>Venda Nº ${venda.id}</p>
                             </div>
                             <div class="col-lg-4">
-                                <p>${venda.value.date()}</p>
+                                <p>${venda.date()}</p>
                             </div>
 
                             <div class="col-lg-4 d-flex justify-content-end">
-                                <p>R$ ${venda.value.preco}</p>
+                                <p>R$ ${venda.preco}</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 d-flex justify-content-start">
-                                <p>Comprador: ${venda.value.cliente}</p>
+                                <p>Comprador: ${venda.cliente}</p>
                             </div>
                             <div class="col-lg-6 d-flex justify-content-end">
                                 <div class="col-lg-6">
-                                    <p>${venda.value.situacao()}</p>
+                                    <p>${venda.situacao()}</p>
                                 </div>
-                                <c:if test="${venda.value.status <= 3}">
+                                <c:if test="${venda.status <= 3}">
                                     <div class="col-lg-6">
                                         <form method="POST" action="ProximaEtapa">
-                                            <input hidden name="idvenda" value="${venda.value.id}"/>
+                                            <input hidden name="idvenda" value="${venda.id}"/>
                                             <button class="submit lightgreen">Próxima Etapa</button>
                                         </form>
                                     </div>
@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <a class="submit" href="DetalhesVenda?idvenda=${venda.value.id}">Detalhes</a>
+                            <a class="submit" href="DetalhesVenda?idvenda=${venda.id}">Detalhes</a>
                         </div>
                         <c:if test="${!loop.last}">
                             <hr class="divisao" />

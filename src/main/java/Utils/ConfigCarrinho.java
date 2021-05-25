@@ -64,7 +64,7 @@ public class ConfigCarrinho {
         return prod;
     }
 
-    public static void addProduto(HttpServletRequest request, HttpServletResponse response) {
+    public static void addProduto(HttpServletRequest request, HttpServletResponse response, int qtd) {
         HttpSession sessao = request.getSession();
         Object teste = sessao.getAttribute("carrinho");
 
@@ -83,10 +83,10 @@ public class ConfigCarrinho {
 
         if (carrinho.containsKey(p.getId())) {
             Produto prod = carrinho.get(p.getId());
-            prod.setQuantidade(prod.getQuantidade() + 1);
+            prod.setQuantidade(prod.getQuantidade() + qtd);
             carrinho.replace(p.getId(), prod);
         } else {
-            p.setQuantidade(1);
+            p.setQuantidade(qtd);
             carrinho.put(p.getId(), p);
         }
 

@@ -26,8 +26,8 @@ public class Principal extends HttpServlet {
         String nome = "";
         int categ = 0;
         
-        if(request.getParameter("busca") != null){
-            nome  = request.getParameter("busca");
+        if(request.getParameter("nome") != null){
+            nome  = request.getParameter("nome");
         }
         if(!(request.getParameter("categoria") == null) && !(request.getParameter("categoria").equals("0")) ){
             categ  = Integer.parseInt(request.getParameter("categoria"));

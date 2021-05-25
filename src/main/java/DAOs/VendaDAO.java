@@ -39,7 +39,7 @@ public class VendaDAO {
             ps.setDouble(3, total);
             ps.setDouble(4, pagto);
             ps.setString(5, data.toDB());
-            ps.setDouble(6, 1); // <--- 1 é a primeira fase da venda de um produto
+            ps.setDouble(6, 0); // <--- 0 é a primeira fase da venda de um produto
             ps.setDouble(7, identrega);
 
             ps.execute();
@@ -118,7 +118,7 @@ public class VendaDAO {
         return vendas;
     }
 
-    public static Map<Integer, Venda> getVendasGerais(int filtragem) {
+    public static List<Venda> getVendasGerais(int filtragem) {
 
         String filtro = "";
 
@@ -128,7 +128,7 @@ public class VendaDAO {
                 break;
         }
 
-        Map<Integer, Venda> vendas = new HashMap<>();
+        List<Venda> vendas = new ArrayList<>();
 
         try {
             String query = "select v.*, u.NOME from venda as v join usuario as u on v.IDCLIENTE = u.ID order by data desc" + filtro;
@@ -150,7 +150,7 @@ public class VendaDAO {
                 dt.setData();
                 v.setData(dt);
 
-                vendas.put(v.getId(), v);
+                vendas.add(v);
             }
 
         } catch (SQLException | ClassNotFoundException ex) {

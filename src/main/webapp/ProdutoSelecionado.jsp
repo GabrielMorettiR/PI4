@@ -96,8 +96,18 @@
                             </p>
                         </div>
                         <div class="col-lg-6">
-                            <p class="pQuadro">Quantidade:</p>
-                            <p class="pQuadro">${produto.quantidade}</p>
+                            <p class="pQuadro">
+                                <c:choose>
+                                    <c:when test="${produto.quantidade > 10}">
+                                        Em estoque
+                                    </c:when>
+                                    <c:otherwise>
+                                        Poucas unidades
+                                    </c:otherwise>
+                                </c:choose>
+
+
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -113,27 +123,23 @@
                     </div>
                     <div class="col-lg-12"> 
                         <p class="pPagto">Preço: &nbsp;<strong>R$ ${produto.preco}</strong></p>
-                        <p class="pPagto">Formas de Pagamento: VISA, FIADO, MASTERCARD</p>
+                        <p class="pPagto">Formas de Pagamento: Cartão de Crédito, PIX, Boleto, FIADO</p>
                     </div>
                     <div class="col-lg-12">
-                        <div class="row d-flex justify-content-start">
-                            <div class="col-lg-4 d-flex justify-content-end">
-                                <p class="pPreço">Calcule o frete: </p>
-                            </div>
-                            <div class="col-lg-4 justify-content-start">
-                                <input class="input_form" id="inputCEP" placeholder="CEP">
+
+                        <form action="ProdutoSelecionado" method="POST">
+                            <div class="col-lg-6">
+                                <p class=p_form>Quantidade a adicionar</p>
                             </div>
                             <div class="col-lg-4">
-                                <button type="submit" class="submit">Calcule o frete</button>
+                                <input type="number" name="qtd" class="input_form" min="1" max="${produto.quantidade}">
                             </div>
-                        </div>
-
-                        <p>&numsp;</p>
-                        <form action="ProdutoSelecionado" method="POST">
+                            <div class="col-lg-12">
+                                <p>&numsp;</p>
+                            </div>
                             <input name="id" value="${produto.id}" hidden/>
                             <button class="submit lightgreen" id="btnAddCarrinho">Adicionar ao carrinho</button>
                         </form>
-
                     </div>
                 </div>
             </div>

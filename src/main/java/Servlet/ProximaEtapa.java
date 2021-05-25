@@ -30,9 +30,9 @@ public class ProximaEtapa extends HttpServlet {
         
         try {
             VendaDAO.proximaEtapa(idvenda);
-            response.sendRedirect("ListarPedidos?msg=100");
+            response.sendRedirect("ListarPedidos");
         } catch (ClassNotFoundException | SQLException ex) {
-            response.sendRedirect("ListarPedidos?msg=101");
+            response.sendRedirect("ListarPedidos");
         }
         
     }

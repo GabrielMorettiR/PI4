@@ -49,12 +49,13 @@ public class CheckoutCompra extends HttpServlet {
             total = Double.parseDouble(subtotal.toString()) + frete;
             total = Utils.retornaReal(total);
         }
-        
+
         request.setAttribute("endereco", e);
 //        request.setAttribute("pagto", pagto);
         request.setAttribute("frete", frete);
         request.setAttribute("total", total);
-        
+        request.setAttribute("expresso", cf.Frete2(2));
+        request.setAttribute("padrao", cf.Frete2(3));
 
         RequestDispatcher rd = getServletContext()
                 .getRequestDispatcher("/Cliente/Checkout.jsp");
@@ -64,10 +65,11 @@ public class CheckoutCompra extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        CalculadorFrete cf = new CalculadorFrete();
         HttpSession sessao = request.getSession();
 
         Usuario u = (Usuario) sessao.getAttribute("usuario");
+        String entrega = request.getParameter("entrega");
 
         if (request.getParameter("pagto") == null || "".equals(request.getParameter("pagto"))) {
             response.sendRedirect("CheckoutCompra?msg=313");
@@ -76,8 +78,17 @@ public class CheckoutCompra extends HttpServlet {
             sessao.setAttribute("pagto", pagto);
         }
         
+        if(entrega == null){
+            response.sendRedirect("CheckoutCompra?msg=315");
+        }
+
+        double frete = 0;
+        
         int idcli = u.getId();
-        double frete = Double.parseDouble(sessao.getAttribute("frete").toString());
+        if(!entrega.equals("1")){
+            frete = cf.Frete2(Integer.parseInt(entrega));
+        }
+        
         int pagto = Integer.parseInt(sessao.getAttribute("pagto").toString());
         int identrega = Integer.parseInt(sessao.getAttribute("entrega").toString());
         double total = Utils.retornaReal(Double.parseDouble(sessao.getAttribute("total").toString()));

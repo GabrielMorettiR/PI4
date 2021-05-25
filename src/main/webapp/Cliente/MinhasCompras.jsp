@@ -22,11 +22,32 @@
                 <div id="main" class="container" align="center">
 
                     <c:forEach var="venda" items="${vendas}" varStatus="loop">
-                        <p>${venda.id} - R$ ${venda.preco}</p>
-                        <p>Status: ${venda.situacao()}</p>
-                        <p>Data da compra: ${venda.date()}</p>
-                        <a class="submit" href="DetalhesVenda?idvenda=${venda.id}">Detalhes</a>
-
+                        <div class="row d-flex justify-content-between">
+                            <div class="col-lg-9" align="left">
+                                <p>Nº ${venda.id} - Data da compra: ${venda.date()}</p>
+                            </div>
+                            <div class="col-lg-3" align="right">
+                                <p id="status">${venda.situacao()}</p>
+                            </div>
+                            <div class="col-lg-9" align="left">
+                                <p>Forma de Pagamento: ${venda.formaPagto()}</p>
+                            </div>
+                            <div class="col-lg-9" align="left">
+                                <p>Entregará em: 
+                                    <c:if test="${venda.getEnderecoEntrega().cep != '' && venda.getEnderecoEntrega().cep != null}">
+                                        ${venda.getEnderecoEntrega().titulo}
+                                    </c:if>
+                                    <c:if test="${venda.getEnderecoEntrega().titulo == '' || venda.getEnderecoEntrega().titulo == null}">
+                                        ${venda.getEnderecoEntrega().cep}
+                                    </c:if>
+                                     - ${venda.getEnderecoEntrega().logradouro}
+                                </p>
+                            </div>
+                            <div class="col-lg-3" align="right">
+                                <p> R$ ${venda.preco}</p>
+                            </div>
+                            <a class="submit" href="DetalhesVenda?idvenda=${venda.id}">Detalhes</a>
+                        </div>
                         <c:if test="${!loop.last}">
                             <hr class="divisao" />
                         </c:if>

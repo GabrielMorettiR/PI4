@@ -31,7 +31,7 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <p class="p_form">Nome</p>
-                                        <input type="text" name="busca" id="buscaProdutos" class="input_form" placeholder="Busque um produto">
+                                        <input type="text" name="nome" id="buscaProdutos" class="input_form" placeholder="Busque um produto">
                                     </div>
                                     <div class="col-lg-6">
                                         <p class="p_form">Categoria</p>

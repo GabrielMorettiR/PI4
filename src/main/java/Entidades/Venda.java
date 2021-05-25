@@ -5,6 +5,7 @@
  */
 package Entidades;
 
+import DAOs.EnderecoDAO;
 import Utils.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -80,5 +81,12 @@ public class Venda {
                 return "forma de pagamento não escolhida";
         }
     }
+    
+    public Endereco getEnderecoEntrega(){
+        return EnderecoDAO.getEnderecoById(this.entrega);
+    }
 
+    public Endereco getEnderecoCobranca(){
+        return EnderecoDAO.getEnderecoById(this.cobranca);
+    }
 }

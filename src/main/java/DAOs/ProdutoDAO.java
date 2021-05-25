@@ -25,7 +25,6 @@ public class ProdutoDAO {
     public static List<Produto> getClienteProdutos(String busca, int categ) {
 
         String filtro = "";
-        System.out.println(categ + " categ");
         
         if(busca == null || !busca.equals("")){
             filtro = " and UPPER(p.nomeproduto) like UPPER('%" + busca + "%')";

@@ -10,22 +10,33 @@ package Utils;
  * @author Gabriel
  */
 public class CalculadorFrete {
-    
+
     private double preco = 16.90;
-    
-    public double getFrete(double subtotal){
-        
+
+    public double getFrete(double subtotal) {
+
         double precoFinal = preco;
-        
-        if(subtotal > 100 && subtotal <= 150){
+
+        if (subtotal > 100 && subtotal <= 150) {
             precoFinal = this.preco - 3;
-        }else if(subtotal> 150){
+        } else if (subtotal > 150) {
             precoFinal = this.preco - 6;
         }
-        
+
         precoFinal = Utils.retornaReal(precoFinal);
-        
+
         return precoFinal;
     }
-    
+
+    public double Frete2(int tipoFrete) {
+
+        double frete = 16.9;
+        
+        if (tipoFrete == 2) {
+            frete = 19.90;
+        }
+
+        return frete;
+    }
+
 }
