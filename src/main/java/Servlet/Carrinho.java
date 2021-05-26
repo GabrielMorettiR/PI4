@@ -76,12 +76,5 @@ public class Carrinho extends HttpServlet {
         } else {
             response.sendRedirect("CheckoutCompra");
         }
-        
-        if (request.getParameter("tipocad") == null || "".equals(request.getParameter("tipocad"))) {
-            response.sendRedirect("Carrinho?msg=315");
-        } else {
-            int identrega = Integer.parseInt(request.getParameter("tipocad"));
-            sessao.setAttribute("entrega", identrega);
-        }
     }
 }

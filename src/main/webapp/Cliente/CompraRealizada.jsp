@@ -54,7 +54,7 @@
                                         <p>Frete</p>
                                     </div>
                                     <div class="col-lg-8" align="right">
-                                        ENDEREÇO SELECIONADO
+                                        ${sessionScope.tipoEntrega}
                                     </div>
 
                                 </div>
@@ -66,7 +66,7 @@
                                 <p>Método Pagamento</p>
                             </div>
                             <div class="col-lg-6" align="right">
-                                <p>PAGTO</p>
+                                <p>${sessionScope.tipoPagto}</p>
                             </div>
                             <div class="col-lg-6" align="left">
                                 <p>Valor Total: </p>

@@ -105,21 +105,6 @@
                                                 <div class="col-lg-4" align="left">
                                                     <p>Frete</p>
                                                 </div>
-                                                <div class="col-lg-8" align="right">
-                                                    <select name="tipocad" class="select_form">
-                                                        <c:forEach var="endereco" items="${enderecos}">
-                                                            <c:choose>
-                                                                <c:when test="${endereco.titulo == null}">
-                                                                    <option value="${endereco.id}">${endereco.cep}</option>          
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <option value="${endereco.id}">${endereco.titulo}</option>    
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                        </c:forEach>
-                                                    </select>
-                                                </div>
-
                                             </div>
                                         </div>
                                         <div class="col-lg-3" align="right">

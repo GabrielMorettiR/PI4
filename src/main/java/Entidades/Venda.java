@@ -28,6 +28,7 @@ public class Venda {
     private int status;
     private Data data;
     private String cliente;
+    private int recebimento;
 
     public Venda() {
     }
@@ -79,6 +80,34 @@ public class Venda {
                 return "Pix";
             default:
                 return "forma de pagamento não escolhida";
+        }
+    }
+    
+    public String formaRecebimento() {
+
+        switch (this.recebimento) {
+            case 1:
+                return "Retirada";
+            case 2:
+                return "Entrega Expressa";
+            case 3:
+                return "Entrega Padrão";
+            default:
+                return null;
+        }
+    }
+    
+    public double getFrete() {
+
+        switch (this.pagamento) {
+            case 1:
+                return 0;
+            case 2:
+                return 19.90;
+            case 3:
+                return 16.90;
+            default:
+                return 0;
         }
     }
     

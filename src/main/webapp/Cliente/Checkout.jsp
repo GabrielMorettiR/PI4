@@ -75,18 +75,18 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <p class="p_form">Numero do Cartão</p>
-                                    <input class="input_form">
+                                    <input id="numeroCartao" class="input_form">
                                 </div>
                                 <div class="col-lg-12">
                                     &nbsp;
                                 </div>
                                 <div class="col-lg-4">
                                     <p class="p_form">CVV</p>
-                                    <input class="input_form">
+                                    <input id="cvv" class="input_form">
                                 </div>
                                 <div class="col-lg-4">
                                     <p class="p_form">Vencimento</p>
-                                    <input class="input_form">
+                                    <input id="data" class="input_form">
                                 </div>
                                 <div class="col-lg-4">
                                     <p class="p_form">Parcelas</p>
@@ -119,12 +119,13 @@
                                     <input class="radio" type="radio" name="entrega" id="Padrao" value="3" onclick="checkRadio()">
                                     <label for="Padrao">Padrão</label>
                                 </div>
-                                <div class="col-lg-12">
+                                <div id="freteEntrega" class="col-lg-12" style="display: none">
                                     <div class="col-lg-4" align="left">
                                         <p class="p_form">Frete</p>
                                     </div>
                                     <div class="col-lg-6" align="right">
-                                        <select name="tipocad" class="select_form">
+                                        <select name="tipocad" class="select_form" id="dropFrete">
+                                            <option value="0">Selecione</option>
                                             <c:forEach var="endereco" items="${enderecos}">
                                                 <c:choose>
                                                     <c:when test="${endereco.titulo == null}">
@@ -149,38 +150,43 @@
                                     <p>Forma Pagto</p>
                                 </div>
                                 <div class="col-lg-6" align="right">
-                                    <p>${pagto}</p>
+                                    <input name="idPagto" value="" hidden>
+                                    <p id="formaPagto"></p>
                                 </div>
                                 <div class="col-lg-6" align="left">
                                     <p>Subtotal</p>
                                 </div>
                                 <div class="col-lg-6" align="right">
-                                    <p>R$ ${sessionScope.subtotal}</p>
+                                    <p id="subtotal">R$ ${sessionScope.subtotal}</p>
                                 </div>
                                 <div class="col-lg-9" align="left">
-                                    <p id="textEntrega">Frete</p>
+                                    <p id="textFrete">Frete</p>
                                 </div>
                                 <div class="col-lg-3" align="right">
-                                    <p id="frete">R$ ${sessionScope.frete}</p>
+                                    <input name="tipoRecebimento" value="" hidden>
+                                    <p id="fretePagamento">R$ ${sessionScope.frete}</p>
                                 </div>
                                 <div class="col-lg-9" align="left">
-                                    <p id="textEntrega">Entregará em: ${endereco.logradouro}</p>
+                                    <p id="textEntrega">Entregará em</p>
                                 </div>
                                 <div class="col-lg-3" align="right">
-                                    <c:if test="${endereco.titulo != '' && endereco.titulo != null}">
-                                        ${endereco.titulo}
-                                    </c:if>
-                                    <c:if test="${endereco.titulo == '' || endereco.titulo == null}">
-                                        ${endereco.cep}
-                                    </c:if>
+                                    <input name="idEndereco" value="" hidden>
+                                    <p id="enderecoEntrega">
+                                        <c:if test="${endereco.titulo != '' && endereco.titulo != null}">
+                                            ${endereco.titulo}
+                                        </c:if>
+                                        <c:if test="${endereco.titulo == '' || endereco.titulo == null}">
+                                            ${endereco.cep}
+                                        </c:if>
+                                    </p>
                                 </div>
 
                                 <div class="col-lg-6" align="left">
-                                    <p>TOTAL</p>
+                                    <p>Total</p>
                                 </div>
                                 <div class="col-lg-6" align="right">
 
-                                    <p>R$ ${sessionScope.total}</p>
+                                    <p id="precoTotal"></p>
                                 </div>
                             </div>
                         </div>
@@ -201,21 +207,73 @@
         <script>
 
             function checkRadio() {
+
+                var total = document.getElementById('precoTotal');
+                var subtotal = 0;
+                subtotal = parseFloat(document.getElementById('subtotal').textContent.substr(2));
+                var frete = 0;
+
                 if (document.getElementById('Retirada').checked) {
-                    document.getElementById('frete').textContent = 'R$ 0';
-                    document.getElementById('textEntrega').textContent = 'Frete - Retirada';
+                    $('#freteEntrega').css("display", "none");
+                    document.getElementById('textFrete').textContent = 'Frete - Retirada';
+                    $('input[name="tipoRecebimento"]').attr('value', 1);
+
                 } else if (document.getElementById('Expressa').checked) {
-                    document.getElementById('frete').textContent = 'R$ ' + document.getElementById('expresso').value;
-                    document.getElementById('textEntrega').textContent = 'Frete - Expressa';
+                    frete = document.getElementById('expresso').value;
+                    $('#freteEntrega').css("display", "block");
+                    document.getElementById('textFrete').textContent = 'Frete - Expressa' + ' (Entregue até 4 dias)';
+                    $('input[name="tipoRecebimento"]').attr('value', 2);
+
                 } else if (document.getElementById('Padrao').checked) {
-                    document.getElementById('frete').textContent = 'R$ ' + document.getElementById('padrao').value;
-                    document.getElementById('textEntrega').textContent = 'Frete - Padrao';
+                    frete = document.getElementById('padrao').value;
+                    $('#freteEntrega').css("display", "block");
+                    document.getElementById('textFrete').textContent = 'Frete - Padrao' + ' (Entregue até 8 dias)';
+                    $('input[name="tipoRecebimento"]').attr('value', 3);
                 }
+                document.getElementById('fretePagamento').textContent = 'R$ ' + frete;
+                total.textContent = 'R$ ' + subtotal + ' + ' + frete;
+                
             }
 
             function setValue(i) {
-                document.getElementById('pagto').value = i;
+
+                var pagto = "";
+                var id = 0;
+
+                switch (i) {
+                    case 1:
+                        pagto = "Cartão de Crédito";
+                        id = 1;
+                        break;
+                    case 2:
+                        pagto = "Boleto Bancário";
+                        id = 2;
+                        break;
+                    case 3:
+                        pagto = "Pix";
+                        id = 3;
+                        break;
+                }
+
+                $('input[name="idPagto"]').attr('value', id);
+                var pagamento = document.getElementById('formaPagto');
+                pagamento.textContent = pagto;
             }
+
+            $('#dropFrete').change(function () {
+
+                var index = $('#dropFrete').children("option").filter(":selected").index();
+                var endereco = $("#dropFrete").children("option").filter(":selected").text();
+                var id = $('#dropFrete').children("option").filter(":selected").val();
+
+                if (id > 0) {
+                    $('input[name="idEndereco"]').attr('value', id);
+                    document.getElementById('enderecoEntrega').textContent = '' + endereco;
+                } else {
+                    document.getElementById('enderecoEntrega').textContent = '';
+                }
+
+            });
 
             $('#ccredito').click(function () {
 
@@ -230,6 +288,7 @@
                     setValue(1);
                     $('#cartaocredito').css("display", "block");
                 }
+                requireCartao(true);
                 $('#boleto').removeClass("selecionado");
                 $('#pix').removeClass("selecionado");
 
@@ -244,6 +303,7 @@
                     $('#boleto').addClass("selecionado");
                     setValue(2);
                 }
+                requireCartao(false);
                 $('#cartaocredito').css("display", "none");
                 $('#ccredito').removeClass("selecionado");
                 $('#pix').removeClass("selecionado");
@@ -260,9 +320,16 @@
                     setValue(3);
                 }
                 $('#cartaocredito').css("display", "none");
+                requireCartao(false);
                 $('#boleto').removeClass("selecionado");
                 $('#ccredito').removeClass("selecionado");
             });
+
+            function requireCartao(tf) {
+                $('#numeroCartao').prop('required', tf);
+                $('#cvv').prop('required', tf);
+                $('#data').prop('required', tf);
+            }
         </script>
     </body>
 </html>

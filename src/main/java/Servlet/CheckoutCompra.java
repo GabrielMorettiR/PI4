@@ -41,8 +41,6 @@ public class CheckoutCompra extends HttpServlet {
         HttpSession sessao = request.getSession();
         Object subtotal = sessao.getAttribute("subtotal");
         double frete = cf.getFrete(Double.parseDouble(subtotal.toString()));
-//        String pagto = Venda.formaPagto(sessao.getAttribute("pagto").toString());
-        Endereco e = EnderecoDAO.getEnderecoById(Integer.parseInt(sessao.getAttribute("entrega").toString()));
         double total = 0;
 
         if (subtotal != null) {
@@ -50,7 +48,6 @@ public class CheckoutCompra extends HttpServlet {
             total = Utils.retornaReal(total);
         }
 
-        request.setAttribute("endereco", e);
 //        request.setAttribute("pagto", pagto);
         request.setAttribute("frete", frete);
         request.setAttribute("total", total);
@@ -66,38 +63,49 @@ public class CheckoutCompra extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         CalculadorFrete cf = new CalculadorFrete();
+        Venda v = new Venda();
         HttpSession sessao = request.getSession();
 
-        Usuario u = (Usuario) sessao.getAttribute("usuario");
-        String entrega = request.getParameter("entrega");
-
-        if (request.getParameter("pagto") == null || "".equals(request.getParameter("pagto"))) {
-            response.sendRedirect("CheckoutCompra?msg=313");
-        } else {
-            int pagto = Integer.parseInt(request.getParameter("pagto"));
-            sessao.setAttribute("pagto", pagto);
-        }
-        
-        if(entrega == null){
-            response.sendRedirect("CheckoutCompra?msg=315");
-        }
-
-        double frete = 0;
+        Usuario u = (Usuario) sessao.getAttribute("usuario"); //USUARIO LOGADO
+        String entrega = request.getParameter("idEndereco"); // ENDERECO ENTREGA
+        String formaPagto = request.getParameter("idPagto"); // ENDERECO ENTREGA
+        String tipoRecebimento = request.getParameter("tipoRecebimento"); // METODO DE RECEBIMENTO DA COMPRA
         
         int idcli = u.getId();
-        if(!entrega.equals("1")){
-            frete = cf.Frete2(Integer.parseInt(entrega));
+        double frete = 0;
+
+        if (request.getParameter("idPagto") == null || "".equals(request.getParameter("idPagto"))) {
+            response.sendRedirect("CheckoutCompra?msg=313");
+        } else {
+            int pagto = Integer.parseInt(request.getParameter("idPagto"));
         }
-        
-        int pagto = Integer.parseInt(sessao.getAttribute("pagto").toString());
-        int identrega = Integer.parseInt(sessao.getAttribute("entrega").toString());
+        if (entrega == null) {
+            response.sendRedirect("CheckoutCompra?msg=315");
+        } else {
+            if (Integer.parseInt(formaPagto) <= 0) {
+                response.sendRedirect("CheckoutCompra?msg=315");
+            } else {
+                v.setPagamento(Integer.parseInt(formaPagto));
+                frete = v.getFrete();
+            }
+        }
+        if (tipoRecebimento == null || "".equals(tipoRecebimento)) {
+            response.sendRedirect("CheckoutCompra?msg=313");
+        } else {
+            int pagto = Integer.parseInt(tipoRecebimento);
+            v.setRecebimento(pagto);
+        }
+
+        int identrega = Integer.parseInt(entrega);
         double total = Utils.retornaReal(Double.parseDouble(sessao.getAttribute("total").toString()));
         Map<Integer, Produto> carrinho = (Map<Integer, Produto>) sessao.getAttribute("carrinho");
         Data data = Data.getDataAtual();
 
         try {
-            VendaDAO.novaVenda(idcli, frete, total, carrinho, pagto, data, identrega);
+            VendaDAO.novaVenda(idcli, frete, total, carrinho, Integer.parseInt(formaPagto), data, identrega);
             carrinho = null;
+            sessao.setAttribute("tipoPagto", v.formaPagto());
+            sessao.setAttribute("tipoEntrega", v.formaRecebimento());
             sessao.setAttribute("carrinho", carrinho);
             sessao.setAttribute("produtos", 0);
             response.sendRedirect("CompraRealizada");
