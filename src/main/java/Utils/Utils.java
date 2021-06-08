@@ -30,6 +30,14 @@ public class Utils {
             requestDispatcher.forward(request, response);
     }
     
+    /**
+     * Formata o valor do parametro recebido mantendo apenas 2 números após a 
+     * vírgula
+     * 
+     * @param valor
+     * @return Valor formatado para a moeda brasileira
+     */
+    
     public static Double retornaReal(double valor){        
         DecimalFormat nf = new DecimalFormat("#.##");
 

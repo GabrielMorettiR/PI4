@@ -17,7 +17,7 @@
         <div class="d-flex justify-content-center">
             <div class="d-flex flex-column justify-content-center" style="width:100%">
                 <div class="container" align="center">
-                    <h1 id="titulo">Compra realizada com sucesso!</h1>
+                    <h1 id="titulo">Resumo do Pedido</h1>
                 </div>
                 <div id="main" class="container" align="center">
 
@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-3" align="right">
-                                <p>R$ ${venda.frete}</p>
+                                <p>R$ ${sessionScope.precoFrete}</p>
                             </div>
                             <div class="col-lg-6" align="left">
                                 <p>Método Pagamento</p>
@@ -73,14 +73,19 @@
                             </div>
                             <div class="col-lg-6" align="right">
 
-                                <p>R$ ${venda.preco}</p>
+                                <p>R$ ${sessionScope.total}</p>
                             </div>
                         </div>
                     </div>
                     <div class="">
                         <div class="row d-flex justify-content-center">
                             <div class="col-lg-4">
-                                <a href="Principal" class="submit">Voltar à loja</a>
+                                <form method="POST" action="ConfirmarCompra">
+                                    <button type="submit" class="submit green">Confirmar Compra</button>
+                                </form>
+                            </div>
+                            <div class="col-lg-4">
+                                <a href="CheckoutCompra" class="submit red">Voltar ao Checkout</a>
                             </div>
                         </div>
                     </div>

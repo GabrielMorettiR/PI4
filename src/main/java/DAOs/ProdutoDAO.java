@@ -25,14 +25,14 @@ public class ProdutoDAO {
     public static List<Produto> getClienteProdutos(String busca, int categ) {
 
         String filtro = "";
-        
-        if(busca == null || !busca.equals("")){
+
+        if (busca == null || !busca.equals("")) {
             filtro = " and UPPER(p.nomeproduto) like UPPER('%" + busca + "%')";
         }
-        if(categ > 0){
+        if (categ > 0) {
             filtro += " and categoria = " + categ;
         }
-        
+
         List<Produto> produtos = new ArrayList();
         int id = 0;
         String nomeproduto = "";
@@ -105,6 +105,14 @@ public class ProdutoDAO {
         return produtos;
     }
 
+    /**
+     *
+     * Retorna um Produto do banco de dados de acordo com o ID informado
+     * 
+     * @param id id do produto
+     * @return objeto da classe Produto
+     * 
+     */
     public static Produto getProduto(int id) {
 
         Produto p = new Produto();
@@ -181,7 +189,6 @@ public class ProdutoDAO {
             ps.setDouble(6, p.getPreco());
             ps.setInt(7, Integer.parseInt(p.getCategoria()));
             ps.setInt(8, p.getId());
-            
 
             ps.execute();
         } catch (SQLException ex) {

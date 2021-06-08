@@ -191,7 +191,7 @@
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <button type="submit" class="submit">Enviar</button>
+                                <button id="btn" type="submit" class="submit">Enviar</button>
                             </div>
                         </div>
                     </form>

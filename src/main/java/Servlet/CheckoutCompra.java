@@ -5,21 +5,14 @@
  */
 package Servlet;
 
-import DAOs.EnderecoDAO;
-import DAOs.VendaDAO;
-import Entidades.Endereco;
 import Entidades.Produto;
 import Entidades.Usuario;
 import Entidades.Venda;
 import Utils.CalculadorFrete;
-import Utils.ConfigCarrinho;
 import Utils.Data;
 import Utils.Utils;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -48,7 +41,6 @@ public class CheckoutCompra extends HttpServlet {
             total = Utils.retornaReal(total);
         }
 
-//        request.setAttribute("pagto", pagto);
         request.setAttribute("frete", frete);
         request.setAttribute("total", total);
         request.setAttribute("expresso", cf.Frete2(2));
@@ -62,17 +54,15 @@ public class CheckoutCompra extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CalculadorFrete cf = new CalculadorFrete();
         Venda v = new Venda();
         HttpSession sessao = request.getSession();
 
         Usuario u = (Usuario) sessao.getAttribute("usuario"); //USUARIO LOGADO
         String entrega = request.getParameter("idEndereco"); // ENDERECO ENTREGA
-        String formaPagto = request.getParameter("idPagto"); // ENDERECO ENTREGA
+        String formaPagto = request.getParameter("idPagto"); // ID REPRESENTANDO A FORMA DE PAGTO
         String tipoRecebimento = request.getParameter("tipoRecebimento"); // METODO DE RECEBIMENTO DA COMPRA
-        
-        int idcli = u.getId();
-        double frete = 0;
+        String frete = request.getParameter("tipoRecebimento"); //ID REPRESENTANDO FORMA DE ENTREGA
+        int identrega = 0;
 
         if (request.getParameter("idPagto") == null || "".equals(request.getParameter("idPagto"))) {
             response.sendRedirect("CheckoutCompra?msg=313");
@@ -82,11 +72,12 @@ public class CheckoutCompra extends HttpServlet {
         if (entrega == null) {
             response.sendRedirect("CheckoutCompra?msg=315");
         } else {
+            identrega = Integer.parseInt(entrega);
+
             if (Integer.parseInt(formaPagto) <= 0) {
                 response.sendRedirect("CheckoutCompra?msg=315");
             } else {
                 v.setPagamento(Integer.parseInt(formaPagto));
-                frete = v.getFrete();
             }
         }
         if (tipoRecebimento == null || "".equals(tipoRecebimento)) {
@@ -96,22 +87,23 @@ public class CheckoutCompra extends HttpServlet {
             v.setRecebimento(pagto);
         }
 
-        int identrega = Integer.parseInt(entrega);
+        if (frete == null) {
+            response.sendRedirect("CheckoutCompra?msg=317");
+        } else {
+            v.setFrete(Double.parseDouble(request.getParameter("tipoRecebimento")));
+        }
+
         double total = Utils.retornaReal(Double.parseDouble(sessao.getAttribute("total").toString()));
         Map<Integer, Produto> carrinho = (Map<Integer, Produto>) sessao.getAttribute("carrinho");
-        Data data = Data.getDataAtual();
 
-        try {
-            VendaDAO.novaVenda(idcli, frete, total, carrinho, Integer.parseInt(formaPagto), data, identrega);
-            carrinho = null;
-            sessao.setAttribute("tipoPagto", v.formaPagto());
-            sessao.setAttribute("tipoEntrega", v.formaRecebimento());
-            sessao.setAttribute("carrinho", carrinho);
-            sessao.setAttribute("produtos", 0);
-            response.sendRedirect("CompraRealizada");
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(CheckoutCompra.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        sessao.setAttribute("total", total);
+        sessao.setAttribute("tipoPagto", v.formaPagto());
+        sessao.setAttribute("precoFrete", v.getFrete());
+        sessao.setAttribute("idPagto", formaPagto);
+        sessao.setAttribute("tipoEntrega", v.formaRecebimento());
+        sessao.setAttribute("carrinho", carrinho);
+        sessao.setAttribute("idEntrega", identrega);
+        response.sendRedirect("ConfirmarCompra");
 
     }
 

@@ -169,6 +169,12 @@ public class Data {
         return ano % 4 == 0 && at != 0;
     }
     
+    
+    /**
+     * Recebe a data atual a formata seu texto para o padrão dd-mm-yyyy
+     * 
+     * @return objeto Data com a data atual
+     */
     public static Data getDataAtual(){
         System.currentTimeMillis();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");

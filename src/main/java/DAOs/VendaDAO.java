@@ -26,21 +26,32 @@ import java.util.logging.Logger;
  */
 public class VendaDAO {
 
-    public static void novaVenda(int idCliente, double frete, double total, Map<Integer, Produto> carrinho, int pagto, Data data, int identrega) throws ClassNotFoundException, SQLException {
+    /**
+     * Recebe parâmetros para adicionar ao banco de dados
+     * 
+     * @param idCliente id do cliente comprador
+     * @param total preço final da venda
+     * @param carrinho lista de itens comprados
+     * @param pagto identificador da forma de pagamento
+     * @param data data da compra
+     * @param identrega identificador do endereço de entrega
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
+    public static void novaVenda(int idCliente, double total, Map<Integer, Produto> carrinho, int pagto, Data data, int identrega) throws ClassNotFoundException, SQLException {
 
         Connection con = ConexaoBD.getConexao();
-        String query = "insert into venda(idcliente, frete, preco, pagamento, data, status, identrega) values (?,?,?,?,?,?,?)";
+        String query = "insert into venda(idcliente, preco, pagamento, data, status, identrega) values (?,?,?,?,?,?)";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(query);
 
             ps.setInt(1, idCliente);
-            ps.setDouble(2, frete);
-            ps.setDouble(3, total);
-            ps.setDouble(4, pagto);
-            ps.setString(5, data.toDB());
-            ps.setDouble(6, 0); // <--- 0 é a primeira fase da venda de um produto
-            ps.setDouble(7, identrega);
+            ps.setDouble(2, total);
+            ps.setDouble(3, pagto);
+            ps.setString(4, data.toDB());
+            ps.setDouble(5, 0); // <--- 0 é a primeira fase da venda de um produto
+            ps.setDouble(6, identrega);
 
             ps.execute();
 
@@ -104,6 +115,7 @@ public class VendaDAO {
                 v.setStatus(rs.getInt("status"));
                 v.setEntrega(rs.getInt("identrega"));
                 v.setCobranca(rs.getInt("idcobranca"));
+                v.setPagamento(rs.getInt("pagamento"));
                 Data dt = new Data(rs.getString("data"));
                 dt.setData();
                 v.setData(dt);
@@ -118,6 +130,12 @@ public class VendaDAO {
         return vendas;
     }
 
+    /**
+     * Retorna lista de vendas de acordo com a filtragem
+     * 
+     * @param filtragem id para adicionar filtro na busca do banco de dados
+     * @return Lista de vendas
+     */
     public static List<Venda> getVendasGerais(int filtragem) {
 
         String filtro = "";
@@ -159,6 +177,13 @@ public class VendaDAO {
         return vendas;
     }
 
+    /**
+     * 
+     * Pega os itens comprados do banco de dados de acordo com o Id da compra
+     * 
+     * @param id identificador da compra
+     * @return Lista de produtos comprados
+     */
     public static Map<Integer, Produto> getProdutosByVenda(int id) {
         Map<Integer, Produto> produtos = new HashMap<>();
 

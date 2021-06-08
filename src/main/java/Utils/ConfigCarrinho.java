@@ -20,6 +20,14 @@ import javax.servlet.http.HttpSession;
  */
 public class ConfigCarrinho {
 
+    /**
+     * Calcula a quantidade de itens contidos do carrinho e altera o valor na
+     * sessão do usuário
+     *
+     * @param request Requisição feita do http pro sistema
+     * @param response Resposta do sistema para a requisição feita
+     * @param carrinho Lista dos produtos do carrinho
+     */
     public static void calcTamanho(HttpServletRequest request, HttpServletResponse response, Map<Integer, Produto> carrinho) {
 
         HttpSession sessao = request.getSession();
@@ -34,6 +42,14 @@ public class ConfigCarrinho {
 
     }
 
+    /**
+     * Calcula a soma dos preço de todos os produtos do carrinho e altera o 
+     * valor na sessão do usuário
+     * 
+     * @param request Requisição feita do http pro sistema
+     * @param response Resposta do sistema para a requisição feita
+     * @param carrinho Lista dos produtos do carrinho
+     */
     public static void calcSubtotal(HttpServletRequest request, HttpServletResponse response, Map<Integer, Produto> carrinho) {
 
         HttpSession sessao = request.getSession();
@@ -48,14 +64,24 @@ public class ConfigCarrinho {
         sessao.setAttribute("subtotal", sub);
     }
 
+    
+    /**
+     * Calcula o preço final do produto de acordo com sua quantidade e
+     * seu preço
+     * 
+     * @param prod objeto da classe Produto
+     * @param p  objeto da classe Produto 
+     * @param carrinho lista de itens do carrinho
+     * @param calc filtro que altera entre aumentar um produto ou diminuir
+     * @return Produto com a quantidade já alterada
+     */
     public static Produto calcprodPreco(Produto prod, Produto p, Map<Integer, Produto> carrinho, String calc) {
 
-        if(calc.equals("mais")){
+        if (calc.equals("mais")) {
             prod.setQuantidade(prod.getQuantidade() + 1);
         } else {
             prod.setQuantidade(prod.getQuantidade() - 1);
         }
-        
 
         double preco = Utils.retornaReal(p.getPreco() * prod.getQuantidade());
 
@@ -64,12 +90,20 @@ public class ConfigCarrinho {
         return prod;
     }
 
+    /**
+     * Adiciona produtos ao carrinho levando em consideração a quantidade
+     * selecionada
+     *
+     * @param request Requisição feita do http pro sistema
+     * @param response Resposta do sistema para a requisição feita
+     * @param qtd quantidade do item escolhido para ser adicionado ao carrinho
+     */
     public static void addProduto(HttpServletRequest request, HttpServletResponse response, int qtd) {
         HttpSession sessao = request.getSession();
         Object teste = sessao.getAttribute("carrinho");
 
         int id = Integer.parseInt(request.getParameter("id"));
-        
+
         Produto p = ProdutoDAO.getProduto(id);
         p.setDir(ImagemDAO.getCapa(id).getDir());
 
@@ -95,6 +129,14 @@ public class ConfigCarrinho {
 
     }
 
+    /**
+     *
+     * Aumenta em 1 a quantidade de um produto do carrinho
+     *
+     * @param request Requisição feita do http pro sistema
+     * @param response Resposta do sistema para a requisição feita
+     * @return String para usá-la como url em seguida
+     */
     public static String aumentaQuantidade(HttpServletRequest request, HttpServletResponse response) {
 
         String redirect = "Carrinho";
@@ -130,6 +172,14 @@ public class ConfigCarrinho {
 
     }
 
+    /**
+     *
+     * Reduz em 1 a quantidade de um produto do carrinho
+     *
+     * @param request Requisição feita do http pro sistema
+     * @param response Resposta do sistema para a requisição feita
+     * @return String para usá-la como url em seguida
+     */
     public static String diminuiQuantidade(HttpServletRequest request, HttpServletResponse response) {
 
         String redirect = "Carrinho";
@@ -164,6 +214,14 @@ public class ConfigCarrinho {
         return redirect;
     }
 
+    /**
+     *
+     * Exclui um item do carrinho independentemente da quantidade
+     *
+     * @param request Requisição feita do http pro sistema
+     * @param response Resposta do sistema para a requisição feita
+     * @return String para usá-la como url em seguida
+     */
     public static String deleteFrom(HttpServletRequest request, HttpServletResponse response) {
 
         String redirect = "Carrinho";

@@ -33,15 +33,22 @@
                                 <p>Forma de Pagamento: ${venda.formaPagto()}</p>
                             </div>
                             <div class="col-lg-9" align="left">
-                                <p>Entregará em: 
-                                    <c:if test="${venda.getEnderecoEntrega().cep != '' && venda.getEnderecoEntrega().cep != null}">
-                                        ${venda.getEnderecoEntrega().titulo}
-                                    </c:if>
-                                    <c:if test="${venda.getEnderecoEntrega().titulo == '' || venda.getEnderecoEntrega().titulo == null}">
-                                        ${venda.getEnderecoEntrega().cep}
-                                    </c:if>
-                                     - ${venda.getEnderecoEntrega().logradouro}
-                                </p>
+                                <c:choose>
+                                    <c:when test="${venda.entrega != 0}">
+                                        <p>Entregará em: 
+                                            <c:if test="${venda.getEnderecoEntrega().cep != '' && venda.getEnderecoEntrega().cep != null}">
+                                                ${venda.getEnderecoEntrega().titulo}
+                                            </c:if>
+                                            <c:if test="${venda.getEnderecoEntrega().titulo == '' || venda.getEnderecoEntrega().titulo == null}">
+                                                ${venda.getEnderecoEntrega().cep}
+                                            </c:if>
+                                            - ${venda.getEnderecoEntrega().logradouro}
+                                        </p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p>Compra para retirada</p>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                             <div class="col-lg-3" align="right">
                                 <p> R$ ${venda.preco}</p>

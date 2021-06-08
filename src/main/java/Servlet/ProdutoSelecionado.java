@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  * @author Bruno
  */
 public class ProdutoSelecionado extends HttpServlet {
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -31,7 +31,6 @@ public class ProdutoSelecionado extends HttpServlet {
 
         Produto p = ProdutoDAO.getProduto(id);
 
-        Imagem capa = ImagemDAO.getCapa(id);
         List<Imagem> imgs = ImagemDAO.getImgByProd(id, 0);
 
         request.setAttribute("produto", p);
@@ -49,10 +48,10 @@ public class ProdutoSelecionado extends HttpServlet {
 
         String quantidade = request.getParameter("qtd");
         int qtd = 1;
-        if(quantidade != null && !quantidade.equals("")){
+        if (quantidade != null && !quantidade.equals("")) {
             qtd = Integer.parseInt(request.getParameter("qtd"));
         }
-        
+
         ConfigCarrinho.addProduto(request, response, qtd);
         response.sendRedirect("Carrinho");
     }

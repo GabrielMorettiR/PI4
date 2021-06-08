@@ -85,6 +85,15 @@ public class ImagemDAO {
         return imgs;
     }
 
+    
+    /**
+     *
+     * Retorna um objeto IMAGEM, de acordo com o ID de produto informado
+     * 
+     * @param id id do produto
+     * @return objeto da classe Imagem
+     * 
+     */
     public static Imagem getCapa(int idProd) {
 
         Imagem img = new Imagem();
@@ -115,6 +124,15 @@ public class ImagemDAO {
         return img;
     }
 
+    /**
+     *
+     * Retorna uma lista de IMAGEMs, de acordo com o id do produto, a partir da condição escolhida
+     * 
+     * @param idProd id de produto
+     *  @param cond condição da consulta para o banco de dados
+     * @return lista de objetos da classe Imagem
+     * 
+     */
     public static List<Imagem> getImgByProd(int idProd, int cond) {
 
         String q = "";

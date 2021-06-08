@@ -137,6 +137,10 @@
         <servlet-name>ProximaEtapa</servlet-name>
         <servlet-class>Servlet.ProximaEtapa</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ConfirmarCompra</servlet-name>
+        <servlet-class>Servlet.ConfirmarCompra</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetProdutos</servlet-name>
         <url-pattern>/GetProdutos</url-pattern>
@@ -263,6 +267,10 @@
     <servlet-mapping>
         <servlet-name>ProximaEtapa</servlet-name>
         <url-pattern>/ProximaEtapa</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfirmarCompra</servlet-name>
+        <url-pattern>/ConfirmarCompra</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

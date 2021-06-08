@@ -170,7 +170,7 @@
                                     <p id="textEntrega">Entregará em</p>
                                 </div>
                                 <div class="col-lg-3" align="right">
-                                    <input name="idEndereco" value="" hidden>
+                                    <input id="idEndereco" name="idEndereco" value="" hidden>
                                     <p id="enderecoEntrega">
                                         <c:if test="${endereco.titulo != '' && endereco.titulo != null}">
                                             ${endereco.titulo}
@@ -195,7 +195,7 @@
                                 <div class="col-lg-8">
 
                                     <input id="pagto" name="pagto" hidden>
-                                    <button type="submit" class="submit">Finalizar Compra</button>
+                                    <button type="submit" class="submit">Avançar ao Resumo</button>
 
                                 </div>
                             </div>
@@ -209,33 +209,37 @@
             function checkRadio() {
 
                 var total = document.getElementById('precoTotal');
-                var subtotal = 0;
+                var subtotal = 0.0;
                 subtotal = parseFloat(document.getElementById('subtotal').textContent.substr(2));
-                var frete = 0;
+                var frete = 0.0;
 
                 if (document.getElementById('Retirada').checked) {
                     $('#freteEntrega').css("display", "none");
                     document.getElementById('textFrete').textContent = 'Frete - Retirada';
                     $('input[name="tipoRecebimento"]').attr('value', 1);
+                    $('#idEndereco').attr('value', 0);
 
                 } else if (document.getElementById('Expressa').checked) {
-                    frete = document.getElementById('expresso').value;
+                    frete = parseFloat(document.getElementById('expresso').value);
                     $('#freteEntrega').css("display", "block");
                     document.getElementById('textFrete').textContent = 'Frete - Expressa' + ' (Entregue até 4 dias)';
                     $('input[name="tipoRecebimento"]').attr('value', 2);
 
                 } else if (document.getElementById('Padrao').checked) {
-                    frete = document.getElementById('padrao').value;
+                    frete = parseFloat(document.getElementById('padrao').value);
                     $('#freteEntrega').css("display", "block");
-                    document.getElementById('textFrete').textContent = 'Frete - Padrao' + ' (Entregue até 8 dias)';
+                    document.getElementById('textFrete').textContent = 'Frete - Padrão' + ' (Entregue até 8 dias)';
                     $('input[name="tipoRecebimento"]').attr('value', 3);
                 }
+                
+                var precoTotal = Number(subtotal + frete);
+                
                 document.getElementById('fretePagamento').textContent = 'R$ ' + frete;
-                total.textContent = 'R$ ' + subtotal + ' + ' + frete;
+                total.textContent = 'R$ ' + precoTotal.toFixed(2);
                 
             }
 
-            function setValue(i) {
+            function setValue(i) { // Altera o título que define o tipo de pagamento
 
                 var pagto = "";
                 var id = 0;
